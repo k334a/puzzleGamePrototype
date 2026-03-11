@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cl68hl6fr3yiw"]
+
+[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="1_ig7tw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(1139.5, 139)
+
+[node name="main" type="Node" unique_id=338971336]
+
+[node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_ig7tw")]
+position = Vector2(130, 290)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=509290392]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1441496993]
+position = Vector2(576.25, 491)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=752125496]
+offset_left = -5.0
+offset_top = 422.0
+offset_right = 1152.0
+offset_bottom = 572.0
