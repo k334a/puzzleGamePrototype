@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_6fl1u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
-size = Vector2(43.333332, 31)
+size = Vector2(42.666664, 31)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_52fj1"]
 animations = [{
@@ -32,7 +32,7 @@ animations = [{
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
-position = Vector2(65, -49)
+position = Vector2(64, -49)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_52fj1")
 
@@ -54,3 +54,9 @@ texture = ExtResource("3_6fl1u")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=636994079]
 position = Vector2(183, -48)
 shape = SubResource("RectangleShape2D_6fl1u")
+
+[node name="wall_ray" type="RayCast2D" parent="." unique_id=279979177]
+position = Vector2(65, 0)
+scale = Vector2(5, 5)
+target_position = Vector2(13.5, 0)
+hit_from_inside = true

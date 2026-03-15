@@ -10,8 +10,22 @@ var cutHeight = 0.5
 var airtime = false
 var outsideForce = 0
 var windObject = load("res://wind.tscn")
+
+#Push Extras
 const PUSH_FORCE = 100
 const MAX_VELOCITY = 150
+
+#Climb Extras
+var wall_contact_coyote: float = 0.0
+const WALL_CONTACT_COYOTE_TIME: float = 0.2
+
+var look_dir_x: int = 1
+
+var CLIMB_SPEED: float = 150
+var CLIMB_EXIT_BOOST: Vector2 = Vector2(100, -100)
+var is_climbing: bool = false
+const WALL_JUMP_PUSH_FORCE: float = 400
+var wall_jump_lock: float = 0.0
 
 func get_input():
 	var forceVector = Vector2.ZERO
@@ -27,9 +41,9 @@ func get_input():
 		airtime = false
 		velocity.x = 0
 
-	if is_on_floor() and jump:
-		velocity.y = jump_speed
-		airtime = true
+	#if is_on_floor() and jump:
+		#velocity.y = jump_speed
+		#airtime = true
 		
 	if right and velocity.x < 350:
 		velocity.x = run_speed
@@ -79,7 +93,8 @@ func _input(event):
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
-	velocity.y += gravity * delta
+	
+	# Gravity Physics
 	if not is_on_floor() and velocity.x > 0:
 			velocity.x -= 350 * delta
 	elif not is_on_floor() and velocity.x < 0:
@@ -89,6 +104,34 @@ func _physics_process(delta):
 		velocity.x -= velocity.x * 0.5
 	get_input()
 	
+	#Wall Physics
+	if wall_jump_lock > 0.0:
+		wall_jump_lock -= delta
+	if velocity.x:
+		$wall_ray.target_position.x = 13.5 * sign(velocity.x)
+	var on_wall: bool = $wall_ray.is_colliding() and $wall_ray.get_collider().name == "climbable"
+	var on_wall_in_air: bool = on_wall and !is_on_floor()
+	
+	if on_wall_in_air and velocity.y > 0:
+		wall_contact_coyote = WALL_CONTACT_COYOTE_TIME
+		look_dir_x = int(-$wall_ray.get_collision_normal().x)
+	else:
+		if wall_contact_coyote > 0.0:
+			wall_contact_coyote -= delta
+		velocity.y += gravity * delta
+
+	if (is_on_floor() or wall_contact_coyote > 0.0) and Input.is_action_pressed('jump'):
+		velocity.y = jump_speed
+		airtime = true
+		if wall_contact_coyote > 0.0 and !is_on_floor():
+			velocity.x = -look_dir_x * WALL_JUMP_PUSH_FORCE
+			wall_jump_lock = 0.5
+	
+	# Depends on how we want it
+	if on_wall:
+		velocity.y = 0
+	
+	# Push Physics
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()

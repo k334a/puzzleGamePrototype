@@ -52,31 +52,31 @@ texture = ExtResource("2_0xm2m")
 position = Vector2(528.25, 253)
 shape = SubResource("RectangleShape2D_h2yge")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=968266736]
+[node name="climbable" type="StaticBody2D" parent="." unique_id=968266736]
 position = Vector2(-167, -140)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1277973472]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="climbable" unique_id=1277973472]
 position = Vector2(87.75, 354.25)
 shape = SubResource("RectangleShape2D_lquwl")
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2" unique_id=501534910]
+[node name="ColorRect" type="ColorRect" parent="climbable" unique_id=501534910]
 offset_left = -60.0
 offset_top = 143.0
 offset_right = 163.0
 offset_bottom = 721.0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2" unique_id=1122821214]
+[node name="StaticBody2D2" type="StaticBody2D" parent="climbable" unique_id=1122821214]
 position = Vector2(-167, -140)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/StaticBody2D2" unique_id=1711752144]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="climbable/StaticBody2D2" unique_id=1711752144]
 position = Vector2(1570, 493.625)
 shape = SubResource("RectangleShape2D_0xm2m")
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D2/StaticBody2D2" unique_id=2019762064]
+[node name="ColorRect" type="ColorRect" parent="climbable/StaticBody2D2" unique_id=2019762064]
 offset_left = 1529.0
 offset_top = 268.0
 offset_right = 1752.0
