@@ -1,0 +1,5 @@
+# Local godot editor settings
+*.godot/
+*.import/
+
+*.tmp
