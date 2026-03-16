@@ -153,7 +153,7 @@ func resetCat() -> void:
 	%FreezeBubble.reset()
 	global_position = startPosition
 
-# This is very inefficient and should instead be using the body_rid to find the specific tile that overlaps, will update later
+# This is very inefficient and should instead be finding the specific tile that overlaps and using that, will look at better method later
 func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if %FreezeBubble.visible and body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local(%FreezeBubble.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
@@ -162,7 +162,7 @@ func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shap
 				var tile = centerTile + Vector2i(x,y)
 				if body.get_cell_tile_data(tile):
 					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
-						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0)
+						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0) # Right now offset in the atlas is hardcoded as 4 away horizontally, not sure if this can be alternative tile instead?
 
 func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
