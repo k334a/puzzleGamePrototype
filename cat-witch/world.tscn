@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dc41stacycotl"]
 
 [ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://dgs8kguthrb2q" path="res://world.gd" id="1_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://dnt5u1hwb0vbr" path="res://BasicTiles.png" id="2_fj7yv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tlwt5"]
@@ -245,6 +246,7 @@ custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_tlwt5")
 
 [node name="World" type="Node" unique_id=1378909801]
+script = ExtResource("1_tlwt5")
 
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_f3sb7")]
 

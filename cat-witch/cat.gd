@@ -31,6 +31,9 @@ var wall_jump_lock: float = 0.0
 @onready var startPosition: Vector2 = global_position
 @onready var freezeReach: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
 
+signal resetLevel
+signal freezeTile
+
 func get_input():
 	var forceVector = Vector2.ZERO
 	var right = Input.is_action_pressed('move_right')
@@ -152,6 +155,8 @@ func resetCat() -> void:
 	velocity = Vector2.ZERO
 	%FreezeBubble.reset()
 	global_position = startPosition
+	resetLevel.emit()
+	
 
 # This is very inefficient and should instead be finding the specific tile that overlaps and using that, will look at better method later
 func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
@@ -162,6 +167,7 @@ func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shap
 				var tile = centerTile + Vector2i(x,y)
 				if body.get_cell_tile_data(tile):
 					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
+						freezeTile.emit(tile)
 						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0) # Right now offset in the atlas is hardcoded as 4 away horizontally, not sure if this can be alternative tile instead?
 
 func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
