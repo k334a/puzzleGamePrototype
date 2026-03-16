@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ch0x2b0opnair"]
+
+[ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://goldSpot.png" id="1_e1yem"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ybdf"]
+radius = 19.0
+height = 184.0
+
+[node name="NextLevelPlaceholder" type="Area2D" unique_id=460305259]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1427264109]
+scale = Vector2(3.0491803, 1.7142857)
+texture = ExtResource("1_e1yem")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=347054987]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_6ybdf")

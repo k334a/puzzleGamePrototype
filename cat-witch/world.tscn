@@ -252,3 +252,6 @@ script = ExtResource("1_tlwt5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2127145212]
 tile_set = SubResource("TileSet_aqk2v")
+
+[connection signal="freezeTile" from="cat" to="." method="_on_cat_freeze_tile"]
+[connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]

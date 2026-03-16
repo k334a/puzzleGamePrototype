@@ -64,7 +64,7 @@ radius = 14.0
 height = 50.0
 
 [node name="cat" type="CharacterBody2D" unique_id=1659453483]
-collision_layer = 3
+collision_layer = 7
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
