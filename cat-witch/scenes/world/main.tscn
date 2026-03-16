@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cl68hl6fr3yiw"]
 
-[ext_resource type="Script" uid="uid://de6bsbg24x8aw" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://de6bsbg24x8aw" path="res://scripts/main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://scenes/entities/cat.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/InventoryUI.tscn" id="4_wbupf"]
+[ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="5_7tdlr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1152.25, 149.25)
@@ -81,3 +83,8 @@ offset_left = 1529.0
 offset_top = 268.0
 offset_right = 1752.0
 offset_bottom = 846.0
+
+[node name="InventoryUI" parent="." unique_id=1380888454 instance=ExtResource("4_wbupf")]
+
+[node name="SpellPickup" parent="." unique_id=1021825572 groups=["pickup"] instance=ExtResource("5_7tdlr")]
+position = Vector2(204, 385)

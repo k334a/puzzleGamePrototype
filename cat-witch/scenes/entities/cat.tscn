@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://crwrlxa3je0dv"]
 
-[ext_resource type="Script" uid="uid://du87dowa2dk6h" path="res://cat.gd" id="1_52fj1"]
+[ext_resource type="Script" uid="uid://du87dowa2dk6h" path="res://scenes/entities/cat.gd" id="1_52fj1"]
 [ext_resource type="Texture2D" uid="uid://cl6yh30qgwmw5" path="res://cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_6fl1u"]
+[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(42.666664, 31)
@@ -28,7 +29,10 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
 
-[node name="cat" type="CharacterBody2D" unique_id=1659453483]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
+size = Vector2(144, 107)
+
+[node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
@@ -60,3 +64,13 @@ position = Vector2(65, 0)
 scale = Vector2(5, 5)
 target_position = Vector2(13.5, 0)
 hit_from_inside = true
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1669380662]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1815154338]
+position = Vector2(56, -55.5)
+shape = SubResource("RectangleShape2D_g454m")
+
+[node name="Inventory" type="Node" parent="." unique_id=263190467]
+script = ExtResource("4_g454m")
+metadata/_custom_type_script = "uid://by18gskqbu5tx"

@@ -1,5 +1,7 @@
 extends Node
 
+@onready var inventory_ui: InventoryUI = $InventoryUI
+@onready var cat = $cat
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +14,9 @@ func _process(delta: float) -> void:
 	var reset = Input.is_action_pressed('Reset')
 	if reset:
 		teleport(Vector2(6, -37))
+	
+	if Input.is_action_just_pressed("inventory"):
+		inventory_ui.toggle(cat.inventory)
 
 func teleport(target_pos: Vector2):
 	# 1. Update the Physics Server directly

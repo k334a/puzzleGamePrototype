@@ -27,6 +27,9 @@ var is_climbing: bool = false
 const WALL_JUMP_PUSH_FORCE: float = 400
 var wall_jump_lock: float = 0.0
 
+#Inventory
+@onready var inventory: Inventory = $Inventory
+
 func get_input():
 	var forceVector = Vector2.ZERO
 	var right = Input.is_action_pressed('move_right')
@@ -139,3 +142,19 @@ func _physics_process(delta):
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 
 	move_and_slide()
+
+
+func _ready() -> void:
+	$PickupArea.area_entered.connect(_on_pickup_area_entered)
+
+#handler
+func _on_pickup_area_entered(area: Area2D) -> void:
+	if not area.is_in_group("pickup"):
+		return
+	
+	var try_pickup = inventory.add_item(area.item)
+
+	if try_pickup:
+		area.queue_free()
+	else:
+		print("Inventory full!")
