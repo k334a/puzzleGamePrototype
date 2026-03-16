@@ -27,17 +27,15 @@ var is_climbing: bool = false
 const WALL_JUMP_PUSH_FORCE: float = 400
 var wall_jump_lock: float = 0.0
 
-<<<<<<< HEAD:cat-witch/scenes/entities/cat.gd
 #Inventory
 @onready var inventory: Inventory = $Inventory
-=======
+
 # For respawn and freezing:
 @onready var startPosition: Vector2 = global_position
 @onready var freezeReach: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
 
 signal resetLevel
 signal freezeTile
->>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/cat.gd
 
 func get_input():
 	var forceVector = Vector2.ZERO
@@ -156,7 +154,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-<<<<<<< HEAD:cat-witch/scenes/entities/cat.gd
 
 func _ready() -> void:
 	$PickupArea.area_entered.connect(_on_pickup_area_entered)
@@ -172,7 +169,7 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		area.queue_free()
 	else:
 		print("Inventory full!")
-=======
+
 func resetCat() -> void:
 	velocity = Vector2.ZERO
 	%FreezeBubble.reset()
@@ -195,4 +192,3 @@ func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shap
 func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
 		resetCat()
->>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/cat.gd

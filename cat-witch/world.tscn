@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dc41stacycotl"]
 
-[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="1_f3sb7"]
-[ext_resource type="Script" uid="uid://dgs8kguthrb2q" path="res://world.gd" id="1_tlwt5"]
-[ext_resource type="Texture2D" uid="uid://dnt5u1hwb0vbr" path="res://BasicTiles.png" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://scenes/entities/cat.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://world.gd" id="1_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://bl6wi7mss2mtr" path="res://BasicTiles.png" id="2_fj7yv"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tlwt5"]
 texture = ExtResource("2_fj7yv")

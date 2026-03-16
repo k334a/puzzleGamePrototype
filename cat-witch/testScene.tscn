@@ -1,16 +1,13 @@
 [gd_scene format=3 uid="uid://cl68hl6fr3yiw"]
 
-<<<<<<<< HEAD:cat-witch/scenes/world/main.tscn
-[ext_resource type="Script" uid="uid://de6bsbg24x8aw" path="res://scripts/main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://scenes/entities/cat.tscn" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bc1rvcyqdxmeu" path="res://scripts/main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/InventoryUI.tscn" id="4_wbupf"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="5_7tdlr"]
-========
-[ext_resource type="Script" uid="uid://bufita20tr2j4" path="res://testScene.gd" id="1_5lntk"]
+[ext_resource type="Script" uid="uid://croc0i7ots7e4" path="res://testScene.gd" id="1_5lntk"]
 [ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="2_w2vy6"]
-[ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_u1fn3"]
->>>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/testScene.tscn
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_u1fn3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1152.25, 149.25)
