@@ -141,9 +141,6 @@ func _physics_process(delta):
 			velocity.x = -look_dir_x * WALL_JUMP_PUSH_FORCE
 			wall_jump_lock = 0.5
 	
-	# Depends on how we want it
-	if on_wall:
-		velocity.y = 0
 	
 	# Push Physics
 	for i in get_slide_collision_count():
