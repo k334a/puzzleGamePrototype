@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://crwrlxa3je0dv"]
 
-[ext_resource type="Script" uid="uid://du87dowa2dk6h" path="res://scenes/entities/cat.gd" id="1_52fj1"]
-[ext_resource type="Texture2D" uid="uid://cl6yh30qgwmw5" path="res://cat.png" id="1_hcucf"]
-[ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_6fl1u"]
-<<<<<<< HEAD:cat-witch/scenes/entities/cat.tscn
-[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
-=======
-[ext_resource type="Script" uid="uid://ef36wvb552ne" path="res://freeze_bubble.gd" id="4_2hdoq"]
+[ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
+[ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://cat.png" id="1_hcucf"]
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
+[ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://freeze_bubble.gd" id="4_2hdoq"]
 [ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
-[ext_resource type="Script" uid="uid://dbmh0qajq5hpy" path="res://duration_bar.gd" id="5_2hdoq"]
->>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/cat.tscn
+[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
+[ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://duration_bar.gd" id="5_2hdoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(42.666664, 37.333336)
@@ -35,12 +32,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
 
-<<<<<<< HEAD:cat-witch/scenes/entities/cat.tscn
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
 
-[node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
-=======
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
 radius = 125.0
 
@@ -73,9 +67,8 @@ radius = 26.019224
 radius = 14.0
 height = 50.0
 
-[node name="cat" type="CharacterBody2D" unique_id=1659453483]
+[node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 7
->>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/cat.tscn
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
@@ -87,6 +80,7 @@ sprite_frames = SubResource("SpriteFrames_2v165")
 animation = &"standing"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1666767283]
+visible = false
 
 [node name="claw_vfx" type="Sprite2D" parent="Area2D" unique_id=1177768105]
 position = Vector2(123, -1)
@@ -103,17 +97,16 @@ scale = Vector2(5, 5)
 target_position = Vector2(13.5, 0)
 hit_from_inside = true
 
-<<<<<<< HEAD:cat-witch/scenes/entities/cat.tscn
 [node name="PickupArea" type="Area2D" parent="." unique_id=1669380662]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1815154338]
 position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
-[node name="Inventory" type="Node" parent="." unique_id=263190467]
+[node name="Inventory" type="Node" parent="." unique_id=1342136330]
 script = ExtResource("4_g454m")
-metadata/_custom_type_script = "uid://by18gskqbu5tx"
-=======
+
 [node name="FreezeBubble" type="Area2D" parent="." unique_id=1060167374]
 unique_name_in_owner = true
 visible = false
@@ -152,6 +145,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2062734317]
+visible = false
 zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -164,6 +158,7 @@ drag_bottom_margin = 0.15
 editor_draw_drag_margin = true
 
 [node name="WaterChecker" type="Area2D" parent="." unique_id=1922235851]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -195,4 +190,3 @@ polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -
 [connection signal="body_shape_entered" from="FreezeBubble" to="." method="_on_freeze_bubble_body_shape_entered"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
 [connection signal="body_shape_entered" from="WaterChecker" to="." method="_on_water_checker_body_shape_entered"]
->>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/cat.tscn

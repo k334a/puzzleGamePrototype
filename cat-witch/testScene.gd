@@ -1,6 +1,5 @@
 extends Node
 
-<<<<<<<< HEAD:cat-witch/scripts/main.gd
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
 
@@ -10,8 +9,6 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-========
->>>>>>>> 88b90f687ee511fd91fdb4ea36f44c41506ecb1c:cat-witch/testScene.gd
 func _process(delta: float) -> void:
 	#For debug
 	var reset = Input.is_action_pressed('Reset')

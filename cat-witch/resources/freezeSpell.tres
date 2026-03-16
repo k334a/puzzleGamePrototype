@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_tv7s5")
-metadata/_custom_type_script = "uid://dnrvjt0m1jfv2"
+cooldown = 5.0
+spell_type = 1
