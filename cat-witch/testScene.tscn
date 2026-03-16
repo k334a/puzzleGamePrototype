@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cl68hl6fr3yiw"]
 
-[ext_resource type="Script" uid="uid://de6bsbg24x8aw" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bufita20tr2j4" path="res://testScene.gd" id="1_5lntk"]
+[ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://cat.tscn" id="2_w2vy6"]
+[ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_u1fn3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1152.25, 149.25)
@@ -16,12 +16,11 @@ size = Vector2(162.5, 412.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(170.25, 517.25)
 
-[node name="main" type="Node" unique_id=338971336]
-script = ExtResource("1_h2yge")
+[node name="testScene" type="Node" unique_id=338971336]
+script = ExtResource("1_5lntk")
 
-[node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_ig7tw")]
+[node name="cat" parent="." unique_id=1659453483 instance=ExtResource("2_w2vy6")]
 position = Vector2(146, 295)
-collision_layer = 3
 collision_mask = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=509290392]
@@ -46,7 +45,7 @@ lock_rotation = true
 
 [node name="Sprite2D" type="Sprite2D" parent="TestShape" unique_id=1992077297]
 position = Vector2(530, 256)
-texture = ExtResource("2_0xm2m")
+texture = ExtResource("3_u1fn3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TestShape" unique_id=1785304931]
 position = Vector2(528.25, 253)

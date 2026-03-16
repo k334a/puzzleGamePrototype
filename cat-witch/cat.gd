@@ -27,6 +27,10 @@ var is_climbing: bool = false
 const WALL_JUMP_PUSH_FORCE: float = 400
 var wall_jump_lock: float = 0.0
 
+# For respawn and freezing:
+@onready var startPosition: Vector2 = global_position
+@onready var freezeReach: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
+
 func get_input():
 	var forceVector = Vector2.ZERO
 	var right = Input.is_action_pressed('move_right')
@@ -36,6 +40,7 @@ func get_input():
 	var run = Input.is_action_pressed('run')
 	var scratch = Input.is_action_just_pressed('scratch')
 	var wind = Input.is_action_just_pressed('wind')
+	var freeze = Input.is_action_just_pressed("freeze")
 
 	if airtime and is_on_floor():
 		airtime = false
@@ -81,6 +86,9 @@ func get_input():
 		velocity.y = 0
 	else:
 		$AnimatedSprite2D.scale = Vector2(1, 1)
+	
+	if freeze:
+		%FreezeBubble.startFreeze()
 
 func apply_outside_force(forceVector, outsideForce):
 	velocity.x += forceVector.x * outsideForce
@@ -139,3 +147,23 @@ func _physics_process(delta):
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 
 	move_and_slide()
+
+func resetCat() -> void:
+	velocity = Vector2.ZERO
+	%FreezeBubble.reset()
+	global_position = startPosition
+
+# This is very inefficient and should instead be using the body_rid to find the specific tile that overlaps, will update later
+func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if %FreezeBubble.visible and body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local(%FreezeBubble.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
+		for x in range(-freezeReach, freezeReach+1):
+			for y in range(-freezeReach, freezeReach+1):
+				var tile = centerTile + Vector2i(x,y)
+				if body.get_cell_tile_data(tile):
+					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
+						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0)
+
+func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body is TileMapLayer:
+		resetCat()

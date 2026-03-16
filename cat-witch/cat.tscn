@@ -3,11 +3,14 @@
 [ext_resource type="Script" uid="uid://du87dowa2dk6h" path="res://cat.gd" id="1_52fj1"]
 [ext_resource type="Texture2D" uid="uid://cl6yh30qgwmw5" path="res://cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://b8ahnrr65phlo" path="res://icon.svg" id="3_6fl1u"]
+[ext_resource type="Script" uid="uid://ef36wvb552ne" path="res://freeze_bubble.gd" id="4_2hdoq"]
+[ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
+[ext_resource type="Script" uid="uid://dbmh0qajq5hpy" path="res://duration_bar.gd" id="5_2hdoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
-size = Vector2(42.666664, 31)
+size = Vector2(42.666664, 37.333336)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_52fj1"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2v165"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -28,35 +31,145 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
+radius = 125.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v165"]
+bg_color = Color(0.13725491, 0.34901962, 0.3882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyw7o"]
+bg_color = Color(0.22745098, 0.52156866, 0.5764706, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u0g4"]
+radius = 32.0
+height = 122.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hdoq"]
+radius = 26.019224
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v165"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyw7o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rjga"]
+radius = 14.0
+height = 50.0
+
 [node name="cat" type="CharacterBody2D" unique_id=1659453483]
+collision_layer = 3
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
-position = Vector2(64, -49)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_52fj1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1889223486]
-position = Vector2(0, 1)
-sprite_frames = SubResource("SpriteFrames_52fj1")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
+sprite_frames = SubResource("SpriteFrames_2v165")
 animation = &"standing"
-frame_progress = 0.88501596
-centered = false
-offset = Vector2(-100, -225)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1666767283]
 
 [node name="claw_vfx" type="Sprite2D" parent="Area2D" unique_id=1177768105]
-position = Vector2(183.5, -47.5)
+position = Vector2(123, -1)
 scale = Vector2(0.7734375, 0.7265625)
 texture = ExtResource("3_6fl1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=636994079]
-position = Vector2(183, -48)
+position = Vector2(124, 0)
 shape = SubResource("RectangleShape2D_6fl1u")
 
 [node name="wall_ray" type="RayCast2D" parent="." unique_id=279979177]
-position = Vector2(65, 0)
+position = Vector2(7.6293945e-06, 45.999996)
 scale = Vector2(5, 5)
 target_position = Vector2(13.5, 0)
 hit_from_inside = true
+
+[node name="FreezeBubble" type="Area2D" parent="." unique_id=1060167374]
+unique_name_in_owner = true
+visible = false
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_2hdoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FreezeBubble" unique_id=1256832452]
+shape = SubResource("CircleShape2D_6fl1u")
+
+[node name="Sprite2D" type="Sprite2D" parent="FreezeBubble" unique_id=879255160]
+position = Vector2(2, 0)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("4_2u0g4")
+
+[node name="FreezeCooldown" type="Timer" parent="FreezeBubble" unique_id=246583615]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="DurationBar" type="ProgressBar" parent="FreezeBubble" unique_id=625659927]
+offset_left = -90.8
+offset_top = -140.0
+offset_right = -50.800003
+offset_bottom = -100.0
+scale = Vector2(4.561, 0.246)
+theme_override_styles/background = SubResource("StyleBoxFlat_2v165")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eyw7o")
+max_value = 5.0
+show_percentage = false
+script = ExtResource("5_2hdoq")
+
+[node name="FreezeDuration" type="Timer" parent="FreezeBubble/DurationBar" unique_id=378828426]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2062734317]
+zoom = Vector2(0.75, 0.75)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.15
+drag_top_margin = 0.15
+drag_right_margin = 0.15
+drag_bottom_margin = 0.15
+editor_draw_drag_margin = true
+
+[node name="WaterChecker" type="Area2D" parent="." unique_id=1922235851]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker" unique_id=1365151643]
+position = Vector2(4, 14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_2u0g4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="WaterChecker" unique_id=1640029373]
+position = Vector2(46, -19)
+shape = SubResource("CircleShape2D_2hdoq")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="WaterChecker" unique_id=1446613042]
+position = Vector2(-41, 42)
+shape = SubResource("CapsuleShape2D_2v165")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="WaterChecker" unique_id=1543407912]
+position = Vector2(47, 42)
+shape = SubResource("CapsuleShape2D_eyw7o")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="WaterChecker" unique_id=1982457780]
+position = Vector2(-8, -21)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7rjga")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WaterChecker" unique_id=1378840671]
+polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -31, -34, -45, -23, -58, -10, -62, -5, -62, 1, -56, 5, -57, 13, -64, 12, -71, 5, -73, -2, -66, -12, -57, -21, -49, -29, -43, -35, -43, -39, -58, -40, -60, -46)
+
+[connection signal="body_shape_entered" from="FreezeBubble" to="." method="_on_freeze_bubble_body_shape_entered"]
+[connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
+[connection signal="body_shape_entered" from="WaterChecker" to="." method="_on_water_checker_body_shape_entered"]
