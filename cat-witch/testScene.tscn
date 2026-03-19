@@ -85,3 +85,4 @@ offset_bottom = 846.0
 position = Vector2(204, 385)
 
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("2_w2vy6")]
+position = Vector2(227, 192)
