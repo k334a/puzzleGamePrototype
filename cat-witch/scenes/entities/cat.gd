@@ -1,15 +1,13 @@
 extends CharacterBody2D
 
+#Physics Variables
 var run_speed = 350
 var jump_speed = -1000
 var gravity = 1500
 var windResistance = 1500
-
-#Extras
 var cutHeight = 0.5
 var airtime = false
 var outsideForce = 0
-var windObject = load("res://wind.tscn")
 
 #Push Extras
 const PUSH_FORCE = 100
@@ -18,14 +16,15 @@ const MAX_VELOCITY = 150
 #Climb Extras
 var wall_contact_coyote: float = 0.0
 const WALL_CONTACT_COYOTE_TIME: float = 0.2
-
 var look_dir_x: int = 1
-
 var CLIMB_SPEED: float = 150
 var CLIMB_EXIT_BOOST: Vector2 = Vector2(100, -100)
 var is_climbing: bool = false
 const WALL_JUMP_PUSH_FORCE: float = 400
 var wall_jump_lock: float = 0.0
+
+#Spell Variables
+var windObject = load("res://scenes/spells/wind.tscn")
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -36,65 +35,6 @@ var wall_jump_lock: float = 0.0
 
 signal resetLevel
 signal freezeTile
-
-func get_input():
-	var forceVector = Vector2.ZERO
-	var right = Input.is_action_pressed('move_right')
-	var left = Input.is_action_pressed('move_left')
-	var crouch = Input.is_action_pressed('crouch')
-	var jump = Input.is_action_pressed('jump')
-	var run = Input.is_action_pressed('run')
-	var scratch = Input.is_action_just_pressed('scratch')
-	var wind = Input.is_action_just_pressed('wind')
-	var freeze = Input.is_action_just_pressed("freeze")
-
-	if airtime and is_on_floor():
-		airtime = false
-		velocity.x = 0
-
-	#if is_on_floor() and jump:
-		#velocity.y = jump_speed
-		#airtime = true
-		
-	if right and velocity.x < 350:
-		velocity.x = run_speed
-	
-	if left and velocity.x > -350:
-		velocity.x = -run_speed
-	
-	#Hacky way of doing it
-	if scratch:
-		$Area2D/claw_vfx.visible = true
-	else:
-		$Area2D/claw_vfx.visible = false
-		
-	if wind:
-		velocity.x = 0
-		velocity.y = 0
-		outsideForce = 1500
-		var mousePosition = get_global_mouse_position()
-		var distanceX = mousePosition.x - position.x
-		var distanceY = mousePosition.y - position.y
-		#var magnitude = sqrt(pow(distanceX, 2) + pow(distanceY, 2))
-		var magnitude = abs(distanceX) + abs(distanceY)
-		forceVector = Vector2(distanceX / magnitude, distanceY / magnitude)
-		print(forceVector)
-		var windScene = windObject.instantiate()
-		windScene.position = Vector2(position.x, position.y - 50)
-		windScene.get_child(0).force = -forceVector * 100
-		add_sibling(windScene)
-		apply_outside_force(forceVector, outsideForce)
-		
-	#Hacky way of doing it
-	if is_on_floor() and crouch:
-		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
-		velocity.x = 0
-		velocity.y = 0
-	else:
-		$AnimatedSprite2D.scale = Vector2(1, 1)
-	
-	if freeze:
-		%FreezeBubble.startFreeze()
 
 func apply_outside_force(forceVector, outsideForce):
 	velocity.x += forceVector.x * outsideForce
@@ -107,6 +47,15 @@ func _input(event):
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
+	var forceVector = Vector2.ZERO
+	var right = Input.is_action_pressed('move_right')
+	var left = Input.is_action_pressed('move_left')
+	var crouch = Input.is_action_pressed('crouch')
+	var jump = Input.is_action_pressed('jump')
+	var run = Input.is_action_pressed('run')
+	var scratch = Input.is_action_just_pressed('scratch')
+	var spell1 = Input.is_action_just_pressed('wind')
+	var spell2 = Input.is_action_just_pressed('freeze')
 	
 	# Gravity Physics
 	if not is_on_floor() and velocity.x > 0:
@@ -116,9 +65,15 @@ func _physics_process(delta):
 		#velocity.x -= velocity.x * 0.1
 	else:
 		velocity.x -= velocity.x * 0.5
-	get_input()
+		
+	# Movement
+	if right and velocity.x < 350:
+		velocity.x = run_speed
 	
-	#Wall Physics
+	if left and velocity.x > -350:
+		velocity.x = -run_speed
+	
+	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
 	if velocity.x:
@@ -126,6 +81,7 @@ func _physics_process(delta):
 	var on_wall: bool = $wall_ray.is_colliding() and $wall_ray.get_collider().name == "climbable"
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
+	# Wall Sliding
 	if on_wall_in_air and velocity.y > 0:
 		wall_contact_coyote = WALL_CONTACT_COYOTE_TIME
 		look_dir_x = int(-$wall_ray.get_collision_normal().x)
@@ -134,13 +90,13 @@ func _physics_process(delta):
 			wall_contact_coyote -= delta
 		velocity.y += gravity * delta
 
-	if (is_on_floor() or wall_contact_coyote > 0.0) and Input.is_action_pressed('jump'):
+	# Jumping
+	if (is_on_floor() or wall_contact_coyote > 0.0) and jump:
 		velocity.y = jump_speed
 		airtime = true
 		if wall_contact_coyote > 0.0 and !is_on_floor():
 			velocity.x = -look_dir_x * WALL_JUMP_PUSH_FORCE
 			wall_jump_lock = 0.5
-	
 	
 	# Push Physics
 	for i in get_slide_collision_count():
@@ -148,9 +104,49 @@ func _physics_process(delta):
 		var collision_crate = collision.get_collider()
 		if collision_crate.is_in_group("Rigidbody") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
-
+	
+	# Spells
+	if spell1:
+		readSpell(left, right, crouch, jump, "wind")
+	
+	if spell2:
+		readSpell(left, right, crouch, jump, "freeze")
+	
 	move_and_slide()
 
+# Spell Functions
+func readSpell(left_input, right_input, down_input, up_input, spell):
+	# Compute current key presses into vector
+	var lookVector = Vector2.ZERO
+	if left_input:
+		lookVector.x -= 1
+	if right_input:
+		lookVector.x += 1
+	if down_input:
+		lookVector.y += 1
+	if up_input:
+		lookVector.y -= 1
+	var magnitude = abs(lookVector.x) + abs(lookVector.y)
+	lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
+	
+	var spell_list = {
+		"freeze": func(): freeze(),
+		"wind": func(): wind(lookVector),
+	}
+	spell_list[spell].call()
+
+func freeze():
+	%FreezeBubble.startFreeze()
+
+func wind(lookVector):
+	velocity.x = 0
+	velocity.y = 0
+	outsideForce = 1500
+	var windScene = windObject.instantiate()
+	windScene.position = Vector2(position.x, position.y - 50)
+	windScene.get_child(0).force = -lookVector * 100
+	add_sibling(windScene)
+	apply_outside_force(lookVector, outsideForce)
 
 func _ready() -> void:
 	$PickupArea.area_entered.connect(_on_pickup_area_entered)

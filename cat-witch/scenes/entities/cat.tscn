@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
 [ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
-[ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://freeze_bubble.gd" id="4_2hdoq"]
+[ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://scenes/spells/freeze_bubble.gd" id="4_2hdoq"]
 [ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
-[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
+[ext_resource type="Script" uid="uid://dyasw5bnp01xw" path="res://scripts/inventory.gd" id="4_g454m"]
 [ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://duration_bar.gd" id="5_2hdoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
