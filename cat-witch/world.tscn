@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://world.gd" id="1_tlwt5"]
 [ext_resource type="Texture2D" uid="uid://bl6wi7mss2mtr" path="res://BasicTiles.png" id="2_fj7yv"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tlwt5"]
 texture = ExtResource("2_fj7yv")
 separation = Vector2i(1, 1)
@@ -66,16 +65,21 @@ texture_region_size = Vector2i(36, 36)
 9:0/0/terrain = 0
 9:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
 9:0/0/terrains_peering_bit/right_side = 0
+9:0/0/terrains_peering_bit/bottom_side = 0
 9:0/0/custom_data_0 = true
 10:0/0 = 0
 10:0/0/terrain_set = 1
 10:0/0/terrain = 0
 10:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+10:0/0/terrains_peering_bit/right_side = 0
+10:0/0/terrains_peering_bit/bottom_side = 0
+10:0/0/terrains_peering_bit/left_side = 0
 10:0/0/custom_data_0 = true
 11:0/0 = 0
 11:0/0/terrain_set = 1
 11:0/0/terrain = 0
 11:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+11:0/0/terrains_peering_bit/bottom_side = 0
 11:0/0/terrains_peering_bit/left_side = 0
 11:0/0/custom_data_0 = true
 13:0/0 = 0
@@ -83,14 +87,19 @@ texture_region_size = Vector2i(36, 36)
 13:0/0/terrain = 1
 13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
 13:0/0/terrains_peering_bit/right_side = 1
+13:0/0/terrains_peering_bit/bottom_side = 1
 14:0/0 = 0
 14:0/0/terrain_set = 1
 14:0/0/terrain = 1
 14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+14:0/0/terrains_peering_bit/right_side = 1
+14:0/0/terrains_peering_bit/bottom_side = 1
+14:0/0/terrains_peering_bit/left_side = 1
 15:0/0 = 0
 15:0/0/terrain_set = 1
 15:0/0/terrain = 1
 15:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+15:0/0/terrains_peering_bit/bottom_side = 1
 15:0/0/terrains_peering_bit/left_side = 1
 0:1/0 = 0
 0:1/0/terrain_set = 0
@@ -227,6 +236,21 @@ texture_region_size = Vector2i(36, 36)
 3:3/0/terrain_set = 0
 3:3/0/terrain = 0
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+10:2/0 = 0
+10:2/0/terrain_set = 1
+10:2/0/terrain = 0
+10:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+10:2/0/physics_layer_1/polygon_0/one_way_margin = 0.0
+10:2/0/terrains_peering_bit/bottom_side = 0
+10:2/0/terrains_peering_bit/top_side = 0
+10:2/0/custom_data_0 = true
+10:2/0/custom_data_1 = true
+14:2/0 = 0
+14:2/0/terrain_set = 1
+14:2/0/terrain = 1
+14:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+14:2/0/terrains_peering_bit/bottom_side = 1
+14:2/0/terrains_peering_bit/top_side = 1
 
 [sub_resource type="TileSet" id="TileSet_aqk2v"]
 tile_size = Vector2i(36, 36)
@@ -244,6 +268,8 @@ terrain_set_1/terrain_1/name = "Ice"
 terrain_set_1/terrain_1/color = Color(0.2509804, 0.5294118, 0.6, 1)
 custom_data_layer_0/name = "freezable"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "fallingWater"
+custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_tlwt5")
 
 [node name="World" type="Node" unique_id=1378909801]

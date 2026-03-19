@@ -146,7 +146,7 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
-		if collision_crate.is_in_group("Rigidbody") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
+		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 
 	move_and_slide()
@@ -178,12 +178,12 @@ func resetCat() -> void:
 func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if %FreezeBubble.visible and body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local(%FreezeBubble.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		for x in range(-freezeReach, freezeReach+1):
-			for y in range(-freezeReach, freezeReach+1):
+		for x in range(-freezeReach, freezeReach):
+			for y in range(-freezeReach+1, freezeReach):
 				var tile = centerTile + Vector2i(x,y)
 				if body.get_cell_tile_data(tile):
 					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
-						freezeTile.emit(tile)
+						freezeTile.emit(tile, body)
 						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0) # Right now offset in the atlas is hardcoded as 4 away horizontally, not sure if this can be alternative tile instead?
 
 func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:

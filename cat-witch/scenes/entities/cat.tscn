@@ -110,7 +110,7 @@ script = ExtResource("4_g454m")
 [node name="FreezeBubble" type="Area2D" parent="." unique_id=1060167374]
 unique_name_in_owner = true
 visible = false
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_2hdoq")
 
