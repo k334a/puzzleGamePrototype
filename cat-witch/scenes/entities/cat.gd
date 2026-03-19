@@ -178,8 +178,8 @@ func resetCat() -> void:
 func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if %FreezeBubble.visible and body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local(%FreezeBubble.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		for x in range(-freezeReach, freezeReach):
-			for y in range(-freezeReach+1, freezeReach):
+		for x in range(-freezeReach, freezeReach+1):
+			for y in range(-freezeReach, freezeReach+1):
 				var tile = centerTile + Vector2i(x,y)
 				if body.get_cell_tile_data(tile):
 					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
