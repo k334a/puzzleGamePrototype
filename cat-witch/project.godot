@@ -78,6 +78,7 @@ freeze={
 2d_physics/layer_1="Floor/Walls"
 2d_physics/layer_2="Water"
 2d_physics/layer_3="Permeable"
+2d_physics/layer_4="NextLevel"
 
 [physics]
 
