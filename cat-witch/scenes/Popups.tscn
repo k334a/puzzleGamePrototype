@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://cgn0xtp1gavv1"]
+
+[ext_resource type="Script" uid="uid://bw4psq8ku0s22" path="res://scripts/popups.gd" id="1_2qj80"]
+[ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_utja3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qj80"]
+bg_color = Color(0.80551195, 0.49752617, 0.5574267, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.98966664, 0.35394624, 0.4541039, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 1
+shadow_size = 1
+
+[node name="Popups" type="Control" unique_id=1207599007]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_2qj80")
+
+[node name="InventoryUI" type="CanvasLayer" parent="." unique_id=1432707837]
+script = ExtResource("1_utja3")
+metadata/_custom_type_script = "uid://r7hdjleio873"
+
+[node name="ItemPopup" type="PopupPanel" parent="InventoryUI" unique_id=1962141287]
+unique_name_in_owner = true
+oversampling_override = 1.0
+position = Vector2i(100, 100)
+size = Vector2i(200, 268)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_2qj80")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryUI/ItemPopup" unique_id=481731975]
+custom_minimum_size = Vector2(20, 0)
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 194.0
+offset_bottom = 262.0
+
+[node name="Name" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=1498226275]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+theme_override_font_sizes/font_size = 25
+text = "item name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=967627883]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Attribute1" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer" unique_id=2009326224]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+text = "damage"
+
+[node name="Attribute1Value" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer" unique_id=525785359]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+text = "10"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=266129445]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Attribute2" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer2" unique_id=1295613870]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+text = "strength"
+
+[node name="Attribute2Value" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer2" unique_id=837281167]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+text = "2"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=2081292776]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Attribute3" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer3" unique_id=237797912]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+text = "rarity"
+
+[node name="Attribute3Value" type="RichTextLabel" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer3" unique_id=1969272905]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(90, 10)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+bbcode_enabled = true
+text = "basic"
+scroll_active = false
+
+[node name="HBoxContainer4" type="VBoxContainer" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=970088284]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Attribute4" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer4" unique_id=2002351393]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 40)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+theme_override_font_sizes/font_size = 19
+text = "description"
+vertical_alignment = 2
+
+[node name="Attribute4Value" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer/HBoxContainer4" unique_id=1122860634]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.43137255)
+theme_override_font_sizes/font_size = 14
+text = "blah blah XD chudscript i need to work on networking"
+autowrap_mode = 3

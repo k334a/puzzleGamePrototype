@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://t3oqecj7er2x"]
+
+[ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://scroll.png" id="1_w64e8"]
+[ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="2_hrhoj"]
+
+[resource]
+script = ExtResource("2_hrhoj")
+name = "Wind Spell"
+description = "hidden., test"
+icon = ExtResource("1_w64e8")
+damage = 15
+rarity = "rare"
+strength = 7

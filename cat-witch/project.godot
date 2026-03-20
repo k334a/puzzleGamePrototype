@@ -11,14 +11,17 @@ config_version=5
 [application]
 
 config/name="Cat Witch"
+run/main_scene="uid://b3hxccyoii5wo"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[global_group]
+[autoload]
 
-pushable=""
-pickup=""
-player=""
+Popups="*uid://cgn0xtp1gavv1"
+
+[gui]
+
+theme/custom_font="uid://bej5rt3w51or3"
 
 [input]
 

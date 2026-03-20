@@ -2,11 +2,19 @@
 
 [ext_resource type="Script" uid="uid://bx20g1b1sjaie" path="res://scripts/slot.gd" id="1_c24ra"]
 
-[node name="Slot" type="Panel" unique_id=868582624]
+[node name="Slot" type="PanelContainer" unique_id=431940843]
+custom_minimum_size = Vector2(64, 64)
 script = ExtResource("1_c24ra")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=309967163]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
+mouse_filter = 0
 stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="." unique_id=1426622353]
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
