@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 Popups="*uid://cgn0xtp1gavv1"
 
+[global_group]
+
+pushable=""
+player=""
+pickup=""
+
 [gui]
 
 theme/custom_font="uid://bej5rt3w51or3"

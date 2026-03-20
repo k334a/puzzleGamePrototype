@@ -2,15 +2,27 @@ extends Node
 
 @export var nextLevel: PackedScene
 
+@onready var inventory_ui: InventoryUI = $InventoryUI
+@onready var cat = $cat
+
+var pushableStartPoints: Array[Vector2]
+
 # Keeping these as separate for now, but technically shouldn't need to be
 var frozenTiles: Array[Vector2i]
 var removedFallingWater: Array[Vector2i]
 
+func _ready() -> void:
+	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
+		pushableStartPoints.push_back(node.global_position)
+
 # Can remove this, just added for the sake of my sanity while testing
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Reset"):
-		$cat.resetCat()
+		cat.resetCat()
+	if event.is_action_pressed("inventory"):
+		inventory_ui.toggle(cat.inventory)
 
+# Currently missing functionality for resetting inventory and items
 func _on_cat_reset_level() -> void:
 	# Gets rid of hardcoded distances in TileSet, right now looks weird because terrains I set up are janky
 	# If we end up adding different tile map layers, this will need to instead be a unique named one or passed in onready
@@ -19,6 +31,11 @@ func _on_cat_reset_level() -> void:
 	
 	$TileMapLayer.set_cells_terrain_connect(removedFallingWater, 1, 0)
 	removedFallingWater.clear()
+	
+	var i = 0
+	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
+		node.global_position = pushableStartPoints[i]
+		i += 1
 
 func _on_cat_freeze_tile(freezeTiles: Array[Vector2i], fallingTiles: Dictionary[int, Array], layer: TileMapLayer) -> void:
 	

@@ -18,14 +18,18 @@ func _on_body_entered(body: Node) -> void:
 
 	# under Node, Groups add "player" to cat.
 	if not body.is_in_group("player"):
-		return  
+		return
 
 	if item == null:
 		push_warning("SpellPickup has no item assigned!")
 		return
 
 	if "inventory" in body:
-		var success = body.inventory.add_item(item)
+		var success = false
+		if item.isSpell:
+			success = body.inventory.add_spell(item)
+		else:
+			success = body.inventory.add_item(item)
 		if success:
 			print("DEBUG: pickup successful")
 			picked_up.emit(item)
