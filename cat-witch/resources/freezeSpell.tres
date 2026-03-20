@@ -1,15 +1,16 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://devtpplu0vsf2"]
 
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="1_tv7s5"]
-[ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://scroll.png" id="1_ui5cm"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tv7s5"]
+load_path = "res://.godot/imported/scroll.png-8c425a620019b766839cfddc841d9377.ctex"
 
 [resource]
 script = ExtResource("1_tv7s5")
-name = "LegendarySpell"
+name = "Freeze Spell"
 description = "hidden., test"
-icon = ExtResource("1_ui5cm")
-damage = 100
-cooldown = 10.0
-rarity = "legendary"
-strength = 99999
+icon = SubResource("CompressedTexture2D_tv7s5")
+damage = 8
+cooldown = 4.0
+strength = 5
 spell_type = 1

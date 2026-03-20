@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
 [ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
-[ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://freeze_bubble.gd" id="4_2hdoq"]
+[ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://scenes/spells/freeze_bubble.gd" id="4_2hdoq"]
 [ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
-[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
+[ext_resource type="Script" uid="uid://dyasw5bnp01xw" path="res://scripts/inventory.gd" id="4_g454m"]
 [ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://duration_bar.gd" id="5_2hdoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
@@ -186,6 +186,11 @@ shape = SubResource("CapsuleShape2D_7rjga")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WaterChecker" unique_id=1378840671]
 polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -31, -34, -45, -23, -58, -10, -62, -5, -62, 1, -56, 5, -57, 13, -64, 12, -71, 5, -73, -2, -66, -12, -57, -21, -49, -29, -43, -35, -43, -39, -58, -40, -60, -46)
+
+[node name="floor_ray" type="RayCast2D" parent="." unique_id=1813436469]
+position = Vector2(0, 30)
+scale = Vector2(5, 5)
+target_position = Vector2(0, 6.000003)
 
 [connection signal="body_shape_entered" from="FreezeBubble" to="." method="_on_freeze_bubble_body_shape_entered"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
