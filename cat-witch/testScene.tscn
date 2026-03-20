@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_u1fn3"]
 [ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/InventoryUI.tscn" id="4_wbupf"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="5_7tdlr"]
+[ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="5_wxu4w"]
+[ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://scroll.png" id="6_c3fdh"]
+[ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="7_60y0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1152.25, 149.25)
@@ -17,6 +20,17 @@ size = Vector2(162.5, 412.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(170.25, 517.25)
+
+[sub_resource type="Resource" id="Resource_cwcnw"]
+script = ExtResource("7_60y0o")
+name = "legendarySpell"
+description = "hidden., test"
+icon = ExtResource("6_c3fdh")
+damage = 100
+cooldown = 10.0
+rarity = "legendary"
+strength = 99999
+spell_type = 1
 
 [node name="testScene" type="Node" unique_id=338971336]
 script = ExtResource("1_5lntk")
@@ -80,8 +94,19 @@ offset_right = 1752.0
 offset_bottom = 846.0
 
 [node name="InventoryUI" parent="." unique_id=1380888454 instance=ExtResource("4_wbupf")]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
 [node name="SpellPickup" parent="." unique_id=1021825572 groups=["pickup"] instance=ExtResource("5_7tdlr")]
 position = Vector2(204, 385)
 
+[node name="SpellPickup2" parent="." unique_id=1568365460 groups=["pickup"] instance=ExtResource("5_7tdlr")]
+position = Vector2(708, 379)
+item = ExtResource("5_wxu4w")
+
+[node name="SpellPickup3" parent="." unique_id=1275672369 groups=["pickup"] instance=ExtResource("5_7tdlr")]
+position = Vector2(528, 78)
+item = SubResource("Resource_cwcnw")
+
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("2_w2vy6")]
+position = Vector2(-23, -33)

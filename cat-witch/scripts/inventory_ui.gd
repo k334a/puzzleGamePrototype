@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func refresh(inventory: Inventory) -> void: 
 	for child in grid.get_children():
+		grid.remove_child(child)
 		child.queue_free()
 	
 	for item in inventory.items:

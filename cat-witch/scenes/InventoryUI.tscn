@@ -2,6 +2,16 @@
 
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_wqexf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju2k0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqexf"]
+bg_color = Color(0.61544746, 0.5629943, 0.7719125, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
 [node name="InventoryUI" type="CanvasLayer" unique_id=1380888454]
 script = ExtResource("1_wqexf")
 
@@ -10,18 +20,39 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1166.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Control" unique_id=284960607]
 layout_mode = 0
-offset_left = 39.0
-offset_top = 33.0
-offset_right = 79.0
-offset_bottom = 73.0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 405.0
+offset_bottom = 178.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ju2k0")
 
 [node name="GridContainer" type="GridContainer" parent="Control/Panel" unique_id=796373379]
 layout_mode = 0
-offset_left = 1.0
-offset_right = 41.0
+offset_left = 6.0
+offset_right = 396.0
+offset_bottom = 167.0
+
+[node name="SpellPanel" type="Panel" parent="Control" unique_id=663672309]
+layout_mode = 0
+offset_left = 2123.0
+offset_top = 18.0
+offset_right = 2291.0
+offset_bottom = 158.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqexf")
+
+[node name="SpellContainer" type="GridContainer" parent="Control/SpellPanel" unique_id=484932342]
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 138.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1230187460]
+layout_mode = 0
+offset_right = 40.0
 offset_bottom = 40.0

@@ -24,6 +24,11 @@ func _on_body_entered(body: Node) -> void:
 		push_warning("SpellPickup has no item assigned!")
 		return
 
-	picked_up.emit(item)
-	
-	queue_free()
+	if "inventory" in body:
+		var success = body.inventory.add_item(item)
+		if success:
+			print("DEBUG: pickup successful")
+			picked_up.emit(item)
+			queue_free()
+		else:
+			print("DEBUG: Something went wrong. Maybe, Inventory full!")
