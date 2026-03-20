@@ -52,9 +52,9 @@ func linearDampener(left, right):
 		if body and body is not RigidBody2D:
 			var tile: Vector2i = body.local_to_map(body.to_local($floor_ray.global_position))
 			tile = tile - Vector2i(0, -1)
-			if body.get_cell_tile_data(tile):
-				if body.get_cell_tile_data(tile).get_custom_data("terrain_type") == "ice":
-					on_ice = true
+			var data = check_data(tile, body, "terrain_type")
+			if data == "ice":
+				on_ice = true
 		if on_ice:
 			velocity.x -= velocity.x * 0.1
 		else:
@@ -138,9 +138,9 @@ func TileMapCheck():
 	if body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local($wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
 		var tile: Vector2i = centerTile + Vector2i(int(-$wall_ray.get_collision_normal().x) * 2, 0)
-		if body.get_cell_tile_data(tile):
-			if body.get_cell_tile_data(tile).get_custom_data("climbable"):
-				return true
+		var data = check_data(tile, body, "climbable")
+		if data:
+			return true
 	return false
 
 # Spell Functions
@@ -256,6 +256,7 @@ func freeze_check(layer: TileMapLayer) -> void:
 			fallingTiles.get_or_add(tile.x, []).push_back(tile.y)
 		elif check_data(tile, layer, "freezable"): # Falling water tiles should not be added to freezableTiles
 			freezableTiles.push_back(tile)
+	
 	if not freezableTiles.is_empty() or not fallingTiles.is_empty(): # This check should be redundant
 		freezeTile.emit(freezableTiles, fallingTiles, layer)
 
