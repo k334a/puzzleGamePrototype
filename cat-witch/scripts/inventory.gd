@@ -6,19 +6,30 @@ class_name Inventory
 signal updated
 
 var items: Array
+var spells: Array
 
 func _ready():
 	items = []
 	items.resize(inventory_size)
+	spells.resize(4)
 
 func add_item(item: Item) -> bool:
 	for i in range(items.size()):
 		if items[i] == null:
 			items[i] = item
-			updated.emit()
-			print("test, item added to slot", i)
+			updated.emit(self)
+			print("test, item added to slot ", i)
 			return true # end loop, found empty space for item
 	return false # inventory full
+
+func add_spell(item: Item) -> bool:
+	for i in range(spells.size()):
+		if spells[i] == null:
+			spells[i] = item
+			updated.emit(self)
+			print("test, spell added to spell slot ", i)
+			return true
+	return false
 
 func remove_item(index: int) -> bool: #test if you can remove an item
 	if items[index] != null:

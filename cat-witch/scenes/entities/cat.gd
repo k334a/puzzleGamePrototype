@@ -188,9 +188,14 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 	var try_pickup = inventory.add_item(area.item)
 
 	if try_pickup:
+		if area.item.isSpell:
+			inventory.add_spell(area.item)
 		area.queue_free()
+
 	else:
 		print("Inventory full!")
+
+# when spell is picked up, move it to the first spell slot. allow movement between slots
 
 func resetCat() -> void:
 	velocity = Vector2.ZERO

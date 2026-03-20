@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bx3g2anfgwjk6"]
 
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_wqexf"]
+[ext_resource type="Script" uid="uid://bx20g1b1sjaie" path="res://scripts/slot.gd" id="2_ju2k0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju2k0"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -11,6 +12,26 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
+border_color = Color(0.76080275, 0.78101814, 0.9998494, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5txx"]
+bg_color = Color(0.8675476, 0.8627839, 0.9962407, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 18
 
 [node name="InventoryUI" type="CanvasLayer" unique_id=1380888454]
 script = ExtResource("1_wqexf")
@@ -41,16 +62,89 @@ offset_bottom = 167.0
 
 [node name="SpellPanel" type="Panel" parent="Control" unique_id=663672309]
 layout_mode = 0
-offset_left = 2123.0
+offset_left = 2043.0
 offset_top = 18.0
-offset_right = 2291.0
-offset_bottom = 158.0
+offset_right = 2282.0
+offset_bottom = 204.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqexf")
 
-[node name="SpellContainer" type="GridContainer" parent="Control/SpellPanel" unique_id=484932342]
+[node name="InventorySlot" type="PanelContainer" parent="Control/SpellPanel" unique_id=648825917]
 layout_mode = 0
-offset_right = 167.0
-offset_bottom = 138.0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 110.0
+offset_bottom = 84.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot" unique_id=1218239372]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "F"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot" unique_id=362723716]
+z_index = 100
+layout_mode = 2
+
+[node name="InventorySlot4" type="PanelContainer" parent="Control/SpellPanel" unique_id=1356184378]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 97.0
+offset_right = 227.0
+offset_bottom = 172.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot4" unique_id=458098344]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Q"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot4" unique_id=1505803988]
+layout_mode = 2
+
+[node name="InventorySlot3" type="PanelContainer" parent="Control/SpellPanel" unique_id=587514513]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 96.0
+offset_right = 109.0
+offset_bottom = 171.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot3" unique_id=1642419770]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "X"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot3" unique_id=1577825064]
+layout_mode = 2
+
+[node name="InventorySlot2" type="PanelContainer" parent="Control/SpellPanel" unique_id=241161336]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 8.0
+offset_right = 228.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot2" unique_id=1997834524]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Z"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot2" unique_id=721981415]
+z_index = 100
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1230187460]
 layout_mode = 0

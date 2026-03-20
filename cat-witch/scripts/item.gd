@@ -14,6 +14,7 @@ class_name Item
 @export var is_unlocked: bool = false
 @export var rarity: String = "basic"
 @export var strength: int = 0
+@export var isSpell: bool = true
 
 # type 0 = wind, type 1 = ICE
 # SpellType.WIND or SpellType.ICE.
