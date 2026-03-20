@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
 [ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://scenes/spells/freeze_bubble.gd" id="4_2hdoq"]
 [ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
-[ext_resource type="Script" uid="uid://by18gskqbu5tx" path="res://scripts/inventory.gd" id="4_g454m"]
+[ext_resource type="Script" uid="uid://dyasw5bnp01xw" path="res://scripts/inventory.gd" id="4_g454m"]
 [ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://duration_bar.gd" id="5_2hdoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
@@ -104,7 +104,7 @@ visible = false
 position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
-[node name="Inventory" type="Node" parent="." unique_id=1342136330]
+[node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
 
 [node name="FreezeBubble" type="Area2D" parent="." unique_id=1060167374]

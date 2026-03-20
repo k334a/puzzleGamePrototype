@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3hxccyoii5wo"]
 
 [ext_resource type="Texture2D" uid="uid://bjgqvn885s2l" path="res://scroll.png" id="1_1o7t0"]
-[ext_resource type="Script" uid="uid://bf8d73evv4e0p" path="res://scripts/spell_pickup.gd" id="1_knk3q"]
+[ext_resource type="Script" uid="uid://cxelpox268cvg" path="res://scripts/spell_pickup.gd" id="1_knk3q"]
 [ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="2_knk3q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3kvko"]
