@@ -45,9 +45,24 @@ func _input(event):
 		if (velocity.y < 0):
 			velocity.y *= cutHeight
 
+func linearDampener(left, right):
+	var on_ice: bool = false
+	if not left and not right:
+		var body = $floor_ray.get_collider()
+		if body and body is not RigidBody2D:
+			var tile: Vector2i = body.local_to_map(body.to_local($floor_ray.global_position))
+			tile = tile - Vector2i(0, -1)
+			if body.get_cell_tile_data(tile):
+				if body.get_cell_tile_data(tile).get_custom_data("terrain_type") == "ice":
+					on_ice = true
+		if on_ice:
+			velocity.x -= velocity.x * 0.1
+		else:
+			velocity.x -= velocity.x * 0.5
+			
+
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
-	var forceVector = Vector2.ZERO
 	var right = Input.is_action_pressed('move_right')
 	var left = Input.is_action_pressed('move_left')
 	var crouch = Input.is_action_pressed('crouch')
@@ -62,10 +77,7 @@ func _physics_process(delta):
 			velocity.x -= 350 * delta
 	elif not is_on_floor() and velocity.x < 0:
 			velocity.x += 350 * delta
-		#velocity.x -= velocity.x * 0.1
-	else:
-		velocity.x -= velocity.x * 0.5
-		
+
 	# Movement
 	if right and velocity.x < 350:
 		velocity.x = run_speed
@@ -73,12 +85,14 @@ func _physics_process(delta):
 	if left and velocity.x > -350:
 		velocity.x = -run_speed
 	
+	linearDampener(left, right)
+	
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
 	if velocity.x:
 		$wall_ray.target_position.x = 13.5 * sign(velocity.x)
-	var on_wall: bool = $wall_ray.is_colliding() and $wall_ray.get_collider().name == "climbable"
+	var on_wall: bool = $wall_ray.is_colliding() and TileMapCheck()
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
 	# Wall Sliding
@@ -114,6 +128,17 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+# Read Tilemap Helper
+func TileMapCheck():
+	var body = $wall_ray.get_collider()
+	if body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local($wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
+		var tile: Vector2i = centerTile + Vector2i(int(-$wall_ray.get_collision_normal().x) * 2, 0)
+		if body.get_cell_tile_data(tile):
+			if body.get_cell_tile_data(tile).get_custom_data("climbable"):
+				return true
+	return false
+
 # Spell Functions
 func readSpell(left_input, right_input, down_input, up_input, spell):
 	# Compute current key presses into vector
@@ -127,7 +152,10 @@ func readSpell(left_input, right_input, down_input, up_input, spell):
 	if up_input:
 		lookVector.y -= 1
 	var magnitude = abs(lookVector.x) + abs(lookVector.y)
-	lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
+	if not magnitude:
+		lookVector = Vector2(1, 0)
+	else:
+		lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
 	
 	var spell_list = {
 		"freeze": func(): freeze(),
@@ -145,6 +173,7 @@ func wind(lookVector):
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
+	print(lookVector)
 	add_sibling(windScene)
 	apply_outside_force(lookVector, outsideForce)
 
@@ -168,7 +197,6 @@ func resetCat() -> void:
 	%FreezeBubble.reset()
 	global_position = startPosition
 	resetLevel.emit()
-	
 
 # This is very inefficient and should instead be finding the specific tile that overlaps and using that, will look at better method later
 func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
