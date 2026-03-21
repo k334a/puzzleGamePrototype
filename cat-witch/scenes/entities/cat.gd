@@ -29,12 +29,11 @@ var windObject = load("res://scenes/spells/wind.tscn")
 #Inventory
 @onready var inventory: Inventory = $Inventory
 
-# For respawn and freezing:
+# For respawn:
 @onready var startPosition: Vector2 = global_position
-@onready var freezeRadius: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
 
 signal resetLevel
-signal freezeTile
+signal freezeTiles
 
 func apply_outside_force(forceVector, outsideForce):
 	velocity.x += forceVector.x * outsideForce
@@ -59,7 +58,6 @@ func linearDampener(left, right):
 			velocity.x -= velocity.x * 0.1
 		else:
 			velocity.x -= velocity.x * 0.5
-			
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
@@ -119,9 +117,9 @@ func _physics_process(delta):
 		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 	
-	# Freeze checking (checking within physics process since delays were making it so that you could hit water before it froze)
-	if %FreezeBubble.visible and %FreezeBubble.has_overlapping_bodies() and %FreezeBubble.get_overlapping_bodies().front() is TileMapLayer: # last check should be redundant
-		freeze_check(%FreezeBubble.get_overlapping_bodies().front())
+	# Freeze checking
+	if %FreezeBubble.visible and %FreezeBubble.has_overlapping_bodies():
+		%FreezeBubble.freeze_check()
 	
 	# Spells
 	if spell1:
@@ -207,59 +205,7 @@ func resetCat() -> void:
 	global_position = startPosition
 	resetLevel.emit()
 
-# Will clean this up later
-func freeze_check(layer: TileMapLayer) -> void:
-	
-	# Gets a tile in local coordinates of TileMapLayer for center of bubble
-	var centerTile: Vector2i = layer.local_to_map(layer.to_local(%FreezeBubble.global_position))
-	
-	var freezableTiles: Array[Vector2i] = []
-	var fallingTiles: Dictionary[int, Array] = {}
-	var tiles: Array[Vector2i]
-	var corners: Array[int] # Only necessary if the bubble size changes, current radius doesn't cause corners
-	
-	# Builds circle perimeter
-	for row in range(ceil(sqrt(freezeRadius * sqrt(0.5))), 0, -1):
-		var diameter: int = floor(sqrt(freezeRadius**2 - row**2))
-		
-		if row == abs(diameter): # Avoids corners being added more than once
-			corners.push_back(row)
-			continue
-		
-		# Changing the order of these will mess up the freezing somewhat
-		tiles.push_back(centerTile + Vector2i(-diameter, row))
-		tiles.push_back(centerTile + Vector2i(diameter, row))
-		tiles.push_back(centerTile + Vector2i(diameter, -row))
-		tiles.push_back(centerTile + Vector2i(-diameter, -row))
-		tiles.push_back(centerTile + Vector2i(-row, diameter))
-		tiles.push_back(centerTile + Vector2i(row, diameter))
-		tiles.push_back(centerTile + Vector2i(row, -diameter))
-		tiles.push_back(centerTile + Vector2i(-row, -diameter))
-	
-	# Adds in any corners
-	for corner in corners:
-		tiles.push_back(centerTile + Vector2i(corner, corner))
-		tiles.push_back(centerTile + Vector2i(-corner, corner))
-		tiles.push_back(centerTile + Vector2i(-corner, -corner))
-		tiles.push_back(centerTile + Vector2i(corner, -corner))
-	
-	# Edges of circle
-	tiles.push_back(centerTile + Vector2i(-freezeRadius, 0))
-	tiles.push_back(centerTile + Vector2i(freezeRadius, 0))
-	tiles.push_back(centerTile + Vector2i(0, -freezeRadius))
-	tiles.push_back(centerTile + Vector2i(0, freezeRadius))
-	
-	# Checks each tile for if it is water or falling water
-	for tile in tiles:
-		if check_data(tile, layer, "fallingWater"):
-			# Falling water tiles are added to dictionary with x as key and y as value
-			fallingTiles.get_or_add(tile.x, []).push_back(tile.y)
-		elif check_data(tile, layer, "freezable"): # Falling water tiles should not be added to freezableTiles
-			freezableTiles.push_back(tile)
-	
-	if not freezableTiles.is_empty() or not fallingTiles.is_empty(): # This check should be redundant
-		freezeTile.emit(freezableTiles, fallingTiles, layer)
-
+# This is duplicated in freeze_bubble and world
 func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
 	var data: TileData = layer.get_cell_tile_data(tile)
 	if data and data.has_custom_data(attribute):
@@ -268,4 +214,10 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 
 func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
-		resetCat()
+		if %FreezeBubble.visible: # If player manages to hit water while freeze is active because they were too fast, checks extra inner corners in bubble
+			%FreezeBubble.freeze_check(true)
+		else:
+			resetCat()
+
+func _on_freeze_bubble_freeze_tile(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
+	freezeTiles.emit(flatWater, flatIce, fallingWater, fallingIce)

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b37uo08s8uolm"
-path="res://.godot/imported/goldSpot.png-600f917daab12b7d11d347f36c3550e9.ctex"
+path="res://.godot/imported/goldSpot.png-d7c65b86bbd6160eaacfb9d6d5ee3e2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://goldSpot.png"
-dest_files=["res://.godot/imported/goldSpot.png-600f917daab12b7d11d347f36c3550e9.ctex"]
+source_file="res://Images/goldSpot.png"
+dest_files=["res://.godot/imported/goldSpot.png-d7c65b86bbd6160eaacfb9d6d5ee3e2b.ctex"]
 
 [params]
 

@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Cat Witch"
-run/main_scene="uid://b3hxccyoii5wo"
+run/main_scene="uid://mrbboenu3s58"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Popups="*uid://cgn0xtp1gavv1"
+Popups="*uid://bw4psq8ku0s22"
 
 [global_group]
 
@@ -88,6 +88,7 @@ freeze={
 2d_physics/layer_2="Water"
 2d_physics/layer_3="Permeable"
 2d_physics/layer_4="NextLevel"
+2d_physics/layer_5="Freezable"
 
 [physics]
 

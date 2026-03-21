@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4mu8uv4rh3ph"
-path="res://.godot/imported/scroll.png-8c425a620019b766839cfddc841d9377.ctex"
+uid="uid://cokso6jnm5rxo"
+path="res://.godot/imported/freezeBubble.png-72944841d4680ae4e7f32b4884958c37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scroll.png"
-dest_files=["res://.godot/imported/scroll.png-8c425a620019b766839cfddc841d9377.ctex"]
+source_file="res://Images/freezeBubble.png"
+dest_files=["res://.godot/imported/freezeBubble.png-72944841d4680ae4e7f32b4884958c37.ctex"]
 
 [params]
 
