@@ -9,5 +9,6 @@ name = "Wind Spell"
 description = "hidden., test"
 icon = ExtResource("1_w64e8")
 damage = 15
+cooldown = 5.0
 rarity = "rare"
 strength = 7

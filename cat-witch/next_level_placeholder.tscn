@@ -8,7 +8,7 @@ height = 184.0
 
 [node name="NextLevelPlaceholder" type="Area2D" unique_id=460305259]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1427264109]
 scale = Vector2(3.0491803, 1.7142857)

@@ -7,7 +7,7 @@ var gravity = 1500
 var windResistance = 1500
 var cutHeight = 0.5
 var airtime = false
-var outsideForce = 0
+#var outsideForce = 0
 
 #Push Extras
 const PUSH_FORCE = 100
@@ -31,7 +31,7 @@ var windObject = load("res://scenes/spells/wind.tscn")
 
 # For respawn and freezing:
 @onready var startPosition: Vector2 = global_position
-@onready var freezeReach: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
+@onready var freezeRadius: int = ceil(float($FreezeBubble/CollisionShape2D.shape.radius) / 36.0) #36 is size of tiles, should be edited later
 
 signal resetLevel
 signal freezeTile
@@ -52,9 +52,9 @@ func linearDampener(left, right):
 		if body and body is not RigidBody2D:
 			var tile: Vector2i = body.local_to_map(body.to_local($floor_ray.global_position))
 			tile = tile - Vector2i(0, -1)
-			if body.get_cell_tile_data(tile):
-				if body.get_cell_tile_data(tile).get_custom_data("terrain_type") == "ice":
-					on_ice = true
+			var data = check_data(tile, body, "terrain_type")
+			if data == "ice":
+				on_ice = true
 		if on_ice:
 			velocity.x -= velocity.x * 0.1
 		else:
@@ -67,8 +67,8 @@ func _physics_process(delta):
 	var left = Input.is_action_pressed('move_left')
 	var crouch = Input.is_action_pressed('crouch')
 	var jump = Input.is_action_pressed('jump')
-	var run = Input.is_action_pressed('run')
-	var scratch = Input.is_action_just_pressed('scratch')
+	#var run = Input.is_action_pressed('run')
+	#var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('wind')
 	var spell2 = Input.is_action_just_pressed('freeze')
 	
@@ -116,8 +116,12 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
-		if collision_crate.is_in_group("Rigidbody") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
+		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
+	
+	# Freeze checking (checking within physics process since delays were making it so that you could hit water before it froze)
+	if %FreezeBubble.visible and %FreezeBubble.has_overlapping_bodies() and %FreezeBubble.get_overlapping_bodies().front() is TileMapLayer: # last check should be redundant
+		freeze_check(%FreezeBubble.get_overlapping_bodies().front())
 	
 	# Spells
 	if spell1:
@@ -134,9 +138,9 @@ func TileMapCheck():
 	if body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local($wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
 		var tile: Vector2i = centerTile + Vector2i(int(-$wall_ray.get_collision_normal().x) * 2, 0)
-		if body.get_cell_tile_data(tile):
-			if body.get_cell_tile_data(tile).get_custom_data("climbable"):
-				return true
+		var data = check_data(tile, body, "climbable")
+		if data:
+			return true
 	return false
 
 # Spell Functions
@@ -169,7 +173,7 @@ func freeze():
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	outsideForce = 1500
+	var outsideForce = 1500
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
@@ -203,18 +207,65 @@ func resetCat() -> void:
 	global_position = startPosition
 	resetLevel.emit()
 
-# This is very inefficient and should instead be finding the specific tile that overlaps and using that, will look at better method later
-func _on_freeze_bubble_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if %FreezeBubble.visible and body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local(%FreezeBubble.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		for x in range(-freezeReach, freezeReach+1):
-			for y in range(-freezeReach, freezeReach+1):
-				var tile = centerTile + Vector2i(x,y)
-				if body.get_cell_tile_data(tile):
-					if body.get_cell_tile_data(tile).get_custom_data("freezable"):
-						freezeTile.emit(tile)
-						body.set_cell(tile, 0, body.get_cell_atlas_coords(tile) + Vector2i(4, 0), 0) # Right now offset in the atlas is hardcoded as 4 away horizontally, not sure if this can be alternative tile instead?
+# Will clean this up later
+func freeze_check(layer: TileMapLayer) -> void:
+	
+	# Gets a tile in local coordinates of TileMapLayer for center of bubble
+	var centerTile: Vector2i = layer.local_to_map(layer.to_local(%FreezeBubble.global_position))
+	
+	var freezableTiles: Array[Vector2i] = []
+	var fallingTiles: Dictionary[int, Array] = {}
+	var tiles: Array[Vector2i]
+	var corners: Array[int] # Only necessary if the bubble size changes, current radius doesn't cause corners
+	
+	# Builds circle perimeter
+	for row in range(ceil(sqrt(freezeRadius * sqrt(0.5))), 0, -1):
+		var diameter: int = floor(sqrt(freezeRadius**2 - row**2))
+		
+		if row == abs(diameter): # Avoids corners being added more than once
+			corners.push_back(row)
+			continue
+		
+		# Changing the order of these will mess up the freezing somewhat
+		tiles.push_back(centerTile + Vector2i(-diameter, row))
+		tiles.push_back(centerTile + Vector2i(diameter, row))
+		tiles.push_back(centerTile + Vector2i(diameter, -row))
+		tiles.push_back(centerTile + Vector2i(-diameter, -row))
+		tiles.push_back(centerTile + Vector2i(-row, diameter))
+		tiles.push_back(centerTile + Vector2i(row, diameter))
+		tiles.push_back(centerTile + Vector2i(row, -diameter))
+		tiles.push_back(centerTile + Vector2i(-row, -diameter))
+	
+	# Adds in any corners
+	for corner in corners:
+		tiles.push_back(centerTile + Vector2i(corner, corner))
+		tiles.push_back(centerTile + Vector2i(-corner, corner))
+		tiles.push_back(centerTile + Vector2i(-corner, -corner))
+		tiles.push_back(centerTile + Vector2i(corner, -corner))
+	
+	# Edges of circle
+	tiles.push_back(centerTile + Vector2i(-freezeRadius, 0))
+	tiles.push_back(centerTile + Vector2i(freezeRadius, 0))
+	tiles.push_back(centerTile + Vector2i(0, -freezeRadius))
+	tiles.push_back(centerTile + Vector2i(0, freezeRadius))
+	
+	# Checks each tile for if it is water or falling water
+	for tile in tiles:
+		if check_data(tile, layer, "fallingWater"):
+			# Falling water tiles are added to dictionary with x as key and y as value
+			fallingTiles.get_or_add(tile.x, []).push_back(tile.y)
+		elif check_data(tile, layer, "freezable"): # Falling water tiles should not be added to freezableTiles
+			freezableTiles.push_back(tile)
+	
+	if not freezableTiles.is_empty() or not fallingTiles.is_empty(): # This check should be redundant
+		freezeTile.emit(freezableTiles, fallingTiles, layer)
 
-func _on_water_checker_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
+	var data: TileData = layer.get_cell_tile_data(tile)
+	if data and data.has_custom_data(attribute):
+		return data.get_custom_data(attribute)
+	return null
+
+func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
 		resetCat()

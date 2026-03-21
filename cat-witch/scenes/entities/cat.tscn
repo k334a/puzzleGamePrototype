@@ -68,7 +68,7 @@ radius = 14.0
 height = 50.0
 
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
-collision_layer = 7
+collision_layer = 9
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
@@ -104,13 +104,13 @@ visible = false
 position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
-[node name="Inventory" type="Node" parent="." unique_id=1342136330]
+[node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
 
 [node name="FreezeBubble" type="Area2D" parent="." unique_id=1060167374]
 unique_name_in_owner = true
 visible = false
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_2hdoq")
 
@@ -145,7 +145,6 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2062734317]
-visible = false
 zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -192,6 +191,5 @@ position = Vector2(0, 30)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 6.000003)
 
-[connection signal="body_shape_entered" from="FreezeBubble" to="." method="_on_freeze_bubble_body_shape_entered"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
-[connection signal="body_shape_entered" from="WaterChecker" to="." method="_on_water_checker_body_shape_entered"]
+[connection signal="body_entered" from="WaterChecker" to="." method="_on_water_checker_body_entered"]
