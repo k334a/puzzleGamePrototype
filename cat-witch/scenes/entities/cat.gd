@@ -47,9 +47,9 @@ func _input(event):
 func linearDampener(left, right):
 	var on_ice: bool = false
 	if not left and not right:
-		var body = $floor_ray.get_collider()
+		var body = %floor_ray.get_collider()
 		if body and body is not RigidBody2D:
-			var tile: Vector2i = body.local_to_map(body.to_local($floor_ray.global_position))
+			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
 			tile = tile - Vector2i(0, -1)
 			var data = check_data(tile, body, "terrain_type")
 			if data == "ice":
@@ -77,11 +77,19 @@ func _physics_process(delta):
 			velocity.x += 350 * delta
 
 	# Movement
-	if right and velocity.x < 350:
-		velocity.x = run_speed
+	if right:
+		if velocity.x < 350:
+			velocity.x = run_speed
+		if $Pivot.scale.x == 1:
+			$Pivot.scale.x = -1
+			$AnimatedSprite2D.flip_h = false
 	
-	if left and velocity.x > -350:
-		velocity.x = -run_speed
+	if left:
+		if velocity.x > -350:
+			velocity.x = -run_speed
+		if $Pivot.scale.x == -1:
+			$Pivot.scale.x = 1
+			$AnimatedSprite2D.flip_h = true
 	
 	linearDampener(left, right)
 	
@@ -89,14 +97,14 @@ func _physics_process(delta):
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
 	if velocity.x:
-		$wall_ray.target_position.x = 13.5 * sign(velocity.x)
-	var on_wall: bool = $wall_ray.is_colliding() and TileMapCheck()
+		%wall_ray.target_position.x = 13.5 * sign(velocity.x)
+	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
 	# Wall Sliding
 	if on_wall_in_air and velocity.y > 0:
 		wall_contact_coyote = WALL_CONTACT_COYOTE_TIME
-		look_dir_x = int(-$wall_ray.get_collision_normal().x)
+		look_dir_x = int(-%wall_ray.get_collision_normal().x)
 	else:
 		if wall_contact_coyote > 0.0:
 			wall_contact_coyote -= delta
@@ -132,10 +140,10 @@ func _physics_process(delta):
 
 # Read Tilemap Helper
 func TileMapCheck():
-	var body = $wall_ray.get_collider()
+	var body = %wall_ray.get_collider()
 	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local($wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		var tile: Vector2i = centerTile + Vector2i(int(-$wall_ray.get_collision_normal().x) * 2, 0)
+		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
+		var tile: Vector2i = centerTile + Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0)
 		var data = check_data(tile, body, "climbable")
 		if data:
 			return true
@@ -155,7 +163,7 @@ func readSpell(left_input, right_input, down_input, up_input, spell):
 		lookVector.y -= 1
 	var magnitude = abs(lookVector.x) + abs(lookVector.y)
 	if not magnitude:
-		lookVector = Vector2(1, 0)
+		lookVector = Vector2($Pivot.scale.x, 0)
 	else:
 		lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
 	
@@ -180,7 +188,7 @@ func wind(lookVector):
 	apply_outside_force(lookVector, outsideForce)
 
 func _ready() -> void:
-	$PickupArea.area_entered.connect(_on_pickup_area_entered)
+	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
