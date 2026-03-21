@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ch0x2b0opnair" path="res://scenes/next_level_placeholder.tscn" id="3_yi1ei"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="4_obhin"]
 [ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="5_2oyfs"]
+[ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="6_cfl6m"]
 
 [node name="LevelOne" unique_id=1378909801 instance=ExtResource("1_pkd3b")]
 script = ExtResource("2_87eea")
@@ -21,10 +22,11 @@ position = Vector2(75, -66)
 position = Vector2(2433, -101)
 
 [node name="FreezeSpell" parent="." index="3" unique_id=1021825572 instance=ExtResource("4_obhin")]
-position = Vector2(69, -750)
+position = Vector2(50, -764)
+item = ExtResource("6_cfl6m")
 
-[node name="WindSpell" parent="." index="4" unique_id=1265897436 instance=ExtResource("4_obhin")]
-position = Vector2(1506, -722)
+[node name="WindSpell" parent="." index="4" unique_id=1770660499 instance=ExtResource("4_obhin")]
+position = Vector2(1491, -718)
 item = ExtResource("5_2oyfs")
 
 [connection signal="body_entered" from="NextLevelPlaceholder" to="." method="_on_next_level_placeholder_body_entered"]

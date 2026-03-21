@@ -80,15 +80,15 @@ func _physics_process(delta):
 	if right:
 		if velocity.x < 350:
 			velocity.x = run_speed
-		if $Pivot.scale.x == 1:
-			$Pivot.scale.x = -1
+		if $AnimatedSprite2D.flip_h == true:
+			$Pivot.scale.x = 1
 			$AnimatedSprite2D.flip_h = false
 	
 	if left:
 		if velocity.x > -350:
 			velocity.x = -run_speed
-		if $Pivot.scale.x == -1:
-			$Pivot.scale.x = 1
+		if $AnimatedSprite2D.flip_h == false:
+			$Pivot.scale.x = -1
 			$AnimatedSprite2D.flip_h = true
 	
 	linearDampener(left, right)

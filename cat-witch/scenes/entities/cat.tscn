@@ -18,6 +18,60 @@
 [ext_resource type="Texture2D" uid="uid://263ne0oqn8an" path="res://Images/jump_cat_pixels/sprite_4.png" id="7_a4tgn"]
 [ext_resource type="Texture2D" uid="uid://btglqt0ut0kk8" path="res://Images/jump_cat_pixels/sprite_5.png" id="8_coyar"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
+size = Vector2(42.666664, 37.333336)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2v165"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hcucf")
+}],
+"loop": true,
+"name": &"crouching",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ctms4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u5tn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3735e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cxxqj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_aqghj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kfm7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s78i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_goc2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a4tgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_coyar")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
@@ -40,83 +94,6 @@ height = 32.0
 radius = 14.0
 height = 50.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
-size = Vector2(42.666664, 37.333336)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2v165"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_hcucf")
-}],
-"loop": true,
-"name": &"crouching",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_aqghj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_kfm7s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_s78i2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_goc2s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_a4tgn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_coyar")
-}],
-"loop": true,
-"name": &"jump_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_aqghj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_kfm7s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_s78i2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_goc2s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_a4tgn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_coyar")
-}],
-"loop": true,
-"name": &"jump_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_ctms4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_u5tn3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_3735e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_cxxqj")
-}],
-"loop": true,
-"name": &"standing",
-"speed": 1.5
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
 radius = 125.0
 
@@ -137,6 +114,15 @@ corner_radius_bottom_left = 4
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
 script = ExtResource("1_52fj1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_52fj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
+sprite_frames = SubResource("SpriteFrames_2v165")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
 
@@ -169,7 +155,6 @@ position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
 [node name="WaterChecker" type="Area2D" parent="Pivot" unique_id=1922235851]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -203,14 +188,6 @@ unique_name_in_owner = true
 position = Vector2(0, 30)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 6.000003)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
-scale = Vector2(3, 3)
-shape = SubResource("RectangleShape2D_52fj1")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
-sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"standing"
 
 [node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
