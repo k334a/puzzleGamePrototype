@@ -17,7 +17,12 @@ func _on_body_entered(body: Node) -> void:
 		return
 	
 	if "inventory" in body:
-		var success = body.inventory.add_item(item)
+		var success = false
+		if item.isSpell:
+			success = body.inventory.add_spell(item)
+		else:
+			success = body.inventory.add_item(item)
+			
 		if success:
 			print("DEBUG: pickup successful")
 			picked_up.emit(item)

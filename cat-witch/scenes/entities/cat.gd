@@ -55,7 +55,7 @@ func linearDampener(left, right):
 			if data == "ice":
 				on_ice = true
 		if on_ice:
-			velocity.x -= velocity.x * 0.1
+			velocity.x -= velocity.x * 0.01
 		else:
 			velocity.x -= velocity.x * 0.5
 
@@ -131,10 +131,22 @@ func _physics_process(delta):
 	
 	# Spells
 	if spell1:
-		readSpell(left, right, crouch, jump, "wind")
+		if $Inventory.spells[0]:
+			readSpell(left, right, crouch, jump, $Inventory.spells[0].spell_type)
 	
 	if spell2:
-		readSpell(left, right, crouch, jump, "freeze")
+		if $Inventory.spells[1]:
+			readSpell(left, right, crouch, jump, $Inventory.spells[1].spell_type)
+	
+	if crouch and is_on_floor():
+		velocity.x = 0
+		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
+		print($AnimatedSprite2D.offset)
+		$AnimatedSprite2D.offset.y = 50
+	else:
+		$AnimatedSprite2D.scale = Vector2(1, 1)
+		$AnimatedSprite2D.offset.y = 0
+
 	
 	move_and_slide()
 
@@ -168,8 +180,8 @@ func readSpell(left_input, right_input, down_input, up_input, spell):
 		lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
 	
 	var spell_list = {
-		"freeze": func(): freeze(),
-		"wind": func(): wind(lookVector),
+		0: func(): wind(lookVector),
+		1: func(): freeze(),
 	}
 	spell_list[spell].call()
 

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://crwrlxa3je0dv"]
 
 [ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
-[ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://Images/cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
 [ext_resource type="Texture2D" uid="uid://dguiuh3t8t6ys" path="res://Images/jump_cat_pixels/sprite_0.png" id="3_aqghj"]
 [ext_resource type="Texture2D" uid="uid://dmyct608qxn62" path="res://Images/idle_cat_pixels/sprite_cat_idle0.png" id="3_ctms4"]
@@ -25,7 +24,16 @@ size = Vector2(42.666664, 37.333336)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_hcucf")
+"texture": ExtResource("3_ctms4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u5tn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3735e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cxxqj")
 }],
 "loop": true,
 "name": &"crouching",
@@ -121,7 +129,7 @@ shape = SubResource("RectangleShape2D_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
 sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"idle"
+animation = &"crouching"
 autoplay = "idle"
 
 [node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
