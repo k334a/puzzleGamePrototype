@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl6wi7mss2mtr"
-path="res://.godot/imported/BasicTiles.png-7e6bf3736734f415fbe8fc1f66255078.ctex"
+uid="uid://cokso6jnm5rxo"
+path="res://.godot/imported/freezeBubble.png-72944841d4680ae4e7f32b4884958c37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BasicTiles.png"
-dest_files=["res://.godot/imported/BasicTiles.png-7e6bf3736734f415fbe8fc1f66255078.ctex"]
+source_file="res://Images/freezeBubble.png"
+dest_files=["res://.godot/imported/freezeBubble.png-72944841d4680ae4e7f32b4884958c37.ctex"]
 
 [params]
 

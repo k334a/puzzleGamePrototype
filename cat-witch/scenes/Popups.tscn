@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cgn0xtp1gavv1"]
+[gd_scene format=3 uid="uid://uq1o81708t16"]
 
 [ext_resource type="Script" uid="uid://bw4psq8ku0s22" path="res://scripts/popups.gd" id="1_2qj80"]
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_utja3"]
@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://r7hdjleio873"
 unique_name_in_owner = true
 oversampling_override = 1.0
 position = Vector2i(100, 100)
-size = Vector2i(200, 268)
+size = Vector2i(200, 272)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_2qj80")
 
@@ -39,7 +39,7 @@ custom_minimum_size = Vector2(20, 0)
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 194.0
-offset_bottom = 262.0
+offset_bottom = 266.0
 
 [node name="Name" type="Label" parent="InventoryUI/ItemPopup/VBoxContainer" unique_id=1498226275]
 unique_name_in_owner = true

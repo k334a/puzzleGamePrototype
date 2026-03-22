@@ -1,12 +1,22 @@
 [gd_scene format=3 uid="uid://crwrlxa3je0dv"]
 
 [ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
-[ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://cat.png" id="1_hcucf"]
+[ext_resource type="Texture2D" uid="uid://6306j2q8ybmf" path="res://Images/cat.png" id="1_hcucf"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
+[ext_resource type="Texture2D" uid="uid://dguiuh3t8t6ys" path="res://Images/jump_cat_pixels/sprite_0.png" id="3_aqghj"]
+[ext_resource type="Texture2D" uid="uid://dmyct608qxn62" path="res://Images/idle_cat_pixels/sprite_cat_idle0.png" id="3_ctms4"]
 [ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://scenes/spells/freeze_bubble.gd" id="4_2hdoq"]
-[ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://freezeBubble.png" id="4_2u0g4"]
+[ext_resource type="Texture2D" uid="uid://cokso6jnm5rxo" path="res://Images/freezeBubble.png" id="4_2u0g4"]
 [ext_resource type="Script" uid="uid://dyasw5bnp01xw" path="res://scripts/inventory.gd" id="4_g454m"]
-[ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://duration_bar.gd" id="5_2hdoq"]
+[ext_resource type="Texture2D" uid="uid://dv3qf5id6sx8n" path="res://Images/jump_cat_pixels/sprite_1.png" id="4_kfm7s"]
+[ext_resource type="Texture2D" uid="uid://bcv4liygtvvad" path="res://Images/idle_cat_pixels/sprite_cat_idle1.png" id="4_u5tn3"]
+[ext_resource type="Script" uid="uid://tgo3prh8b031" path="res://scenes/spells/duration_bar.gd" id="5_2hdoq"]
+[ext_resource type="Texture2D" uid="uid://qrhj5ly34l4b" path="res://Images/idle_cat_pixels/sprite_cat_idle2.png" id="5_3735e"]
+[ext_resource type="Texture2D" uid="uid://dqsna1r3x37q6" path="res://Images/jump_cat_pixels/sprite_2.png" id="5_s78i2"]
+[ext_resource type="Texture2D" uid="uid://dtepc16c2ydnj" path="res://Images/idle_cat_pixels/sprite_cat_idle3.png" id="6_cxxqj"]
+[ext_resource type="Texture2D" uid="uid://b216hnk25p1h" path="res://Images/jump_cat_pixels/sprite_3.png" id="6_goc2s"]
+[ext_resource type="Texture2D" uid="uid://263ne0oqn8an" path="res://Images/jump_cat_pixels/sprite_4.png" id="7_a4tgn"]
+[ext_resource type="Texture2D" uid="uid://btglqt0ut0kk8" path="res://Images/jump_cat_pixels/sprite_5.png" id="8_coyar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(42.666664, 37.333336)
@@ -23,10 +33,42 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_hcucf")
+"texture": ExtResource("3_ctms4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u5tn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3735e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cxxqj")
 }],
 "loop": true,
-"name": &"standing",
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_aqghj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kfm7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_s78i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_goc2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a4tgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_coyar")
+}],
+"loop": true,
+"name": &"jump",
 "speed": 5.0
 }]
 
@@ -34,6 +76,23 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u0g4"]
+radius = 32.0
+height = 122.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2hdoq"]
+radius = 26.019224
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v165"]
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyw7o"]
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rjga"]
+radius = 14.0
+height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
 radius = 125.0
@@ -52,21 +111,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u0g4"]
-radius = 32.0
-height = 122.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2hdoq"]
-radius = 26.019224
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v165"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyw7o"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rjga"]
-radius = 14.0
-height = 50.0
-
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
 script = ExtResource("1_52fj1")
@@ -77,32 +121,73 @@ shape = SubResource("RectangleShape2D_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
 sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"standing"
+animation = &"idle"
+autoplay = "idle"
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1666767283]
+[node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
+
+[node name="ClawArea" type="Area2D" parent="Pivot" unique_id=1666767283]
+unique_name_in_owner = true
 visible = false
 
-[node name="claw_vfx" type="Sprite2D" parent="Area2D" unique_id=1177768105]
+[node name="claw_vfx" type="Sprite2D" parent="Pivot/ClawArea" unique_id=1177768105]
 position = Vector2(123, -1)
 scale = Vector2(0.7734375, 0.7265625)
 texture = ExtResource("3_6fl1u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=636994079]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=636994079]
 position = Vector2(124, 0)
 shape = SubResource("RectangleShape2D_6fl1u")
 
-[node name="wall_ray" type="RayCast2D" parent="." unique_id=279979177]
+[node name="wall_ray" type="RayCast2D" parent="Pivot" unique_id=279979177]
+unique_name_in_owner = true
 position = Vector2(7.6293945e-06, 45.999996)
 scale = Vector2(5, 5)
 target_position = Vector2(13.5, 0)
 hit_from_inside = true
 
-[node name="PickupArea" type="Area2D" parent="." unique_id=1669380662]
+[node name="PickupArea" type="Area2D" parent="Pivot" unique_id=1669380662]
+unique_name_in_owner = true
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1815154338]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/PickupArea" unique_id=1815154338]
 position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
+
+[node name="WaterChecker" type="Area2D" parent="Pivot" unique_id=1922235851]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1365151643]
+position = Vector2(4, 14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_2u0g4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1640029373]
+position = Vector2(46, -19)
+shape = SubResource("CircleShape2D_2hdoq")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1446613042]
+position = Vector2(-41, 42)
+shape = SubResource("CapsuleShape2D_2v165")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1543407912]
+position = Vector2(47, 42)
+shape = SubResource("CapsuleShape2D_eyw7o")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1982457780]
+position = Vector2(-8, -21)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_7rjga")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pivot/WaterChecker" unique_id=1378840671]
+polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -31, -34, -45, -23, -58, -10, -62, -5, -62, 1, -56, 5, -57, 13, -64, 12, -71, 5, -73, -2, -66, -12, -57, -21, -49, -29, -43, -35, -43, -39, -58, -40, -60, -46)
+
+[node name="floor_ray" type="RayCast2D" parent="Pivot" unique_id=1813436469]
+unique_name_in_owner = true
+position = Vector2(0, 30)
+scale = Vector2(5, 5)
+target_position = Vector2(0, 6.000003)
 
 [node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
@@ -111,7 +196,7 @@ script = ExtResource("4_g454m")
 unique_name_in_owner = true
 visible = false
 collision_layer = 0
-collision_mask = 2
+collision_mask = 16
 script = ExtResource("4_2hdoq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FreezeBubble" unique_id=1256832452]
@@ -156,40 +241,6 @@ drag_right_margin = 0.15
 drag_bottom_margin = 0.15
 editor_draw_drag_margin = true
 
-[node name="WaterChecker" type="Area2D" parent="." unique_id=1922235851]
-visible = false
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterChecker" unique_id=1365151643]
-position = Vector2(4, 14)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_2u0g4")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="WaterChecker" unique_id=1640029373]
-position = Vector2(46, -19)
-shape = SubResource("CircleShape2D_2hdoq")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="WaterChecker" unique_id=1446613042]
-position = Vector2(-41, 42)
-shape = SubResource("CapsuleShape2D_2v165")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="WaterChecker" unique_id=1543407912]
-position = Vector2(47, 42)
-shape = SubResource("CapsuleShape2D_eyw7o")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="WaterChecker" unique_id=1982457780]
-position = Vector2(-8, -21)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_7rjga")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WaterChecker" unique_id=1378840671]
-polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -31, -34, -45, -23, -58, -10, -62, -5, -62, 1, -56, 5, -57, 13, -64, 12, -71, 5, -73, -2, -66, -12, -57, -21, -49, -29, -43, -35, -43, -39, -58, -40, -60, -46)
-
-[node name="floor_ray" type="RayCast2D" parent="." unique_id=1813436469]
-position = Vector2(0, 30)
-scale = Vector2(5, 5)
-target_position = Vector2(0, 6.000003)
-
+[connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
+[connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
-[connection signal="body_entered" from="WaterChecker" to="." method="_on_water_checker_body_entered"]
