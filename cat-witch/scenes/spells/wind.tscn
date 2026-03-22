@@ -3,15 +3,14 @@
 [ext_resource type="Script" uid="uid://cmr4qeuuk78mc" path="res://scenes/spells/wind.gd" id="1_jsuhd"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="1_p3bod"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8s6f"]
 size = Vector2(123, 100)
 
 [node name="Node2D" type="Node2D" unique_id=899136667]
 
 [node name="Wind" type="RigidBody2D" parent="." unique_id=1232069760]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 4
+collision_mask = 4
 mass = 0.5
 gravity_scale = 0.01
 script = ExtResource("1_jsuhd")

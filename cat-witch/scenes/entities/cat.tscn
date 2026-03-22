@@ -249,6 +249,12 @@ drag_right_margin = 0.15
 drag_bottom_margin = 0.15
 editor_draw_drag_margin = true
 
+[node name="Spell1Cooldown" type="Timer" parent="." unique_id=1939236493]
+one_shot = true
+
+[node name="Spell2Cooldown" type="Timer" parent="." unique_id=1339852716]
+one_shot = true
+
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]

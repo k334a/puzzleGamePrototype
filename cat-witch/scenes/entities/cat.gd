@@ -25,6 +25,7 @@ var wall_jump_lock: float = 0.0
 
 #Spell Variables
 var windObject = load("res://scenes/spells/wind.tscn")
+var spellCooldowns = [0, 0, 0, 0]
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -131,13 +132,17 @@ func _physics_process(delta):
 	
 	# Spells
 	if spell1:
-		if $Inventory.spells[0]:
-			readSpell(left, right, crouch, jump, $Inventory.spells[0].spell_type)
-	
+		#if $Inventory.spells[0] and $Spell1Cooldown.is_stopped():
+		if $Spell1Cooldown.is_stopped():
+			readSpell(left, right, crouch, jump, 0)
+			$Spell1Cooldown.wait_time = spellCooldowns[0]
+			$Spell1Cooldown.start()
 	if spell2:
-		if $Inventory.spells[1]:
-			readSpell(left, right, crouch, jump, $Inventory.spells[1].spell_type)
-	
+		if $Spell2Cooldown.is_stopped():
+			readSpell(left, right, crouch, jump, 1)
+			$Spell2Cooldown.wait_time = spellCooldowns[1]
+			$Spell2Cooldown.start()
+
 	if crouch and is_on_floor():
 		velocity.x = 0
 		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
@@ -147,7 +152,6 @@ func _physics_process(delta):
 		$AnimatedSprite2D.scale = Vector2(1, 1)
 		$AnimatedSprite2D.offset.y = 0
 
-	
 	move_and_slide()
 
 # Read Tilemap Helper
@@ -162,7 +166,10 @@ func TileMapCheck():
 	return false
 
 # Spell Functions
-func readSpell(left_input, right_input, down_input, up_input, spell):
+func readSpell(left_input, right_input, down_input, up_input, index):
+	if not $Inventory.spells[index]:
+		return 		# Ends the function if there is no valid spell
+		
 	# Compute current key presses into vector
 	var lookVector = Vector2.ZERO
 	if left_input:
@@ -180,9 +187,12 @@ func readSpell(left_input, right_input, down_input, up_input, spell):
 		lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
 	
 	var spell_list = {
-		0: func(): wind(lookVector),
-		1: func(): freeze(),
+		0: func(): wind(lookVector); spellCooldowns[index] = 1,
+		1: func(): freeze(); spellCooldowns[index] = 5,
 	}
+	
+	var spell = $Inventory.spells[index].spell_type
+	
 	spell_list[spell].call()
 
 func freeze():
@@ -195,10 +205,14 @@ func wind(lookVector):
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
-	print(lookVector)
+	#print(lookVector)
+	var wind_loc
 	add_sibling(windScene)
 	apply_outside_force(lookVector, outsideForce)
-
+	
+func _spell_cooldown_ended(index: int):
+	spellCooldowns[index] = false
+	
 func _ready() -> void:
 	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 
