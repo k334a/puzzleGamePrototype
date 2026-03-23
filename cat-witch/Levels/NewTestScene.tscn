@@ -2,14 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_g1pj0"]
 [ext_resource type="Script" uid="uid://dgi4vbknv8jtl" path="res://Levels/new_test_scene.gd" id="2_evb8t"]
-[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="2_rwuno"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="3_evb8t"]
+[ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="3_rwuno"]
 [ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="4_lbwr7"]
 [ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://Images/scroll.png" id="5_2h2qg"]
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="6_8cwch"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6tsc"]
-size = Vector2(131.5, 128)
 
 [sub_resource type="Resource" id="Resource_5f2et"]
 script = ExtResource("6_8cwch")
@@ -31,18 +28,8 @@ tile_map_data = PackedByteArray("AAAjAA0AAAACAAIAAAAjAAwAAAACAAAAAAAiAA0AAAABAAI
 [node name="cat" parent="." index="1" unique_id=1659453483]
 position = Vector2(68, 353)
 
-[node name="TestShape" type="RigidBody2D" parent="." index="3" unique_id=651602334 groups=["pushable"]]
-position = Vector2(431, -5)
-collision_layer = 33
-lock_rotation = true
-
-[node name="Sprite2D" type="Sprite2D" parent="TestShape" index="0" unique_id=1653349510]
-position = Vector2(260, 368)
-texture = ExtResource("2_rwuno")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShape" index="1" unique_id=1042877412]
-position = Vector2(261, 368)
-shape = SubResource("RectangleShape2D_p6tsc")
+[node name="PushableObject" parent="." index="3" unique_id=963461222 instance=ExtResource("3_rwuno")]
+position = Vector2(505, -2)
 
 [node name="SpellPickup" parent="." index="4" unique_id=1021825572 instance=ExtResource("3_evb8t")]
 position = Vector2(162, 182)

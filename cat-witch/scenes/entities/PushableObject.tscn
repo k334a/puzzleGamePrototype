@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bxosuywxn68u4"]
+
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="1_1jjr8"]
+[ext_resource type="Script" uid="uid://cvvh8xos2bopk" path="res://scenes/entities/pushable_object.gd" id="1_eqpp4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqpp4"]
+size = Vector2(131.5, 128)
+
+[node name="PushableObject" type="RigidBody2D" unique_id=963461222 groups=["pushable"]]
+collision_layer = 33
+lock_rotation = true
+script = ExtResource("1_eqpp4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1763058505]
+position = Vector2(260, 368)
+texture = ExtResource("1_1jjr8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1650972771]
+position = Vector2(261, 368)
+shape = SubResource("RectangleShape2D_eqpp4")
