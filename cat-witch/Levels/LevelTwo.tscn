@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_4g1jt"]
 [ext_resource type="PackedScene" uid="uid://cnwavq2imo7kh" path="res://Levels/NewTestScene.tscn" id="2_vd7ic"]
 [ext_resource type="PackedScene" uid="uid://ch0x2b0opnair" path="res://scenes/next_level_placeholder.tscn" id="3_d51rm"]
+[ext_resource type="Texture2D" uid="uid://b4t3qgin377q8" path="res://Images/light-gradient.png" id="3_kfbls"]
 [ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="4_vd7ic"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/entities/spell_pickup.tscn" id="5_vd7ic"]
 [ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="6_fyo0n"]
@@ -17,6 +18,11 @@ tile_map_data = PackedByteArray("AAAAAAUAAAADAAEAAAAAAAQAAAADAAEAAAAAAAMAAAADAAE
 [node name="cat" parent="." index="1" unique_id=1659453483]
 position = Vector2(114, 384)
 
+[node name="PointLight2D" type="PointLight2D" parent="cat" index="8" unique_id=769035689]
+position = Vector2(8.000002, 10.000015)
+scale = Vector2(3.0000002, 2.5708334)
+texture = ExtResource("3_kfbls")
+
 [node name="NextLevelPlaceholder" parent="." index="2" unique_id=460305259 instance=ExtResource("3_d51rm")]
 position = Vector2(125, -243)
 
@@ -30,5 +36,8 @@ item = ExtResource("6_fyo0n")
 [node name="FreezeSpell" parent="." index="5" unique_id=1682439828 instance=ExtResource("5_vd7ic")]
 position = Vector2(88, 585)
 item = ExtResource("7_fyo0n")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." index="7" unique_id=840103507]
+color = Color(0, 0, 0, 1)
 
 [connection signal="body_entered" from="NextLevelPlaceholder" to="." method="_on_next_level_placeholder_body_entered"]
