@@ -45,6 +45,7 @@ func _input(event):
 		if (velocity.y < 0):
 			velocity.y *= cutHeight
 
+
 func linearDampener(left, right):
 	var on_ice: bool = false
 	if not left and not right:
@@ -74,10 +75,18 @@ func _physics_process(delta):
 	
 	
 	# Gravity Physics
-	if not is_on_floor() and velocity.x > 0:
+	if not is_on_floor():
+		if velocity.x > 0:
 			velocity.x -= 350 * delta
-	elif not is_on_floor() and velocity.x < 0:
+		elif velocity.x < 0:
 			velocity.x += 350 * delta
+		if velocity.y < 0: # Moving UP
+			$AnimatedSprite2D.play("jump")
+		elif velocity.y > 0:              # Moving DOWN
+			$AnimatedSprite2D.play("fall")
+	else:
+		if velocity.y == 0:
+			$AnimatedSprite2D.play("idle")
 
 	# Movement
 	if right:

@@ -41,6 +41,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_a4tgn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_coyar")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_ctms4")
 }, {
 "duration": 1.0,
@@ -68,12 +79,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_goc2s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_a4tgn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_coyar")
 }],
 "loop": true,
 "name": &"jump",
@@ -133,7 +138,7 @@ shape = SubResource("RectangleShape2D_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
 sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"crouching"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
