@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://btglqt0ut0kk8" path="res://Images/jump_cat_pixels/sprite_5.png" id="8_coyar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
-size = Vector2(42.666664, 37.333336)
+size = Vector2(42.666664, 34)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2v165"]
 animations = [{
@@ -119,12 +119,15 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqabe"]
+size = Vector2(125, 8)
+
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
-floor_stop_on_slope = false
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
+position = Vector2(0, 5.000001)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_52fj1")
 
@@ -153,6 +156,7 @@ unique_name_in_owner = true
 position = Vector2(7.6293945e-06, 45.999996)
 scale = Vector2(5, 5)
 target_position = Vector2(13.5, 0)
+collision_mask = 32
 hit_from_inside = true
 
 [node name="PickupArea" type="Area2D" parent="Pivot" unique_id=1669380662]
@@ -164,6 +168,7 @@ position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
 [node name="WaterChecker" type="Area2D" parent="Pivot" unique_id=1922235851]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -256,6 +261,17 @@ one_shot = true
 [node name="Spell2Cooldown" type="Timer" parent="." unique_id=1339852716]
 one_shot = true
 
+[node name="HeadCheck" type="Area2D" parent="." unique_id=1349780301]
+collision_layer = 32
+collision_mask = 33
+collision_priority = 1.1
+
+[node name="HeadCollision" type="CollisionShape2D" parent="HeadCheck" unique_id=281792348]
+position = Vector2(-1, -54)
+shape = SubResource("RectangleShape2D_aqabe")
+
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
+[connection signal="body_entered" from="HeadCheck" to="." method="_on_head_check_body_entered"]
+[connection signal="body_exited" from="HeadCheck" to="." method="_on_head_check_body_exited"]
