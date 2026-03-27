@@ -6,6 +6,7 @@ extends Node
 @onready var cat = $cat
 
 var pushableStartPoints: Array[Vector2]
+var breakableStatus: Dictionary[RigidBody2D, bool]
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
@@ -17,6 +18,14 @@ enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		pushableStartPoints.push_back(node.global_position)
+	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
+		breakableStatus.set(node, false)
+		node.jar_broken.connect(_on_jar_broken)
+
+func _on_jar_broken(jar: RigidBody2D) -> void:
+	breakableStatus.set(jar, true)
+	if breakableStatus.values().all(func(jarStatus): return jarStatus):
+		print("Broke all jars!")
 
 func _physics_process(delta: float) -> void:
 	
@@ -68,7 +77,8 @@ func _on_cat_reset_level() -> void:
 	
 	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		node.reset(pushableStartPoints[i])
+		if not breakableStatus.keys().has(node) or not breakableStatus.get(node):
+			node.reset(pushableStartPoints[i])
 		i += 1
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:

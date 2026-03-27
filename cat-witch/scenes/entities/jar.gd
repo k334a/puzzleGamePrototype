@@ -27,7 +27,7 @@ func objectBreak() -> void:
 	print(previousVertVelocity)
 	print(linear_velocity.y)
 	broken = true
-	jar_broken.emit() # Connect this to counter for broken jars?
+	jar_broken.emit(self) # Connect this to counter for broken jars?
 
 func reset(target_pos: Vector2):
 	inAir = false
