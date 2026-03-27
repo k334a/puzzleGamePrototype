@@ -138,8 +138,10 @@ shape = SubResource("RectangleShape2D_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
 sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"jump"
+animation = &"crouching"
 autoplay = "idle"
+frame = 2
+frame_progress = 0.5846262
 
 [node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
 

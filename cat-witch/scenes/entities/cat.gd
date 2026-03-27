@@ -36,30 +36,20 @@ var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 signal resetLevel
 signal freezeTiles
 
-func apply_outside_force(forceVector):
-	velocity.x += forceVector.x
-	velocity.y += forceVector.y
 
 func _input(event):
 	if(event.is_action_released("jump")):
 		if (velocity.y < 0):
 			velocity.y *= cutHeight
 
+func _ready() -> void:
+	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 
-func linearDampener(left, right):
-	var on_ice: bool = false
-	if not left and not right:
-		var body = %floor_ray.get_collider()
-		if body and body is not RigidBody2D:
-			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
-			tile = tile - Vector2i(0, -1)
-			var data = check_data(tile, body, "terrain_type")
-			if data == "ice":
-				on_ice = true
-		if on_ice:
-			velocity.x -= velocity.x * 0.01
-		elif is_on_floor():
-			velocity.x -= velocity.x * 1
+func resetCat() -> void:
+	velocity = Vector2.ZERO
+	%FreezeBubble.reset()
+	global_position = startPosition
+	resetLevel.emit()
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
@@ -108,7 +98,7 @@ func _physics_process(delta):
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
-	print(%wall_ray.is_colliding())
+	#print(%wall_ray.is_colliding())
 	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
@@ -162,15 +152,33 @@ func _physics_process(delta):
 		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 		if collision_crate.is_in_group("box"): # We have a problem with delta correction pushing things through walls
-			if spell1 or spell2:	# Just to see if it works
+			if spell1 or spell2: # Just to see if it works
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
 	move_and_slide()
-	
-		
-	
-			
+
+
+func apply_outside_force(forceVector):
+	velocity.x += forceVector.x
+	velocity.y += forceVector.y
+
+func linearDampener(left, right):
+	var on_ice: bool = false
+	if not left and not right:
+		var body = %floor_ray.get_collider()
+		if body and body is TileMapLayer:
+			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
+			tile = tile - Vector2i(0, -1)
+			var data = check_data(tile, body, "terrain_type")
+			if data == "ice":
+				on_ice = true
+		if on_ice:
+			velocity.x -= velocity.x * 0.01
+		elif is_on_floor():
+			velocity.x -= velocity.x * 1
+
+
 # Read Tilemap Helper
 func TileMapCheck():
 	var body = %wall_ray.get_collider()
@@ -181,6 +189,12 @@ func TileMapCheck():
 		if data:
 			return true
 	return false
+# This is duplicated in freeze_bubble and world
+func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
+	var data: TileData = layer.get_cell_tile_data(tile)
+	if data and data.has_custom_data(attribute):
+		return data.get_custom_data(attribute)
+	return null
 
 # Spell Functions
 func readSpell(left_input, right_input, down_input, up_input, index):
@@ -212,6 +226,10 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	spell_list[spell].call()
 
+func _spell_cooldown_ended(index: int):
+	spellCooldowns[index] = false
+
+
 func freeze():
 	%FreezeBubble.startFreeze()
 
@@ -225,12 +243,7 @@ func wind(lookVector):
 	windScene.get_child(0).force = -lookVector * 100
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
-	
-func _spell_cooldown_ended(index: int):
-	spellCooldowns[index] = false
-	
-func _ready() -> void:
-	%PickupArea.area_entered.connect(_on_pickup_area_entered)
+
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -238,29 +251,16 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		return
 	
 	var try_pickup = inventory.add_item(area.item)
-
+	
 	if try_pickup:
 		if area.item.isSpell:
 			inventory.add_spell(area.item)
 		area.queue_free()
-
+	
 	else:
 		print("Inventory full!")
 
 # when spell is picked up, move it to the first spell slot. allow movement between slots
-
-func resetCat() -> void:
-	velocity = Vector2.ZERO
-	%FreezeBubble.reset()
-	global_position = startPosition
-	resetLevel.emit()
-
-# This is duplicated in freeze_bubble and world
-func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
-	var data: TileData = layer.get_cell_tile_data(tile)
-	if data and data.has_custom_data(attribute):
-		return data.get_custom_data(attribute)
-	return null
 
 func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:

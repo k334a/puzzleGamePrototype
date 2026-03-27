@@ -68,7 +68,7 @@ func _on_cat_reset_level() -> void:
 	
 	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		node.teleport(pushableStartPoints[i])
+		node.reset(pushableStartPoints[i])
 		i += 1
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
