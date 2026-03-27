@@ -292,6 +292,7 @@ shape = SubResource("RectangleShape2D_aqabe")
 
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="body_entered" from="Pivot/TriggerTileArea" to="." method="_on_trigger_tile_area_body_entered"]
+[connection signal="body_exited" from="Pivot/TriggerTileArea" to="." method="_on_trigger_tile_area_body_exited"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
 [connection signal="body_entered" from="HeadCheck" to="." method="_on_head_check_body_entered"]
