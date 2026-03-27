@@ -107,6 +107,10 @@ height = 32.0
 radius = 14.0
 height = 50.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aqabe"]
+radius = 14.0
+height = 88.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
 radius = 125.0
 
@@ -210,6 +214,15 @@ position = Vector2(0, 30)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 6.000003)
 
+[node name="TriggerTileArea" type="Area2D" parent="Pivot" unique_id=1650712972]
+unique_name_in_owner = true
+position = Vector2(79, 16)
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/TriggerTileArea" unique_id=1397355406]
+shape = SubResource("CapsuleShape2D_aqabe")
+
 [node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
 
@@ -278,6 +291,7 @@ position = Vector2(-1, -54)
 shape = SubResource("RectangleShape2D_aqabe")
 
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
+[connection signal="body_entered" from="Pivot/TriggerTileArea" to="." method="_on_trigger_tile_area_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
 [connection signal="body_entered" from="HeadCheck" to="." method="_on_head_check_body_entered"]

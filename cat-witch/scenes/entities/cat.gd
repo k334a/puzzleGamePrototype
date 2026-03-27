@@ -183,7 +183,7 @@ func linearDampener(left, right):
 func TileMapCheck():
 	var body = %wall_ray.get_collider()
 	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
+		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position))
 		var tile: Vector2i = centerTile + Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0)
 		var data = check_data(tile, body, "climbable")
 		if data:
@@ -281,3 +281,16 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pushable"): # Check type of box
 		self.velocity.y *= 0.5
 		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
+
+
+func _on_trigger_tile_area_body_entered(body: TileMapLayer) -> void:
+	var centerPosition: Vector2i = body.local_to_map(body.to_local(%TriggerTileArea.global_position))
+	var tiles: Array[Vector2i] = [centerPosition]
+	tiles.push_back(centerPosition + Vector2i(1,0))
+	tiles.push_back(centerPosition + Vector2i(1,1))
+	tiles.push_back(centerPosition + Vector2i(0,1))
+	tiles.push_back(centerPosition + Vector2i(1,2))
+	tiles.push_back(centerPosition + Vector2i(0,2))
+	
+	for tile: Vector2i in tiles:
+		print(tile, ": ", check_data(tile, body, "Trigger"))

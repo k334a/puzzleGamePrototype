@@ -6,7 +6,7 @@ var previousVertVelocity = 0
 
 signal jar_broken
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not broken:
 		var vY = abs(linear_velocity.y)
 		if vY > 400 and abs(angular_velocity) < 4: # If falling fast enough and not spinning to quick, is in air

@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		for tile: Vector2i in tilesRemove:
 			frozenTiles.erase(tile)
 		if not toUnfreezeFlat.is_empty():
-			$TileMapLayer.set_cells_terrain_connect(toUnfreezeFlat, TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
+			%LevelTiles.set_cells_terrain_connect(toUnfreezeFlat, TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
 	
 	if not frozenStreamsX.is_empty():
 		var toUnfreezeFalling: Array[Vector2i] = []
@@ -60,19 +60,19 @@ func _physics_process(delta: float) -> void:
 		for stream: int in streamsRemove:
 			frozenStreamsX.erase(stream)
 		if not toUnfreezeFalling.is_empty():
-			$TileMapLayer.set_cells_terrain_connect(toUnfreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
+			%LevelTiles.set_cells_terrain_connect(toUnfreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 
 # Currently missing functionality for resetting inventory and items
 func _on_cat_reset_level() -> void:
 	# If we end up adding different tile map layers, this will need to instead be a unique named one or passed in onready
-	$TileMapLayer.set_cells_terrain_connect(frozenTiles.keys(), TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
+	%LevelTiles.set_cells_terrain_connect(frozenTiles.keys(), TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
 	frozenTiles.clear()
 	
 	var frozenStreamTiles: Array[Vector2i] = []
 	for stream: int in frozenStreamsX:
 		frozenStreamTiles.append_array(get_stream_tiles(stream, frozenStreamsX[stream]))
 	
-	$TileMapLayer.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
+	%LevelTiles.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 	frozenStreamsX.clear()
 	
 	var i = 0
@@ -83,7 +83,7 @@ func _on_cat_reset_level() -> void:
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	
-	var layer: TileMapLayer = $TileMapLayer
+	var layer: TileMapLayer = %LevelTiles
 	var toFreezeFlat: Array[Vector2i] = []
 	var toFreezeFalling: Array[Vector2i] = []
 	

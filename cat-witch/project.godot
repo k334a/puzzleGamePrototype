@@ -97,6 +97,7 @@ crouch={
 2d_physics/layer_4="NextLevel"
 2d_physics/layer_5="Freezable"
 2d_physics/layer_6="windHits"
+2d_physics/layer_7="TriggerTiles"
 
 [physics]
 
