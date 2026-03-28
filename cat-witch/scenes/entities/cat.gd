@@ -38,7 +38,7 @@ var wet = false
 var frozenSelf = false
 
 signal resetLevel
-signal freezeTiles
+signal freezeTiles	
 
 func apply_outside_force(forceVector):
 	velocity.x += forceVector.x
@@ -245,9 +245,17 @@ func freeze():
 		frozenSelf = true
 		var block_timer = Timer.new()
 		add_child(block_timer)
-		block_timer.timeout.connect(func():frozenSelf = false; block_timer.queue_free())
+		var unfreeze = func(): 
+			frozenSelf = false
+			$FreezeCollisionShape2D.disabled = true;
+			floor_max_angle = deg_to_rad(45)
+			block_timer.queue_free()
+			
+		block_timer.timeout.connect(func(): unfreeze.call())
 		block_timer.one_shot = true
 		block_timer.start(5)
+		$FreezeCollisionShape2D.disabled = false
+		floor_max_angle = deg_to_rad(15)
 	
 func wind(lookVector):
 	velocity.x = 0
@@ -271,6 +279,7 @@ func _spell_cooldown_ended(index: int):
 func _ready() -> void:
 	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 	$PointLight2D.hide()
+	$FreezeCollisionShape2D.disabled = true	
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:

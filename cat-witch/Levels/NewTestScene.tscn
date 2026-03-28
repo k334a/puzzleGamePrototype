@@ -55,7 +55,7 @@ position = Vector2(1044, 346)
 item = SubResource("Resource_5f2et")
 
 [node name="PushableCircle" parent="." index="7" unique_id=1977208439 instance=ExtResource("9_lbwr7")]
-position = Vector2(652, 362)
+position = Vector2(1476, 239)
 
 [node name="Box" parent="." index="8" unique_id=887648230 instance=ExtResource("10_2h2qg")]
 position = Vector2(1028, 93)

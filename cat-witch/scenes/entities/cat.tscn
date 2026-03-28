@@ -129,6 +129,9 @@ corner_radius_bottom_left = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqabe"]
 size = Vector2(125, 8)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqghj"]
+radius = 125.92458
+
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
 script = ExtResource("1_52fj1")
@@ -284,6 +287,9 @@ visible = false
 position = Vector2(8.000002, 10.000015)
 scale = Vector2(3.0000002, 2.5708334)
 texture = ExtResource("17_aqghj")
+
+[node name="FreezeCollisionShape2D" type="CollisionShape2D" parent="." unique_id=804649788]
+shape = SubResource("CircleShape2D_aqghj")
 
 [connection signal="body_entered" from="Pivot/ClawArea" to="." method="_on_claw_area_body_entered"]
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]

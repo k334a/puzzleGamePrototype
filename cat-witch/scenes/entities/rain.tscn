@@ -55,7 +55,7 @@ script = ExtResource("1_1fblw")
 amount = 1000
 amount_ratio = 0.9963
 preprocess = 0.5
-visibility_rect = Rect2(-350, -200, 700, 400)
+visibility_rect = Rect2(-750, -100, 1500, 400)
 process_material = SubResource("ParticleProcessMaterial_hlhaa")
 
 [node name="RainCollision" type="Area2D" parent="." unique_id=557600526]
