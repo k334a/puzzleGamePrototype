@@ -87,6 +87,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
+size = Vector2(37, 89)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
@@ -146,15 +147,14 @@ autoplay = "idle"
 
 [node name="ClawArea" type="Area2D" parent="Pivot" unique_id=1666767283]
 unique_name_in_owner = true
-visible = false
 
 [node name="claw_vfx" type="Sprite2D" parent="Pivot/ClawArea" unique_id=1177768105]
-position = Vector2(123, -1)
-scale = Vector2(0.7734375, 0.7265625)
+position = Vector2(115, -1)
+scale = Vector2(0.578125, 0.7265625)
 texture = ExtResource("3_6fl1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=636994079]
-position = Vector2(124, 0)
+position = Vector2(97.5, 0.5)
 shape = SubResource("RectangleShape2D_6fl1u")
 
 [node name="wall_ray" type="RayCast2D" parent="Pivot" unique_id=279979177]
@@ -280,10 +280,12 @@ position = Vector2(-1, -54)
 shape = SubResource("RectangleShape2D_aqabe")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1178764303]
+visible = false
 position = Vector2(8.000002, 10.000015)
 scale = Vector2(3.0000002, 2.5708334)
 texture = ExtResource("17_aqghj")
 
+[connection signal="body_entered" from="Pivot/ClawArea" to="." method="_on_claw_area_body_entered"]
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]

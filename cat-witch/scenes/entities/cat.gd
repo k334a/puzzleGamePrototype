@@ -73,7 +73,7 @@ func _physics_process(delta):
 	var down = Input.is_action_pressed('down')
 	var crouch = Input.is_action_pressed('crouch')
 	#var run = Input.is_action_pressed('run')
-	#var scratch = Input.is_action_just_pressed('scratch')
+	var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('spell1')
 	var spell2 = Input.is_action_just_pressed('spell2')
 	var spell3 = Input.is_action_just_pressed('spell3')
@@ -85,7 +85,7 @@ func _physics_process(delta):
 		down = false
 		crouch = false
 		#run = false
-		#scratch = false
+		scratch = false
 		spell1 = false
 		spell2 = false
 		spell3 = false
@@ -124,7 +124,7 @@ func _physics_process(delta):
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
-	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
+	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck(%wall_ray, Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0), "climbable")
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
 	# Wall Sliding
@@ -167,6 +167,7 @@ func _physics_process(delta):
 			$Spell3Cooldown.wait_time = spellCooldowns[2]
 			$Spell3Cooldown.start()
 
+	# Crouching
 	if crouch and is_on_floor():
 		velocity.x = 0
 		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
@@ -175,7 +176,15 @@ func _physics_process(delta):
 		$AnimatedSprite2D.scale = Vector2(1, 1)
 		$AnimatedSprite2D.offset.y = 0
 	
-	# Velocity
+	# Scratching
+	if scratch:
+		$Pivot/ClawArea.show()
+		$Pivot/ClawArea/CollisionShape2D.disabled = false
+	else:
+		$Pivot/ClawArea.hide()
+		$Pivot/ClawArea/CollisionShape2D.disabled = true
+	
+	# Pushing
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
@@ -189,12 +198,12 @@ func _physics_process(delta):
 	move_and_slide()	
 			
 # Read Tilemap Helper
-func TileMapCheck():
-	var body = %wall_ray.get_collider()
+func TileMapCheck(object, offset, flag):
+	var body = object.get_collider()
 	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		var tile: Vector2i = centerTile + Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0)
-		var data = check_data(tile, body, "climbable")
+		var centerTile: Vector2i = body.local_to_map(body.to_local(object.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var tile: Vector2i = centerTile + offset
+		var data = check_data(tile, body, flag)
 		if data:
 			return true
 	return false
@@ -315,3 +324,17 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pushable"): # Check type of box
 		self.velocity.y *= 0.5
 		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
+#
+func _on_claw_area_body_entered(body: Node2D) -> void:
+	if body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var top_tile: Vector2i = centerTile - Vector2i(0, 1)
+		var tile = top_tile
+		for i in range(2):
+			for j in range(3):
+				var data = check_data(tile, body, "removable")
+				if data:
+					body.erase_cell(tile)
+				tile += Vector2i(0, 1)
+			tile = top_tile + Vector2i($Pivot.scale.x, 0)
+			
