@@ -222,7 +222,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 1,
-		1: func(): freeze(); spellCooldowns[index] = 5,
+		1: func(): freeze(); spellCooldowns[index] = 7,
 		2: func(): light(); spellCooldowns[index] = 1,
 	}
 	
@@ -238,7 +238,7 @@ func freeze():
 		add_child(block_timer)
 		block_timer.timeout.connect(func():frozenSelf = false; block_timer.queue_free())
 		block_timer.one_shot = true
-		block_timer.start(3)
+		block_timer.start(5)
 	
 func wind(lookVector):
 	velocity.x = 0

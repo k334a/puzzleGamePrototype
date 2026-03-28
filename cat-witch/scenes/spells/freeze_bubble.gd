@@ -5,18 +5,15 @@ extends Area2D
 signal freezeTile
 
 func startFreeze() -> void:
-	if %FreezeCooldown.is_stopped() and %FreezeDuration.is_stopped():
-		show()
-		%FreezeDuration.start()
+	show()
+	%FreezeDuration.start()
 
 func reset() -> void:
 	hide()
-	%FreezeCooldown.stop()
 	%FreezeDuration.stop()
 
 func _on_freeze_duration_timeout() -> void:
 	hide()
-	%FreezeCooldown.start()
 
 func freeze_check(innerCheck: bool=false) -> void:
 	
