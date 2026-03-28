@@ -8,11 +8,18 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x5oxt"]
 texture = ExtResource("5_ks8n1")
+separation = Vector2i(1, 1)
 texture_region_size = Vector2i(36, 36)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-27, -27, 27, -27, 27, 27, -27, 27)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
 0:0/0/custom_data_0 = "plant"
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+1:0/0/custom_data_0 = "entrance"
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
+2:0/0/custom_data_0 = "scratchable"
 
 [sub_resource type="TileSet" id="TileSet_vqnaq"]
 tile_size = Vector2i(36, 36)
@@ -30,14 +37,23 @@ unique_name_in_owner = true
 tile_set = ExtResource("2_4dvsh")
 navigation_enabled = false
 
+[node name="Triggers" type="TileMapLayer" parent="." unique_id=1235516394]
+tile_set = SubResource("TileSet_vqnaq")
+
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_f3sb7")]
 
 [node name="InventoryUI" parent="." unique_id=1380888454 instance=ExtResource("4_aqk2v")]
 scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
-[node name="Triggers" type="TileMapLayer" parent="." unique_id=1235516394]
-tile_set = SubResource("TileSet_vqnaq")
+[node name="CameraTopLeft" type="Marker2D" parent="." unique_id=1897197015]
+unique_name_in_owner = true
+position = Vector2(-10000000, -10000000)
+
+[node name="CameraBottomRight" type="Marker2D" parent="." unique_id=490815159]
+unique_name_in_owner = true
+position = Vector2(10000000, 10000000)
 
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
+[connection signal="triggerTiles" from="cat" to="." method="_on_cat_trigger_tiles"]

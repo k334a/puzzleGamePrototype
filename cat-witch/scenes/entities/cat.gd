@@ -36,6 +36,8 @@ var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 signal resetLevel
 signal freezeTiles
 
+signal triggerTiles
+
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -50,6 +52,12 @@ func resetCat() -> void:
 	%FreezeBubble.reset()
 	global_position = startPosition
 	resetLevel.emit()
+
+func set_camera_bounds(top: int, right: int, bottom: int, left: int) -> void:
+	$Camera2D.limit_top = top;
+	$Camera2D.limit_right = right;
+	$Camera2D.limit_bottom = bottom;
+	$Camera2D.limit_left = left;
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
@@ -282,30 +290,25 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 		self.velocity.y *= 0.5
 		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
 
-var litUpTiles: Array[Vector2i] = []
+
+func check_for_spell(spell: String) -> bool:
+	return $Inventory.check_for_spell(spell)
 
 func _on_trigger_tile_area_body_entered(body: TileMapLayer) -> void: # This just draws a rectangle over the trigger tile, could use later to indicate interactive, or just as placeholder for when spell cast
 	var centerPosition: Vector2i = body.local_to_map(body.to_local(%TriggerTileArea.global_position))
 	var tiles: Array[Vector2i] = [centerPosition]
-	tiles.push_back(centerPosition + Vector2i(1,0))
-	tiles.push_back(centerPosition + Vector2i(1,1))
-	tiles.push_back(centerPosition + Vector2i(0,1))
-	tiles.push_back(centerPosition + Vector2i(1,2))
-	tiles.push_back(centerPosition + Vector2i(0,2))
-	
-	for tile: Vector2i in tiles:
-		if check_data(tile, body, "Trigger") == "plant" and $Inventory.check_for_spell("Plant Spell"):
-			litUpTiles.push_back(tile)
-			print("Lit up: ", tile)
-			var light: ColorRect = ColorRect.new()
-			light.color = Color.GOLD
-			light.set_size(Vector2(36,36))
-			light.set_global_position(body.to_global(body.map_to_local(tile)) - Vector2(18,18))
-			body.add_child(light)
+	tiles.push_back(centerPosition + Vector2i(0,-1)) # up 1
+	tiles.push_back(centerPosition + Vector2i(0,1)) # down 1
+	tiles.push_back(centerPosition + Vector2i(0,2)) # down 2
+	tiles.push_back(centerPosition + Vector2i(1,0)) # right 1
+	tiles.push_back(centerPosition + Vector2i(1,-1)) # right 1 up 1
+	tiles.push_back(centerPosition + Vector2i(1,1)) # right 1 down 1
+	tiles.push_back(centerPosition + Vector2i(1,2)) # right 1 down 2
+	tiles.push_back(centerPosition + Vector2i(-1,0)) # left 1
+	tiles.push_back(centerPosition + Vector2i(-1,-1)) # left 1 up 1
+	tiles.push_back(centerPosition + Vector2i(-1,1)) # left 1 down 1
+	tiles.push_back(centerPosition + Vector2i(-1,2)) # left 1 down 2
+	triggerTiles.emit(body, tiles)
 
 func _on_trigger_tile_area_body_exited(body: TileMapLayer) -> void:
-	for tile: Vector2i in litUpTiles:
-		print("Turned off: ", tile)
-		body.remove_child(body.get_child(0))
-	
-	litUpTiles.clear()
+	triggerTiles.emit(body)
