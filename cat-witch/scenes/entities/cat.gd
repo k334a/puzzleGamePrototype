@@ -33,6 +33,10 @@ var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 # For respawn:
 @onready var startPosition: Vector2 = global_position
 
+# Rain
+var wet = false
+var frozenSelf = false
+
 signal resetLevel
 signal freezeTiles
 
@@ -44,7 +48,6 @@ func _input(event):
 	if(event.is_action_released("jump")):
 		if (velocity.y < 0):
 			velocity.y *= cutHeight
-
 
 func linearDampener(left, right):
 	var on_ice: bool = false
@@ -58,10 +61,11 @@ func linearDampener(left, right):
 				on_ice = true
 		if on_ice:
 			velocity.x -= velocity.x * 0.01
+		elif wet:
+			velocity.x -= velocity.x * 0.1
 		elif is_on_floor():
 			velocity.x -= velocity.x * 1
 
-# Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
 	var left = Input.is_action_pressed('move_left')
@@ -70,10 +74,22 @@ func _physics_process(delta):
 	var crouch = Input.is_action_pressed('crouch')
 	#var run = Input.is_action_pressed('run')
 	#var scratch = Input.is_action_just_pressed('scratch')
-	var spell1 = Input.is_action_just_pressed('wind')
-	var spell2 = Input.is_action_just_pressed('freeze')
+	var spell1 = Input.is_action_just_pressed('spell1')
+	var spell2 = Input.is_action_just_pressed('spell2')
+	var spell3 = Input.is_action_just_pressed('spell3')
 	
-	
+	if frozenSelf:
+		right = false
+		left = false
+		jump = false
+		down = false
+		crouch = false
+		#run = false
+		#scratch = false
+		spell1 = false
+		spell2 = false
+		spell3 = false
+
 	# Gravity Physics
 	if not is_on_floor():
 		if velocity.x > 0:
@@ -108,7 +124,6 @@ func _physics_process(delta):
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
-	print(%wall_ray.is_colliding())
 	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
@@ -146,6 +161,11 @@ func _physics_process(delta):
 			readSpell(left, right, down, jump, 1)
 			$Spell2Cooldown.wait_time = spellCooldowns[1]
 			$Spell2Cooldown.start()
+	if spell3:
+		if $Spell3Cooldown.is_stopped():
+			readSpell(left, right, down, jump, 2)
+			$Spell3Cooldown.wait_time = spellCooldowns[2]
+			$Spell3Cooldown.start()
 
 	if crouch and is_on_floor():
 		velocity.x = 0
@@ -166,10 +186,7 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	move_and_slide()
-	
-		
-	
+	move_and_slide()	
 			
 # Read Tilemap Helper
 func TileMapCheck():
@@ -206,6 +223,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 1,
 		1: func(): freeze(); spellCooldowns[index] = 5,
+		2: func(): light(); spellCooldowns[index] = 1,
 	}
 	
 	var spell = $Inventory.spells[index].spell_type
@@ -214,11 +232,17 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 
 func freeze():
 	%FreezeBubble.startFreeze()
-
+	if wet:
+		frozenSelf = true
+		var block_timer = Timer.new()
+		add_child(block_timer)
+		block_timer.timeout.connect(func():frozenSelf = false; block_timer.queue_free())
+		block_timer.one_shot = true
+		block_timer.start(3)
+	
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	#lookVector *= -1
 	var outsideForce = 1500
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
@@ -226,11 +250,18 @@ func wind(lookVector):
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
 	
+func light():
+	if $PointLight2D.visible:
+		$PointLight2D.hide()
+	else:
+		$PointLight2D.show()
+
 func _spell_cooldown_ended(index: int):
 	spellCooldowns[index] = false
 	
 func _ready() -> void:
 	%PickupArea.area_entered.connect(_on_pickup_area_entered)
+	$PointLight2D.hide()
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -253,6 +284,9 @@ func resetCat() -> void:
 	velocity = Vector2.ZERO
 	%FreezeBubble.reset()
 	global_position = startPosition
+	$Spell1Cooldown.stop()
+	$Spell2Cooldown.stop()
+	$Spell3Cooldown.stop()
 	resetLevel.emit()
 
 # This is duplicated in freeze_bubble and world

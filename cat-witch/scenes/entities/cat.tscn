@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b216hnk25p1h" path="res://Images/jump_cat_pixels/sprite_3.png" id="6_goc2s"]
 [ext_resource type="Texture2D" uid="uid://263ne0oqn8an" path="res://Images/jump_cat_pixels/sprite_4.png" id="7_a4tgn"]
 [ext_resource type="Texture2D" uid="uid://btglqt0ut0kk8" path="res://Images/jump_cat_pixels/sprite_5.png" id="8_coyar"]
+[ext_resource type="Texture2D" uid="uid://b4t3qgin377q8" path="res://Images/light-gradient.png" id="17_aqghj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(42.666664, 34)
@@ -266,6 +267,9 @@ one_shot = true
 [node name="Spell2Cooldown" type="Timer" parent="." unique_id=1339852716]
 one_shot = true
 
+[node name="Spell3Cooldown" type="Timer" parent="." unique_id=1225652611]
+one_shot = true
+
 [node name="HeadCheck" type="Area2D" parent="." unique_id=1349780301]
 collision_layer = 32
 collision_mask = 33
@@ -274,6 +278,11 @@ collision_priority = 1.1
 [node name="HeadCollision" type="CollisionShape2D" parent="HeadCheck" unique_id=281792348]
 position = Vector2(-1, -54)
 shape = SubResource("RectangleShape2D_aqabe")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1178764303]
+position = Vector2(8.000002, 10.000015)
+scale = Vector2(3.0000002, 2.5708334)
+texture = ExtResource("17_aqghj")
 
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]

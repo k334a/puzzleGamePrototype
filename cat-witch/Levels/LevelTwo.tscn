@@ -18,7 +18,7 @@ tile_map_data = PackedByteArray("AAAAAAUAAAADAAEAAAAAAAQAAAADAAEAAAAAAAMAAAADAAE
 [node name="cat" parent="." index="1" unique_id=1659453483]
 position = Vector2(114, 384)
 
-[node name="PointLight2D" type="PointLight2D" parent="cat" index="8" unique_id=769035689]
+[node name="PointLight2D2" type="PointLight2D" parent="cat" index="8" unique_id=769035689]
 position = Vector2(8.000002, 10.000015)
 scale = Vector2(3.0000002, 2.5708334)
 texture = ExtResource("3_kfbls")
