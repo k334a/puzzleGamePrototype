@@ -61,10 +61,11 @@ func linearDampener(left, right):
 				on_ice = true
 		if on_ice:
 			velocity.x -= velocity.x * 0.01
-		elif wet:
-			velocity.x -= velocity.x * 0.1
 		elif is_on_floor():
-			velocity.x -= velocity.x * 1
+			if frozenSelf:
+				velocity.x -= velocity.x * 0.01
+			else:
+				velocity.x -= velocity.x * 1
 
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
@@ -254,7 +255,7 @@ func freeze():
 		block_timer.timeout.connect(func(): unfreeze.call())
 		block_timer.one_shot = true
 		block_timer.start(5)
-		$FreezeCollisionShape2D.disabled = false
+		#$FreezeCollisionShape2D.disabled = false
 		floor_max_angle = deg_to_rad(15)
 	
 func wind(lookVector):
