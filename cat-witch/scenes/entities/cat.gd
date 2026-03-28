@@ -53,11 +53,12 @@ func resetCat() -> void:
 	global_position = startPosition
 	resetLevel.emit()
 
-func set_camera_bounds(top: int, right: int, bottom: int, left: int) -> void:
-	$Camera2D.limit_top = top;
-	$Camera2D.limit_right = right;
-	$Camera2D.limit_bottom = bottom;
-	$Camera2D.limit_left = left;
+func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> void:
+	$Camera2D.limit_top = top
+	$Camera2D.limit_right = right
+	$Camera2D.limit_bottom = bottom
+	$Camera2D.limit_left = left
+	$Camera2D.zoom = zoom
 
 # Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):

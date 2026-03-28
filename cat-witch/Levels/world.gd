@@ -1,6 +1,7 @@
 extends Node
 
 @export var nextLevel: PackedScene
+@export var zoom: Vector2 = Vector2(0.75, 0.75)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
@@ -21,7 +22,7 @@ func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
 		breakableStatus.set(node, false)
 		node.jar_broken.connect(_on_jar_broken)
-	cat.set_camera_bounds(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x)
+	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
 
 func _on_jar_broken(jar: RigidBody2D) -> void:
 	breakableStatus.set(jar, true)
