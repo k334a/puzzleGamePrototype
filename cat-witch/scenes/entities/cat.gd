@@ -26,6 +26,7 @@ var wall_jump_lock: float = 0.0
 #Spell Variables
 var windObject = load("res://scenes/spells/wind.tscn")
 var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
+var onTrigger: interactive_area = null
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -35,8 +36,7 @@ var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 
 signal resetLevel
 signal freezeTiles
-
-signal triggerTiles
+signal unfurlPlant
 
 
 func _input(event):
@@ -71,6 +71,7 @@ func _physics_process(delta):
 	#var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('wind')
 	var spell2 = Input.is_action_just_pressed('freeze')
+	var spell3 = Input.is_action_just_pressed("run") #c
 	
 	
 	# Gravity Physics
@@ -145,6 +146,11 @@ func _physics_process(delta):
 			readSpell(left, right, down, jump, 1)
 			$Spell2Cooldown.wait_time = spellCooldowns[1]
 			$Spell2Cooldown.start()
+	if spell3:
+		if $Spell3Cooldown.is_stopped():
+			readSpell(left, right, down, jump, 2)
+			$Spell3Cooldown.wait_time = spellCooldowns[3]
+			$Spell3Cooldown.start()
 
 	if crouch and is_on_floor():
 		velocity.x = 0
@@ -229,6 +235,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 1,
 		1: func(): freeze(); spellCooldowns[index] = 5,
+		2: func(): spellCooldowns[index] = plant(),
 	}
 	
 	var spell = $Inventory.spells[index].spell_type
@@ -253,6 +260,11 @@ func wind(lookVector):
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
 
+func plant() -> float:
+	if onTrigger and onTrigger.areaType == "plant":
+		unfurlPlant.emit(onTrigger)
+		return 5.0
+	return 0.1
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -294,22 +306,3 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
-
-func _on_trigger_tile_area_body_entered(body: TileMapLayer) -> void: # This just draws a rectangle over the trigger tile, could use later to indicate interactive, or just as placeholder for when spell cast
-	var centerPosition: Vector2i = body.local_to_map(body.to_local(%TriggerTileArea.global_position))
-	var tiles: Array[Vector2i] = [centerPosition]
-	tiles.push_back(centerPosition + Vector2i(0,-1)) # up 1
-	tiles.push_back(centerPosition + Vector2i(0,1)) # down 1
-	tiles.push_back(centerPosition + Vector2i(0,2)) # down 2
-	tiles.push_back(centerPosition + Vector2i(1,0)) # right 1
-	tiles.push_back(centerPosition + Vector2i(1,-1)) # right 1 up 1
-	tiles.push_back(centerPosition + Vector2i(1,1)) # right 1 down 1
-	tiles.push_back(centerPosition + Vector2i(1,2)) # right 1 down 2
-	tiles.push_back(centerPosition + Vector2i(-1,0)) # left 1
-	tiles.push_back(centerPosition + Vector2i(-1,-1)) # left 1 up 1
-	tiles.push_back(centerPosition + Vector2i(-1,1)) # left 1 down 1
-	tiles.push_back(centerPosition + Vector2i(-1,2)) # left 1 down 2
-	triggerTiles.emit(body, tiles)
-
-func _on_trigger_tile_area_body_exited(body: TileMapLayer) -> void:
-	triggerTiles.emit(body)

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c46vn75h3uhdg"]
+
+[ext_resource type="Texture2D" uid="uid://c0htreg0ewcuw" path="res://Images/light.png" id="1_kxp31"]
+[ext_resource type="Texture2D" uid="uid://b4t3qgin377q8" path="res://Images/light-gradient.png" id="1_x4w0x"]
+
+[node name="LightObject" type="Sprite2D" unique_id=1376024650]
+texture = ExtResource("1_kxp31")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=228441409]
+scale = Vector2(2.6333334, 2.6333334)
+shadow_enabled = true
+texture = ExtResource("1_x4w0x")

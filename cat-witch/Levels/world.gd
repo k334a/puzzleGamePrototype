@@ -23,6 +23,9 @@ func _ready() -> void:
 		breakableStatus.set(node, false)
 		node.jar_broken.connect(_on_jar_broken)
 	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
+	for node: interactive_area in get_tree().get_nodes_in_group("interaction"):
+		node.areaHit.connect(_on_interaction_area_entered)
+		node.areaLeft.connect(_on_interaction_area_exited)
 
 func _on_jar_broken(jar: RigidBody2D) -> void:
 	breakableStatus.set(jar, true)
@@ -82,6 +85,9 @@ func _on_cat_reset_level() -> void:
 		if not breakableStatus.keys().has(node) or not breakableStatus.get(node):
 			node.reset(pushableStartPoints[i])
 		i += 1
+	
+	for node: AnimatableBody2D in get_tree().get_nodes_in_group("plant"):
+		node.reset()
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	
@@ -154,32 +160,25 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 		return data.get_custom_data(attribute)
 	return null
 
-var litUpTiles: Array[Vector2i] = []
+func _on_interaction_area_entered(area: interactive_area) -> void:
+	match area.areaType:
+		"entrance":
+			area.light_on(Color(0.447, 0.549, 0.573, 0.561))
+			cat.onTrigger = area
+		"plant":
+			if cat.check_for_spell("Plant Spell"):
+				area.light_on(Color(0.499, 0.896, 0.0, 0.467))
+				cat.onTrigger = area
+		"scratch":
+			area.light_on(Color(0.576, 0.039, 0.643, 0.502))
+			cat.onTrigger = area
+		_:
+			print("un-assigned area!")
 
-func _on_cat_trigger_tiles(layer: TileMapLayer, tiles: Array[Vector2i] = []) -> void:
-	if tiles.is_empty():
-		for tile: Vector2i in litUpTiles:
-			layer.remove_child(layer.get_child(0))
-		litUpTiles.clear()
-	else:
-		var tileTriggers: Dictionary[String, Array] = {"plant": [], "scratchable": [], "entrance": []}
-		for tile: Vector2i in tiles:
-			var data = check_data(tile, layer, "Trigger")
-			if data:
-				tileTriggers.get(data).append(tile)
-		if not tileTriggers.get("plant").is_empty() and cat.check_for_spell("Plant Spell"):
-			for tile in tileTriggers.get("plant"):
-				litUpTiles.push_back(add_light(layer, Color.GOLD, tile))
-		for tile in tileTriggers.get("scratchable"):
-			litUpTiles.push_back(add_light(layer, Color.MAGENTA, tile))
-		for tile in tileTriggers.get("entrance"):
-			litUpTiles.push_back(add_light(layer, Color.TOMATO, tile))
+func _on_interaction_area_exited(area: interactive_area) -> void:
+	area.light_off()
+	cat.onTrigger = null
 
-func add_light(layer: TileMapLayer, colour: Color, tile: Vector2i) -> Vector2: # Would replace this with something in tile map to do whole section rather than individual tiles, but works for now
-	var light: ColorRect = ColorRect.new()
-	light.color = Color(colour)
-	light.set_size(Vector2(36,36))
-	var pos: Vector2 = layer.to_global(layer.map_to_local(tile)) - Vector2(18, 18)
-	light.set_global_position(pos)
-	layer.add_child(light)
-	return pos
+
+func _on_cat_unfurl_plant(area: interactive_area) -> void:
+	area.plantNode.unfurl()

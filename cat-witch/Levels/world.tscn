@@ -4,33 +4,6 @@
 [ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://Levels/world.gd" id="1_tlwt5"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_4dvsh"]
 [ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/InventoryUI.tscn" id="4_aqk2v"]
-[ext_resource type="Texture2D" uid="uid://1skaeas3f3wa" path="res://Images/TriggerTiles.png" id="5_ks8n1"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x5oxt"]
-texture = ExtResource("5_ks8n1")
-separation = Vector2i(1, 1)
-texture_region_size = Vector2i(36, 36)
-0:0/next_alternative_id = 2
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
-0:0/0/custom_data_0 = "plant"
-1:0/next_alternative_id = 2
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
-1:0/0/custom_data_0 = "entrance"
-1:0/1 = 1
-1:0/1/modulate = Color(0, 0, 0, 1)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -18, 18, -18, 18, 18, -18, 18)
-2:0/0/custom_data_0 = "scratchable"
-
-[sub_resource type="TileSet" id="TileSet_vqnaq"]
-tile_size = Vector2i(36, 36)
-physics_layer_0/collision_layer = 64
-physics_layer_0/collision_mask = 0
-custom_data_layer_0/name = "Trigger"
-custom_data_layer_0/type = 4
-sources/0 = SubResource("TileSetAtlasSource_x5oxt")
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
@@ -39,9 +12,6 @@ script = ExtResource("1_tlwt5")
 unique_name_in_owner = true
 tile_set = ExtResource("2_4dvsh")
 navigation_enabled = false
-
-[node name="Triggers" type="TileMapLayer" parent="." unique_id=1235516394]
-tile_set = SubResource("TileSet_vqnaq")
 
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_f3sb7")]
 
@@ -59,4 +29,4 @@ position = Vector2(10000000, 10000000)
 
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
-[connection signal="triggerTiles" from="cat" to="." method="_on_cat_trigger_tiles"]
+[connection signal="unfurlPlant" from="cat" to="." method="_on_cat_unfurl_plant"]

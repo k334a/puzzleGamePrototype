@@ -26,6 +26,8 @@ player=""
 pickup=""
 box=""
 breakable=""
+interaction=""
+plant=""
 
 [gui]
 
