@@ -8,10 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://Images/scroll.png" id="5_2h2qg"]
 [ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="5_evb8t"]
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="6_8cwch"]
-[ext_resource type="PackedScene" uid="uid://x88472dyi3pv" path="res://scenes/entities/pushable_circle.tscn" id="9_lbwr7"]
+[ext_resource type="PackedScene" uid="uid://x88472dyi3pv" path="res://scenes/entities/StaticProp.tscn" id="9_lbwr7"]
 [ext_resource type="PackedScene" uid="uid://fqraiwxy1oqs" path="res://scenes/entities/box.tscn" id="10_2h2qg"]
 [ext_resource type="Resource" uid="uid://chtnfennnvtsk" path="res://resources/lightSpell.tres" id="11_8cwch"]
 [ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="12_p6tsc"]
+[ext_resource type="PackedScene" uid="uid://c8f2v652o7fwb" path="res://scenes/entities/PushableBottle.tscn" id="13_5f2et"]
 
 [sub_resource type="Resource" id="Resource_5f2et"]
 script = ExtResource("6_8cwch")
@@ -38,7 +39,7 @@ tile_map_data = PackedByteArray("AAAjAA0AAAABAAIAAAAjAAwAAAABAAAAAAAiAA0AAAABAAI
 position = Vector2(128, 354)
 
 [node name="PushableObject" parent="." index="3" unique_id=963461222 instance=ExtResource("3_rwuno")]
-position = Vector2(-92, 53)
+position = Vector2(143, 28)
 continuous_cd = 1
 constant_force = Vector2(0, 10)
 
@@ -70,4 +71,10 @@ visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="Node2D" parent="." index="11" unique_id=617827363 instance=ExtResource("12_p6tsc")]
-position = Vector2(2048, -233)
+position = Vector2(2044, 89)
+
+[node name="Node2D2" parent="." index="12" unique_id=1691927846 instance=ExtResource("9_lbwr7")]
+position = Vector2(-194, -247)
+
+[node name="PushableBottle" parent="." index="13" unique_id=907852665 instance=ExtResource("13_5f2et")]
+position = Vector2(621, -37)

@@ -25,6 +25,7 @@ pushable=""
 player=""
 pickup=""
 box=""
+"small pushable"=""
 
 [gui]
 

@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "cat":
+	if body.is_in_group("player"):
 		body.wet = true
 		get_parent().cat = body
 		lightning = lightningObject.instantiate()
@@ -22,7 +22,7 @@ func _on_body_entered(body: Node2D) -> void:
 		$LightningTimer.start()
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.name == "cat":
+	if body.is_in_group("player"):
 		body.wet = false
 		if lightning:
 			lightning.queue_free()

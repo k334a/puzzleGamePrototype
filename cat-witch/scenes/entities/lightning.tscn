@@ -7,12 +7,11 @@
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(100, 100, 1)
 emission_shape = 1
-emission_sphere_radius = 1.0
+emission_sphere_radius = 0.75
 spread = 90.0
 initial_velocity_min = -25.0
 initial_velocity_max = 25.0
-orbit_velocity_min = -0.99999994
-orbit_velocity_max = 1.0000001
+gravity = Vector3(0, 0, 0)
 scale_min = 0.25
 scale_max = 0.25
 
@@ -25,7 +24,6 @@ texture = ExtResource("1_ibve1")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=616059725]
 amount = 12
 texture = ExtResource("1_ibve1")
-lifetime = 3.0
 preprocess = 3.0
 process_material = SubResource("ParticleProcessMaterial_fasey")
 
