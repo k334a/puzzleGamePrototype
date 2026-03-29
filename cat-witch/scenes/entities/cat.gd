@@ -61,6 +61,7 @@ func resetCat() -> void:
 	$Spell1Cooldown.stop()
 	$Spell2Cooldown.stop()
 	$Spell3Cooldown.stop()
+	$Spell4Cooldown.stop()
 	resetLevel.emit()
 
 func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> void:
@@ -95,6 +96,7 @@ func _physics_process(delta):
 		spell1 = false
 		spell2 = false
 		spell3 = false
+		spell4 = false
 
 	# Gravity Physics
 	if not is_on_floor():
@@ -188,12 +190,8 @@ func _physics_process(delta):
 		$AnimatedSprite2D.offset.y = 0
 	
 	# Scratching
-	if scratch:
-		$Pivot/ClawArea.show()
-		$Pivot/ClawArea/CollisionShape2D.disabled = false
-	else:
-		$Pivot/ClawArea.hide()
-		$Pivot/ClawArea/CollisionShape2D.disabled = true
+	if scratch and onTrigger and onTrigger.areaType == "scratch":
+		onTrigger.scratch()
 	
 	# Pushing
 	for i in get_slide_collision_count():
@@ -367,15 +365,15 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
 
-func _on_claw_area_body_entered(body: Node2D) -> void:
-	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
-		var top_tile: Vector2i = centerTile - Vector2i(0, 1)
-		var tile = top_tile
-		for i in range(2):
-			for j in range(3):
-				var data = check_data(tile, body, "removable")
-				if data:
-					body.erase_cell(tile)
-				tile += Vector2i(0, 1)
-			tile = top_tile + Vector2i($Pivot.scale.x, 0)
+#func _on_claw_area_body_entered(body: Node2D) -> void:
+	#if body is TileMapLayer:
+		#var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		#var top_tile: Vector2i = centerTile - Vector2i(0, 1)
+		#var tile = top_tile
+		#for i in range(2):
+			#for j in range(3):
+				#var data = check_data(tile, body, "removable")
+				#if data:
+					#body.erase_cell(tile)
+				#tile += Vector2i(0, 1)
+			#tile = top_tile + Vector2i($Pivot.scale.x, 0)
