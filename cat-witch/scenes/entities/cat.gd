@@ -302,7 +302,7 @@ func freeze():
 		block_timer.timeout.connect(func(): unfreeze.call())
 		block_timer.one_shot = true
 		block_timer.start(5)
-		#$FreezeCollisionShape2D.disabled = false
+		$FreezeCollisionShape2D.disabled = false
 		floor_max_angle = deg_to_rad(15)
 
 func wind(lookVector):
