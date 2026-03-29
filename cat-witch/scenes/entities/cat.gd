@@ -191,7 +191,10 @@ func _physics_process(delta):
 	
 	# Scratching
 	if scratch and onTrigger and onTrigger.areaType == "scratch":
+		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
+	else:
+		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
 	# Pushing
 	for i in get_slide_collision_count():
@@ -207,7 +210,7 @@ func _physics_process(delta):
 	if enterArea and onTrigger and onTrigger.areaType == "entrance":
 		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
-	move_and_slide()	
+	move_and_slide()
 
 func apply_outside_force(forceVector):
 	velocity.x += forceVector.x
@@ -364,15 +367,15 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
 
-#func _on_claw_area_body_entered(body: Node2D) -> void:
-	#if body is TileMapLayer:
-		#var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
-		#var top_tile: Vector2i = centerTile - Vector2i(0, 1)
-		#var tile = top_tile
-		#for i in range(2):
-			#for j in range(3):
-				#var data = check_data(tile, body, "removable")
-				#if data:
-					#body.erase_cell(tile)
-				#tile += Vector2i(0, 1)
-			#tile = top_tile + Vector2i($Pivot.scale.x, 0)
+func _on_claw_area_body_entered(body: Node2D) -> void:
+	if body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var top_tile: Vector2i = centerTile - Vector2i(0, 1)
+		var tile = top_tile
+		for i in range(2):
+			for j in range(3):
+				var data = check_data(tile, body, "removable")
+				if data:
+					body.erase_cell(tile)
+				tile += Vector2i(0, 1)
+			tile = top_tile + Vector2i($Pivot.scale.x, 0)

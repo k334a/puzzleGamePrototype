@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_1x1hf"]
 [ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="2_smjrp"]
-[ext_resource type="PackedScene" uid="uid://bp0yymh6epr3a" path="res://Levels/LevelTwo.tscn" id="3_l87gm"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="3_srs0l"]
 [ext_resource type="PackedScene" uid="uid://coyd6ybbt3g3v" path="res://scenes/entities/broken_window.tscn" id="4_osbuc"]
 [ext_resource type="PackedScene" uid="uid://cnwavq2imo7kh" path="res://Levels/NewTestScene.tscn" id="5_xrtca"]
@@ -660,7 +659,13 @@ position = Vector2(6384.0005, 475)
 rotation = -3.1415927
 scale = Vector2(11.093036, -7.3917875)
 areaType = "scratch"
-entranceLevel = ExtResource("3_l87gm")
+scratchType = Dictionary[String, int]({
+"entrance": 1,
+"item": -1,
+"plant": -1,
+"reveal": -1
+})
+entranceLevel = ExtResource("5_xrtca")
 
 [node name="LightObject" parent="." index="5" unique_id=1376024650 instance=ExtResource("3_srs0l")]
 position = Vector2(2132, -1566.1538)
