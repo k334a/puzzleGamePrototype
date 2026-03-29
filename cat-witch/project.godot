@@ -28,6 +28,7 @@ box=""
 breakable=""
 interaction=""
 plant=""
+"small pushable"=""
 
 [gui]
 

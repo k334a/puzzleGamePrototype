@@ -69,6 +69,23 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 	$Camera2D.limit_bottom = bottom
 	$Camera2D.limit_left = left
 	$Camera2D.zoom = zoom
+func linearDampener(left, right):
+	var on_ice: bool = false
+	if not left and not right:
+		var body = %floor_ray.get_collider()
+		if body and body is not RigidBody2D and body is not StaticBody2D:
+			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
+			tile = tile - Vector2i(0, -1)
+			var data = check_data(tile, body, "terrain_type")
+			if data == "ice":
+				on_ice = true
+		if on_ice:
+			velocity.x -= velocity.x * 0.01
+		elif is_on_floor():
+			if frozenSelf:
+				velocity.x -= velocity.x * 0.01
+			else:
+				velocity.x -= velocity.x * 1
 
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
@@ -234,6 +251,8 @@ func linearDampener(left, right):
 			else:
 				velocity.x -= velocity.x * 1
 
+	move_and_slide()
+			
 # Read Tilemap Helper
 func TileMapCheck(object, offset, flag):
 	var body = object.get_collider()
@@ -354,18 +373,28 @@ func _on_water_checker_body_entered(body: Node2D) -> void:
 func _on_freeze_bubble_freeze_tile(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	freezeTiles.emit(flatWater, flatIce, fallingWater, fallingIce)
 
-func _on_head_check_body_exited(body: Node2D) -> void:
-	if body.is_in_group("pushable"):
-		body.linear_velocity.y *= 0.5
-		body.collision_layer += 1 # Re-add box to collision Layer
 
-func _on_head_check_body_entered(body: Node2D) -> void:
-	if body.is_in_group("pushable"): # Check type of box
+# Push Object Signals
+func _on_head_check_body_entered(body: Node2D) -> void: # Put back at -1, -54
+	if body.is_in_group("pushable") and not body.is_in_group("small pushable"): # Check type of box
 		self.velocity.y *= 0.5
-		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
+		body.collision_layer &= ~1 # Remove box from layer allow move_and_slide()
 
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
+
+func _on_head_check_body_exited(body: Node2D) -> void:
+	if body.is_in_group("pushable") and not body.is_in_group("small pushable"):
+		body.linear_velocity.y *= 0.5
+		body.collision_layer |= 1 # Re-add box to collision Layer
+		
+#func _on_floor_check_body_entered(body: Node2D) -> void:
+	#if body.is_in_group("small pushable"):
+		#body.collision_layer |= 1
+#
+#func _on_floor_check_body_exited(body: Node2D) -> void:
+	#if body.is_in_group("small pushable"):	
+		#body.collision_layer &= ~1
 
 func _on_claw_area_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:

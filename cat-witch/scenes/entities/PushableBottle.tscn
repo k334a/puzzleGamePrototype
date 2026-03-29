@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c8f2v652o7fwb"]
+
+[ext_resource type="Script" uid="uid://cnhps0rww22ps" path="res://scenes/entities/pushable_bottle.gd" id="1_mbklr"]
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="2_mbklr"]
+[ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://Images/goldSpot.png" id="3_mbklr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqpp4"]
+radius = 64.070274
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_4ggjl"]
+points = PackedVector2Array(62.5, -60, -62.5, -60, -20, -80, -20, -120, 20, -120, 20, -80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbklr"]
+size = Vector2(125, 100)
+
+[node name="PushableBottle" type="RigidBody2D" unique_id=963461222 groups=["pushable", "small pushable"]]
+collision_layer = 32801
+collision_mask = 33
+mass = 0.5
+gravity_scale = 2.0
+inertia = 1000.0
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_mbklr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1763058505]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_mbklr")
+
+[node name="Bottom" type="CollisionShape2D" parent="." unique_id=1650972771]
+position = Vector2(0, -1)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_eqpp4")
+
+[node name="Top" type="CollisionShape2D" parent="." unique_id=813539236]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("ConvexPolygonShape2D_4ggjl")
+
+[node name="Body" type="CollisionShape2D" parent="." unique_id=127569259]
+position = Vector2(0, -5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_mbklr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1420464124]
+position = Vector2(-1, -45)
+rotation = 1.5707964
+scale = Vector2(0.5, 0.612)
+texture = ExtResource("3_mbklr")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=890665124]
+position = Vector2(0, -33)
+scale = Vector2(1, 0.5)
+texture = ExtResource("3_mbklr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -17,7 +17,7 @@ func _on_timer_timeout() -> void:
 
 func update_position(body: Node2D, rain: Node2D):
 	if body and rain:
-		position = Vector2(body.global_position.x - rain.global_position.x, rain.global_position.y)
+		global_position = Vector2(body.global_position.x, rain.global_position.y - 200)
 
 func reset_particles():
 	$GPUParticles2D.amount = 1
