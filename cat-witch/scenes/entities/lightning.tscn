@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://wpljq2lc2ld5"]
+
+[ext_resource type="Script" uid="uid://co33g7o1gss4n" path="res://scenes/entities/lightning.gd" id="1_awxrf"]
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="1_ibve1"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fasey"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(100, 100, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 90.0
+initial_velocity_min = -25.0
+initial_velocity_max = 25.0
+orbit_velocity_min = -0.99999994
+orbit_velocity_max = 1.0000001
+scale_min = 0.25
+scale_max = 0.25
+
+[node name="Lightning" type="Node2D" unique_id=326547105]
+script = ExtResource("1_awxrf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=452671420]
+texture = ExtResource("1_ibve1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=616059725]
+amount = 12
+texture = ExtResource("1_ibve1")
+lifetime = 3.0
+preprocess = 3.0
+process_material = SubResource("ParticleProcessMaterial_fasey")
+
+[node name="Timer" type="Timer" parent="." unique_id=2069405519]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

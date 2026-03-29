@@ -34,6 +34,10 @@ var onTrigger: interactive_area = null
 # For respawn:
 @onready var startPosition: Vector2 = global_position
 
+# Rain
+var wet = false
+var frozenSelf = false
+
 signal resetLevel
 signal freezeTiles
 signal unfurlPlant
@@ -47,6 +51,8 @@ func _input(event):
 
 func _ready() -> void:
 	%PickupArea.area_entered.connect(_on_pickup_area_entered)
+	$PointLight2D.hide()
+	$FreezeCollisionShape2D.disabled = true	
 
 func resetCat() -> void:
 	velocity = Vector2.ZERO
@@ -61,7 +67,6 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 	$Camera2D.limit_left = left
 	$Camera2D.zoom = zoom
 
-# Problem: We have decceleration but we do not have acceleration
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
 	var left = Input.is_action_pressed('move_left')
@@ -70,12 +75,23 @@ func _physics_process(delta):
 	var crouch = Input.is_action_pressed('crouch')
 	var enterArea = Input.is_action_just_pressed("enter")
 	#var run = Input.is_action_pressed('run')
-	#var scratch = Input.is_action_just_pressed('scratch')
-	var spell1 = Input.is_action_just_pressed('wind')
-	var spell2 = Input.is_action_just_pressed('freeze')
-	var spell3 = Input.is_action_just_pressed("run") #c
+	var scratch = Input.is_action_just_pressed('scratch')
+	var spell1 = Input.is_action_just_pressed('spell1')
+	var spell2 = Input.is_action_just_pressed('spell2')
+	var spell3 = Input.is_action_just_pressed('spell3')
 	
-	
+	if frozenSelf:
+		right = false
+		left = false
+		jump = false
+		down = false
+		crouch = false
+		#run = false
+		scratch = false
+		spell1 = false
+		spell2 = false
+		spell3 = false
+
 	# Gravity Physics
 	if not is_on_floor():
 		if velocity.x > 0:
@@ -110,8 +126,7 @@ func _physics_process(delta):
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
-	#print(%wall_ray.is_colliding())
-	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
+	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck(%wall_ray, Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0), "climbable")
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
 	# Wall Sliding
@@ -151,9 +166,10 @@ func _physics_process(delta):
 	if spell3:
 		if $Spell3Cooldown.is_stopped():
 			readSpell(left, right, down, jump, 2)
-			$Spell3Cooldown.wait_time = spellCooldowns[3]
+			$Spell3Cooldown.wait_time = spellCooldowns[2]
 			$Spell3Cooldown.start()
 
+	# Crouching
 	if crouch and is_on_floor():
 		velocity.x = 0
 		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
@@ -162,7 +178,15 @@ func _physics_process(delta):
 		$AnimatedSprite2D.scale = Vector2(1, 1)
 		$AnimatedSprite2D.offset.y = 0
 	
-	# Velocity
+	# Scratching
+	if scratch:
+		$Pivot/ClawArea.show()
+		$Pivot/ClawArea/CollisionShape2D.disabled = false
+	else:
+		$Pivot/ClawArea.hide()
+		$Pivot/ClawArea/CollisionShape2D.disabled = true
+	
+	# Pushing
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
@@ -187,7 +211,7 @@ func linearDampener(left, right):
 	var on_ice: bool = false
 	if not left and not right:
 		var body = %floor_ray.get_collider()
-		if body and body is TileMapLayer:
+		if body and body is not RigidBody2D:
 			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
 			tile = tile - Vector2i(0, -1)
 			var data = check_data(tile, body, "terrain_type")
@@ -196,16 +220,18 @@ func linearDampener(left, right):
 		if on_ice:
 			velocity.x -= velocity.x * 0.01
 		elif is_on_floor():
-			velocity.x -= velocity.x * 1
-
+			if frozenSelf:
+				velocity.x -= velocity.x * 0.01
+			else:
+				velocity.x -= velocity.x * 1
 
 # Read Tilemap Helper
-func TileMapCheck():
-	var body = %wall_ray.get_collider()
+func TileMapCheck(object, offset, flag):
+	var body = object.get_collider()
 	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position))
-		var tile: Vector2i = centerTile + Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0)
-		var data = check_data(tile, body, "climbable")
+		var centerTile: Vector2i = body.local_to_map(body.to_local(object.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var tile: Vector2i = centerTile + offset
+		var data = check_data(tile, body, flag)
 		if data:
 			return true
 	return false
@@ -239,8 +265,9 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 1,
-		1: func(): freeze(); spellCooldowns[index] = 5,
-		2: func(): spellCooldowns[index] = plant(),
+		1: func(): freeze(); spellCooldowns[index] = 7,
+		2: func(): light(); spellCooldowns[index] = 1,
+		3: func(): spellCooldowns[index] = plant(),
 	}
 	
 	var spell = $Inventory.spells[index].spell_type
@@ -253,23 +280,48 @@ func _spell_cooldown_ended(index: int):
 
 func freeze():
 	%FreezeBubble.startFreeze()
-
+	if wet:
+		frozenSelf = true
+		var block_timer = Timer.new()
+		add_child(block_timer)
+		var unfreeze = func(): 
+			frozenSelf = false
+			$FreezeCollisionShape2D.disabled = true;
+			floor_max_angle = deg_to_rad(45)
+			block_timer.queue_free()
+			
+		block_timer.timeout.connect(func(): unfreeze.call())
+		block_timer.one_shot = true
+		block_timer.start(5)
+		#$FreezeCollisionShape2D.disabled = false
+		floor_max_angle = deg_to_rad(15)
+	
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	#lookVector *= -1
 	var outsideForce = 1500
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
+func light():
+	if $PointLight2D.visible:
+		$PointLight2D.hide()
+	else:
+		$PointLight2D.show()
 
 func plant() -> float:
 	if onTrigger and onTrigger.areaType == "plant":
 		unfurlPlant.emit(onTrigger)
 		return 5.0
 	return 0.1
+
+func _spell_cooldown_ended(index: int):
+	spellCooldowns[index] = false
+	
+func _ready() -> void:
+	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -287,6 +339,15 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		print("Inventory full!")
 
 # when spell is picked up, move it to the first spell slot. allow movement between slots
+
+func resetCat() -> void:
+	velocity = Vector2.ZERO
+	%FreezeBubble.reset()
+	global_position = startPosition
+	$Spell1Cooldown.stop()
+	$Spell2Cooldown.stop()
+	$Spell3Cooldown.stop()
+	resetLevel.emit()
 
 func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
@@ -311,3 +372,17 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
+#
+func _on_claw_area_body_entered(body: Node2D) -> void:
+	if body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var top_tile: Vector2i = centerTile - Vector2i(0, 1)
+		var tile = top_tile
+		for i in range(2):
+			for j in range(3):
+				var data = check_data(tile, body, "removable")
+				if data:
+					body.erase_cell(tile)
+				tile += Vector2i(0, 1)
+			tile = top_tile + Vector2i($Pivot.scale.x, 0)
+			

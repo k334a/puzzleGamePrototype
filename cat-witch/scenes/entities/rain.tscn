@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dvey1un2chcbn"]
+
+[ext_resource type="Script" uid="uid://cn7qvbv3yi5vk" path="res://scenes/entities/rain.gd" id="1_1fblw"]
+[ext_resource type="Script" uid="uid://b7w8i4lp55lit" path="res://scenes/entities/rain_collision.gd" id="1_firyr"]
+
+[sub_resource type="Curve" id="Curve_colqb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.13978493, 0.5436242), 0.0, 0.0, 0, 0, Vector2(0.45698926, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_firyr"]
+curve = SubResource("Curve_colqb")
+
+[sub_resource type="Gradient" id="Gradient_1fblw"]
+offsets = PackedFloat32Array(0, 0.59150326, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0.078431375, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_50n1q"]
+gradient = SubResource("Gradient_1fblw")
+
+[sub_resource type="Curve" id="Curve_rwxs0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_81dl5"]
+_limits = [0.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 15.503355), 0.0, 0.0, 0, 0, Vector2(0.17741936, 25.704699), 0.0, 0.0, 0, 0, Vector2(0.49462363, 30), 0.0, 0.0, 0, 0, Vector2(1, 30), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_cnodi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_y2dmt"]
+curve_x = SubResource("Curve_rwxs0")
+curve_y = SubResource("Curve_81dl5")
+curve_z = SubResource("Curve_cnodi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hlhaa"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(750, 200, 1)
+gravity = Vector3(0, 3000, 0)
+scale_min = 0.19999999
+scale_over_velocity_curve = SubResource("CurveXYZTexture_y2dmt")
+color_ramp = SubResource("GradientTexture1D_50n1q")
+alpha_curve = SubResource("CurveTexture_firyr")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fblw"]
+size = Vector2(1500, 969)
+
+[node name="Rain" type="Node2D" unique_id=617827363]
+script = ExtResource("1_1fblw")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=756393101]
+amount = 1000
+amount_ratio = 0.9963
+preprocess = 0.5
+visibility_rect = Rect2(-750, -100, 1500, 400)
+process_material = SubResource("ParticleProcessMaterial_hlhaa")
+
+[node name="RainCollision" type="Area2D" parent="." unique_id=557600526]
+collision_layer = 33
+collision_mask = 33
+script = ExtResource("1_firyr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RainCollision" unique_id=1805599527]
+position = Vector2(1, 281.5)
+shape = SubResource("RectangleShape2D_1fblw")
+
+[node name="LightningTimer" type="Timer" parent="RainCollision" unique_id=577185131]
+wait_time = 5.0
+
+[node name="Cloud" type="ColorRect" parent="." unique_id=3895396]
+offset_left = -749.0
+offset_top = -205.0
+offset_right = 752.0
+offset_bottom = -165.0
+color = Color(0.22382358, 0.22382358, 0.22382355, 1)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1301266435]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.91273546, 0.9127355, 0, 1)
+
+[connection signal="body_entered" from="RainCollision" to="RainCollision" method="_on_body_entered"]
+[connection signal="body_exited" from="RainCollision" to="RainCollision" method="_on_body_exited"]
+[connection signal="timeout" from="RainCollision/LightningTimer" to="." method="_on_lightning_timer_timeout"]
