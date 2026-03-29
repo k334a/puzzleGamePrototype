@@ -37,6 +37,7 @@ var onTrigger: interactive_area = null
 signal resetLevel
 signal freezeTiles
 signal unfurlPlant
+signal nextLevel
 
 
 func _input(event):
@@ -67,6 +68,7 @@ func _physics_process(delta):
 	var jump = Input.is_action_pressed('jump')
 	var down = Input.is_action_pressed('down')
 	var crouch = Input.is_action_pressed('crouch')
+	var enterArea = Input.is_action_just_pressed("enter")
 	#var run = Input.is_action_pressed('run')
 	#var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('wind')
@@ -170,6 +172,9 @@ func _physics_process(delta):
 			if spell1 or spell2: # Just to see if it works
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
+	
+	if enterArea and onTrigger.areaType == "entrance":
+		nextLevel.emit(onTrigger.entranceLevel)
 	
 	move_and_slide()
 

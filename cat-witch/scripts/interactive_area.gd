@@ -4,6 +4,7 @@ class_name interactive_area
 
 @export var areaType: String
 @export var plantNode: AnimatableBody2D
+@export var entranceLevel: PackedScene
 
 signal areaHit
 signal areaLeft

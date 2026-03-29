@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv6jd1kilegxw"
-path="res://.godot/imported/Jar.png-a661735d134e6a6a80a9ec64530422ec.ctex"
+uid="uid://cet8fsp3odp5c"
+path="res://.godot/imported/plant_test_8.png-bc67ee97ce675d841db7ce45bef79399.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Jar.png"
-dest_files=["res://.godot/imported/Jar.png-a661735d134e6a6a80a9ec64530422ec.ctex"]
+source_file="res://Images/Plants/plant_test_8.png"
+dest_files=["res://.godot/imported/plant_test_8.png-bc67ee97ce675d841db7ce45bef79399.ctex"]
 
 [params]
 

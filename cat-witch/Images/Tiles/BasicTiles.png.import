@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4mu8uv4rh3ph"
-path="res://.godot/imported/scroll.png-e07e35abcbbc64eb46aa7f1b22c195f6.ctex"
+uid="uid://bl6wi7mss2mtr"
+path="res://.godot/imported/BasicTiles.png-e43a768c4516dace651593c3b5134d59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/scroll.png"
-dest_files=["res://.godot/imported/scroll.png-e07e35abcbbc64eb46aa7f1b22c195f6.ctex"]
+source_file="res://Images/Tiles/BasicTiles.png"
+dest_files=["res://.godot/imported/BasicTiles.png-e43a768c4516dace651593c3b5134d59.ctex"]
 
 [params]
 

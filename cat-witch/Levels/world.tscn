@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://scenes/entities/cat.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://Levels/world.gd" id="1_tlwt5"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_4dvsh"]
-[ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/InventoryUI.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/Inventory_and_Items/InventoryUI.tscn" id="4_aqk2v"]
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
@@ -28,5 +28,6 @@ unique_name_in_owner = true
 position = Vector2(10000000, 10000000)
 
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
+[connection signal="nextLevel" from="cat" to="." method="_on_cat_next_level"]
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
 [connection signal="unfurlPlant" from="cat" to="." method="_on_cat_unfurl_plant"]

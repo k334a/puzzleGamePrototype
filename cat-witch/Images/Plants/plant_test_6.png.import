@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl6wi7mss2mtr"
-path="res://.godot/imported/BasicTiles.png-f297c86bd15cb5a601d67d2174c0bc51.ctex"
+uid="uid://dx1ydryf4w1uw"
+path="res://.godot/imported/plant_test_6.png-f926b1c21b3d7d864f961a96e85706cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/BasicTiles.png"
-dest_files=["res://.godot/imported/BasicTiles.png-f297c86bd15cb5a601d67d2174c0bc51.ctex"]
+source_file="res://Images/Plants/plant_test_6.png"
+dest_files=["res://.godot/imported/plant_test_6.png-f926b1c21b3d7d864f961a96e85706cc.ctex"]
 
 [params]
 

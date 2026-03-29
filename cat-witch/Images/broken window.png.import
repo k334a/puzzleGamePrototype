@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rerfqdo5jy16"
-path="res://.godot/imported/plant_test_4.png-0edb98bc7bebf19c6a49312049a43fe1.ctex"
+uid="uid://n8asib3o6flq"
+path="res://.godot/imported/broken window.png-649ab9ec932dd656b033838c3edf0d55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/plant_test_4.png"
-dest_files=["res://.godot/imported/plant_test_4.png-0edb98bc7bebf19c6a49312049a43fe1.ctex"]
+source_file="res://Images/broken window.png"
+dest_files=["res://.godot/imported/broken window.png-649ab9ec932dd656b033838c3edf0d55.ctex"]
 
 [params]
 

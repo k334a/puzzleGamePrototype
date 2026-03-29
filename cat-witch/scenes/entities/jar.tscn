@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cgfk6g5qnhyg0"]
 
-[ext_resource type="Texture2D" uid="uid://cv6jd1kilegxw" path="res://Images/Jar.png" id="1_0kib7"]
+[ext_resource type="Texture2D" uid="uid://cv6jd1kilegxw" path="res://Images/Items/Jar.png" id="1_0kib7"]
 [ext_resource type="Script" uid="uid://bvi6udivyk5xu" path="res://scenes/entities/jar.gd" id="1_en78b"]
+
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_en78b"]
 radius = 43.0

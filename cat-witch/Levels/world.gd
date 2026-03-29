@@ -1,6 +1,5 @@
 extends Node
 
-@export var nextLevel: PackedScene
 @export var zoom: Vector2 = Vector2(0.75, 0.75)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
@@ -12,9 +11,10 @@ var breakableStatus: Dictionary[RigidBody2D, bool]
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
 
-enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE }
-enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR }
+enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
+enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
+enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
@@ -141,11 +141,6 @@ func freeze_stream(x: int, yValues: Array, layer: TileMapLayer) -> Array[Vector2
 	
 	return freezeTiles
 
-
-func _on_next_level_placeholder_body_entered(_body: Node2D) -> void:
-	get_tree().call_deferred("change_scene_to_packed", nextLevel)
-
-
 func get_stream_tiles(x: int, stream: Array) -> Array[Vector2i]:
 	var tiles: Array[Vector2i]
 	
@@ -182,3 +177,7 @@ func _on_interaction_area_exited(area: interactive_area) -> void:
 
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
+
+
+func _on_cat_next_level(nextLevel: PackedScene) -> void:
+	get_tree().call_deferred("change_scene_to_packed", nextLevel)

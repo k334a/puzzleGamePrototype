@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvp6agpxul6b4"
-path="res://.godot/imported/ice_block_side.png-2be81dbc4779c2c7b8de4505b7da7366.ctex"
+uid="uid://c0htreg0ewcuw"
+path="res://.godot/imported/light.png-28356e5cf346be9b15cfe6decbe1f9be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/ice_blocks/ice_block_side.png"
-dest_files=["res://.godot/imported/ice_block_side.png-2be81dbc4779c2c7b8de4505b7da7366.ctex"]
+source_file="res://Images/Items/light.png"
+dest_files=["res://.godot/imported/light.png-28356e5cf346be9b15cfe6decbe1f9be.ctex"]
 
 [params]
 

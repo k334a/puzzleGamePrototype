@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1skaeas3f3wa"
-path="res://.godot/imported/TriggerTiles.png-cd00c7287084b83f130c50cba988e873.ctex"
+uid="uid://bvp6agpxul6b4"
+path="res://.godot/imported/ice_block_side.png-d0b6b4cb80f588c01e21623e90e47127.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/TriggerTiles.png"
-dest_files=["res://.godot/imported/TriggerTiles.png-cd00c7287084b83f130c50cba988e873.ctex"]
+source_file="res://Images/Tiles/ice_blocks/ice_block_side.png"
+dest_files=["res://.godot/imported/ice_block_side.png-d0b6b4cb80f588c01e21623e90e47127.ctex"]
 
 [params]
 
