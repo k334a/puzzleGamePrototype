@@ -1,13 +1,15 @@
 extends Node2D
 
 var cat: Node2D
+@export var lightning_on = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ColorRect.hide()
+	$RainCollision.lightning_on = lightning_on
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	$ColorRect.hide()
 
 func _on_lightning_timer_timeout() -> void:

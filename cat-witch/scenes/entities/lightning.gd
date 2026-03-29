@@ -8,7 +8,7 @@ func _ready() -> void:
 	$GPUParticles2D.amount = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	update_position(local_body, local_rain)
 
 func _on_timer_timeout() -> void:
@@ -17,7 +17,7 @@ func _on_timer_timeout() -> void:
 
 func update_position(body: Node2D, rain: Node2D):
 	if body and rain:
-		position = Vector2(body.global_position.x - rain.global_position.x, rain.global_position.y)
+		global_position = Vector2(body.global_position.x, rain.global_position.y - 200)
 
 func reset_particles():
 	$GPUParticles2D.amount = 1

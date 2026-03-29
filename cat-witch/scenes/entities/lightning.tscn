@@ -5,14 +5,14 @@
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fasey"]
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(100, 100, 1)
+emission_shape_scale = Vector3(75, 75, 1)
 emission_shape = 1
 emission_sphere_radius = 1.0
 spread = 90.0
 initial_velocity_min = -25.0
 initial_velocity_max = 25.0
-orbit_velocity_min = -0.99999994
-orbit_velocity_max = 1.0000001
+angular_velocity_min = -100.000015
+angular_velocity_max = 99.999985
 scale_min = 0.25
 scale_max = 0.25
 
@@ -20,6 +20,7 @@ scale_max = 0.25
 script = ExtResource("1_awxrf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=452671420]
+visible = false
 texture = ExtResource("1_ibve1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=616059725]
