@@ -3,11 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://Images/Items/scroll.png" id="1_sutnm"]
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="2_7glpu"]
 
-
 [resource]
 script = ExtResource("2_7glpu")
 name = "Plant Spell"
 description = "hidden., test"
 icon = ExtResource("1_sutnm")
+cooldown = 5.0
 rarity = "Rare"
 spell_type = 2

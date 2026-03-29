@@ -2,32 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_g1pj0"]
 [ext_resource type="Script" uid="uid://dgi4vbknv8jtl" path="res://Levels/new_test_scene.gd" id="2_evb8t"]
-[ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="3_evb8t"]
-[ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="3_rwuno"]
-[ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="4_lbwr7"]
-[ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="5_evb8t"]
-[ext_resource type="Resource" uid="uid://c3f75v4slibsc" path="res://resources/PlantSpell.tres" id="7_2h2qg"]
-[ext_resource type="PackedScene" uid="uid://x88472dyi3pv" path="res://scenes/entities/pushable_circle.tscn" id="9_lbwr7"]
-[ext_resource type="PackedScene" uid="uid://fqraiwxy1oqs" path="res://scenes/entities/box.tscn" id="10_2h2qg"]
-[ext_resource type="PackedScene" uid="uid://cgfk6g5qnhyg0" path="res://scenes/entities/jar.tscn" id="11_8cwch"]
-[ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="11_p6tsc"]
-[ext_resource type="PackedScene" uid="uid://4ilmoq6idauw" path="res://scenes/entities/PlantTest.tscn" id="12_p6tsc"]
-[ext_resource type="Resource" uid="uid://chtnfennnvtsk" path="res://resources/lightSpell.tres" id="11_8cwch"]
-[ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="12_p6tsc"]
-
-[sub_resource type="Resource" id="Resource_5f2et"]
-script = ExtResource("6_8cwch")
-name = "legendarySpell"
-description = "hidden., test"
-icon = ExtResource("5_2h2qg")
-damage = 100
-cooldown = 10.0
-rarity = "legendary"
-strength = 99999
-spell_type = 1
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2h2qg"]
-absorbent = true
 
 [node name="TestScene" unique_id=1378909801 instance=ExtResource("1_g1pj0")]
 script = ExtResource("2_evb8t")
@@ -36,51 +10,6 @@ script = ExtResource("2_evb8t")
 position = Vector2(0, 2)
 tile_map_data = PackedByteArray("AAAjAA0AAQACAAIAAAAjAAwAAQACAAAAAAAiAA0AAQABAAIAAAAiAAwAAQABAAAAAAAhAA0AAQABAAIAAAAhAAwAAQABAAAAAAAgAA0AAQABAAIAAAAgAAwAAQABAAAAAAAfAA0AAQABAAIAAAAfAAwAAQABAAAAAAAeAA0AAQABAAIAAAAeAAwAAQABAAAAAAAdAA0AAQABAAIAAAAdAAwAAQABAAAAAAAcAA0AAQABAAIAAAAcAAwAAQABAAAAAAAbAA0AAQABAAIAAAAbAAwAAQABAAAAAAAaAA0AAQABAAIAAAAaAAwAAQABAAAAAAAZAA0AAQABAAIAAAAZAAwAAQABAAAAAAAYAA0AAQABAAIAAAAYAAwAAQABAAAAAAAXAA0AAQABAAIAAAAXAAwAAQABAAAAAAAWAA0AAQABAAIAAAAVAA0AAQABAAIAAAAUAA0AAQABAAIAAAATAA0AAQABAAIAAAASAA0AAQABAAIAAAARAA0AAQABAAIAAAAQAA0AAQABAAIAAAAPAA0AAQABAAIAAAAOAA0AAQABAAIAAAANAA0AAQABAAIAAAAMAA0AAQABAAIAAAALAA0AAQABAAIAAAAKAA0AAQABAAIAAAAJAA0AAQABAAIAAAAIAA0AAQABAAIAAAAIAAwAAQABAAAAAAAHAA0AAQABAAIAAAAHAAwAAQABAAAAAAAGAA0AAQABAAIAAAAGAAwAAQABAAAAAAAFAA0AAQABAAIAAAAFAAwAAQABAAAAAAAEAA0AAQABAAIAAAAEAAwAAQABAAAAAAADAA0AAQABAAIAAAADAAwAAQABAAAAAAACAA0AAQABAAIAAAACAAwAAQABAAAAAAABAA0AAQABAAIAAAABAAwAAQABAAAAAAAAAA0AAQABAAIAAAAAAAwAAQABAAAAAAD//w0AAQABAAIAAAD//wwAAQAAAAEAAAD+/w0AAQABAAMAAAD+/wwAAQATAAMAAAD9/w0AAQABAAMAAAD9/wwAAQASAAMAAAD8/w0AAQABAAMAAAD8/wwAAQASAAMAAAD7/w0AAQABAAMAAAD7/wwAAQASAAMAAAD6/w0AAQABAAMAAAD6/wwAAQASAAMAAAD5/w0AAQABAAMAAAD5/wwAAQASAAMAAAD4/w0AAQABAAMAAAD4/wwAAQASAAMAAAD3/w0AAQABAAMAAAD3/wwAAQARAAMAAAD2/w0AAQABAAIAAAD2/wwAAQACAAAAAAD1/w0AAQAAAAIAAAD1/wwAAQAAAAAAAAAjAAsAAQAHAAIAAAAjAAoAAQAHAAEAAAAjAAkAAQAHAAEAAAAjAAgAAQAHAAEAAAAjAAcAAQAHAAEAAAAjAAYAAQAHAAEAAAAjAAUAAQAHAAEAAAAjAAQAAQAHAAEAAAAjAAMAAQAHAAEAAAAjAAIAAQAHAAEAAAAjAAEAAQAHAAEAAAAjAAAAAQAHAAEAAAAjAP//AQAHAAEAAAAjAP7/AQAHAAEAAAAjAP3/AQAHAAAAAAAiAAsAAQAFAAIAAAAiAAoAAQAFAAEAAAAiAAkAAQAFAAEAAAAiAAgAAQAFAAEAAAAiAAcAAQAFAAEAAAAiAAYAAQAFAAEAAAAiAAUAAQAFAAEAAAAiAAQAAQAFAAEAAAAiAAMAAQAFAAEAAAAiAAIAAQAFAAEAAAAiAAEAAQAFAAEAAAAiAAAAAQAFAAEAAAAiAP//AQAFAAEAAAAiAP7/AQAFAAEAAAAiAP3/AQAFAAAAAAAZAAoAAQAPAAAAAAAZAAkAAQAPAAAAAAAZAAgAAQAPAAAAAAAZAAcAAQAPAAAAAAAZAAYAAQAPAAAAAAAZAAsAAQAPAAAAAAAZAAUAAQAPAAAAAAD+/wsAAQAWAAAAAAD+/woAAQAWAAAAAAD+/wkAAQAWAAAAAAD+/wgAAQAWAAAAAAD+/wcAAQAWAAAAAAD+/wYAAQAWAAAAAAD//wsAAQADAAEAAAD//woAAQADAAEAAAD//wkAAQADAAEAAAD//wgAAQADAAEAAAD//wcAAQADAAEAAAD//wYAAQADAAEAAAD//wUAAQACAAAAAAD+/wUAAQABAAMAAAD9/wUAAQABAAMAAAD8/wUAAQABAAMAAAD7/wUAAQABAAMAAAD6/wUAAQABAAMAAAD5/wUAAQABAAMAAAD4/wUAAQABAAMAAAD3/wUAAQAAAAMAAAD9/wYAAQAWAAAAAAD9/wcAAQAWAAAAAAD9/wgAAQAWAAAAAAD9/wkAAQAWAAAAAAD9/woAAQAWAAAAAAD9/wsAAQAWAAAAAAD8/wsAAQAWAAAAAAD8/woAAQAWAAAAAAD8/wkAAQAWAAAAAAD8/wgAAQAWAAAAAAD8/wcAAQAWAAAAAAD8/wYAAQAWAAAAAAD7/wYAAQAWAAAAAAD7/wcAAQAWAAAAAAD7/wgAAQAWAAAAAAD7/wkAAQAWAAAAAAD7/woAAQAWAAAAAAD7/wsAAQAWAAAAAAD6/wsAAQAWAAAAAAD6/woAAQAWAAAAAAD6/wkAAQAWAAAAAAD6/wgAAQAWAAAAAAD6/wcAAQAWAAAAAAD6/wYAAQAWAAAAAAD5/wYAAQAWAAAAAAD5/wcAAQAWAAAAAAD5/wgAAQAWAAAAAAD5/wkAAQAWAAAAAAD5/woAAQAWAAAAAAD5/wsAAQAWAAAAAAD4/wsAAQAWAAAAAAD4/woAAQAWAAAAAAD4/wkAAQAWAAAAAAD4/wgAAQAWAAAAAAD4/wcAAQAWAAAAAAD4/wYAAQAWAAAAAAD3/wYAAQAWAAAAAAD3/wcAAQAWAAAAAAD3/wgAAQAWAAAAAAD3/wkAAQAWAAAAAAD3/woAAQAWAAAAAAD3/wsAAQAWAAAAAAAJAAwAAQABAAAAAAAKAAwAAQABAAAAAAALAAwAAQABAAAAAAAMAAwAAQABAAAAAAANAAwAAQABAAAAAAAOAAwAAQABAAAAAAAPAAwAAQABAAAAAAAQAAwAAQABAAAAAAARAAwAAQABAAAAAAASAAwAAQABAAAAAAATAAwAAQABAAAAAAAUAAwAAQABAAAAAAAVAAwAAQABAAAAAAAWAAwAAQABAAAAAAARAPr/AQABAAMAAAASAPr/AQABAAMAAAATAPr/AQABAAMAAAAVAPr/AQABAAIAAAAUAPr/AQABAAMAAAAXAPr/AQABAAMAAAAWAPr/AQABAAIAAAAYAPr/AQABAAMAAAAZAPr/AQABAAMAAAAaAPr/AQABAAMAAAAbAPr/AQABAAMAAAAcAPr/AQABAAMAAAAdAPr/AQABAAMAAAAeAPr/AQACAAMAAAAQAPr/AQABAAMAAAAPAPr/AQABAAMAAAAOAPr/AQABAAMAAAANAPr/AQAAAAMAAAAWAPb/AQACAAAAAAAWAPf/AQACAAEAAAAVAPf/AQAAAAEAAAAVAPj/AQAAAAEAAAAVAPn/AQAAAAEAAAAWAPn/AQACAAEAAAAWAPj/AQACAAEAAAAVAPb/AQAAAAAAAAA=")
 
-[node name="EntranceTest" parent="." index="1" unique_id=115439003 instance=ExtResource("11_p6tsc")]
-position = Vector2(-247.00003, 66)
-scale = Vector2(5.4000006, 11.24)
-areaType = "entrance"
-
-[node name="ScratchTest" parent="." index="2" unique_id=1580367791 instance=ExtResource("11_p6tsc")]
-position = Vector2(780, 320)
-scale = Vector2(5.4000006, 11.24)
-areaType = "scratch"
-
-[node name="cat" parent="." index="3" unique_id=1659453483]
-position = Vector2(68, 353)
+[node name="cat" parent="." index="1" unique_id=1659453483]
+position = Vector2(97, 367)
 collision_layer = 32777
-
-[node name="PushableObject" parent="." index="4" unique_id=963461222 instance=ExtResource("3_rwuno")]
-position = Vector2(399, 74)
-continuous_cd = 1
-constant_force = Vector2(0, 10)
-
-[node name="SpellPickup" parent="." index="5" unique_id=1021825572 instance=ExtResource("3_evb8t")]
-position = Vector2(162, 182)
-item = ExtResource("5_evb8t")
-
-[node name="SpellPickup2" parent="." index="6" unique_id=997038183 instance=ExtResource("3_evb8t")]
-position = Vector2(275, 162)
-item = ExtResource("4_lbwr7")
-
-[node name="SpellPickup3" parent="." index="7" unique_id=1604272913 instance=ExtResource("3_evb8t")]
-position = Vector2(303, 310)
-item = ExtResource("7_2h2qg")
-
-[node name="PushableCircle" parent="." index="8" unique_id=1977208439 instance=ExtResource("9_lbwr7")]
-position = Vector2(-490, 344)
-
-[node name="Box" parent="." index="9" unique_id=887648230 instance=ExtResource("10_2h2qg")]
-position = Vector2(600, 73)
-physics_material_override = SubResource("PhysicsMaterial_2h2qg")
-
-[node name="Jar" parent="." index="10" unique_id=1110553694 instance=ExtResource("11_8cwch")]
-position = Vector2(520, -321)
-
-[node name="PlantTest2" parent="." index="14" unique_id=1048012712 instance=ExtResource("12_p6tsc")]
-position = Vector2(1142, 277)
-
-[node name="SpellPickup4" parent="." index="15" unique_id=1441005449 instance=ExtResource("3_evb8t")]
-position = Vector2(1162, -183)
-item = ExtResource("11_8cwch")
-

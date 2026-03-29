@@ -52,12 +52,15 @@ func _input(event):
 func _ready() -> void:
 	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 	$PointLight2D.hide()
-	$FreezeCollisionShape2D.disabled = true	
+	$FreezeCollisionShape2D.disabled = true
 
 func resetCat() -> void:
 	velocity = Vector2.ZERO
 	%FreezeBubble.reset()
 	global_position = startPosition
+	$Spell1Cooldown.stop()
+	$Spell2Cooldown.stop()
+	$Spell3Cooldown.stop()
 	resetLevel.emit()
 
 func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> void:
@@ -235,6 +238,7 @@ func TileMapCheck(object, offset, flag):
 		if data:
 			return true
 	return false
+
 # This is duplicated in freeze_bubble and world
 func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
 	var data: TileData = layer.get_cell_tile_data(tile)
@@ -245,8 +249,8 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 # Spell Functions
 func readSpell(left_input, right_input, down_input, up_input, index):
 	if not $Inventory.spells[index]:
-		return 		# Ends the function if there is no valid spell
-		
+		return # Ends the function if there is no valid spell
+	
 	# Compute current key presses into vector
 	var lookVector = Vector2.ZERO
 	if left_input:
@@ -277,7 +281,6 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 func _spell_cooldown_ended(index: int):
 	spellCooldowns[index] = false
 
-
 func freeze():
 	%FreezeBubble.startFreeze()
 	if wet:
@@ -295,7 +298,7 @@ func freeze():
 		block_timer.start(5)
 		#$FreezeCollisionShape2D.disabled = false
 		floor_max_angle = deg_to_rad(15)
-	
+
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
@@ -305,6 +308,7 @@ func wind(lookVector):
 	windScene.get_child(0).force = -lookVector * 100
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
+
 func light():
 	if $PointLight2D.visible:
 		$PointLight2D.hide()
@@ -316,12 +320,6 @@ func plant() -> float:
 		unfurlPlant.emit(onTrigger)
 		return 5.0
 	return 0.1
-
-func _spell_cooldown_ended(index: int):
-	spellCooldowns[index] = false
-	
-func _ready() -> void:
-	%PickupArea.area_entered.connect(_on_pickup_area_entered)
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -339,15 +337,6 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		print("Inventory full!")
 
 # when spell is picked up, move it to the first spell slot. allow movement between slots
-
-func resetCat() -> void:
-	velocity = Vector2.ZERO
-	%FreezeBubble.reset()
-	global_position = startPosition
-	$Spell1Cooldown.stop()
-	$Spell2Cooldown.stop()
-	$Spell3Cooldown.stop()
-	resetLevel.emit()
 
 func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
@@ -369,10 +358,9 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 		self.velocity.y *= 0.5
 		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
 
-
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
-#
+
 func _on_claw_area_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
@@ -385,4 +373,3 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 					body.erase_cell(tile)
 				tile += Vector2i(0, 1)
 			tile = top_tile + Vector2i($Pivot.scale.x, 0)
-			

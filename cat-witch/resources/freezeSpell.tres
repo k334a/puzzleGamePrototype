@@ -1,14 +1,13 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://devtpplu0vsf2"]
 
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="1_tv7s5"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tv7s5"]
+[ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://Images/Items/scroll.png" id="1_ui5cm"]
 
 [resource]
 script = ExtResource("1_tv7s5")
 name = "Freeze Spell"
 description = "hidden., test"
-icon = SubResource("CompressedTexture2D_tv7s5")
+icon = ExtResource("1_ui5cm")
 cooldown = 5.0
 strength = 5
 spell_type = 1

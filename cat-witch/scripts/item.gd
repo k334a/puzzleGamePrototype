@@ -22,4 +22,4 @@ class_name Item
 enum SpellType { WIND, ICE, LIGHT, PLANT }
 
 # Now you can make a property that uses it:
-@export var spell_type: SpellType = SpellType.WIND
+@export var spell_type: SpellType
