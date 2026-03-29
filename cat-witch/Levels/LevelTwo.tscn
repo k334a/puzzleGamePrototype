@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="7_fyo0n"]
 [ext_resource type="PackedScene" uid="uid://coyd6ybbt3g3v" path="res://scenes/entities/broken_window.tscn" id="7_kfbls"]
 
-
 [node name="LevelTwo" unique_id=1378909801 instance=ExtResource("1_4g1jt")]
 
 [node name="LevelTiles" parent="." index="0" unique_id=474357427]

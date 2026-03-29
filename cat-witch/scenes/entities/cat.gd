@@ -82,6 +82,7 @@ func _physics_process(delta):
 	var spell1 = Input.is_action_just_pressed('spell1')
 	var spell2 = Input.is_action_just_pressed('spell2')
 	var spell3 = Input.is_action_just_pressed('spell3')
+	var spell4 = Input.is_action_just_pressed('spell4')
 	
 	if frozenSelf:
 		right = false
@@ -171,6 +172,11 @@ func _physics_process(delta):
 			readSpell(left, right, down, jump, 2)
 			$Spell3Cooldown.wait_time = spellCooldowns[2]
 			$Spell3Cooldown.start()
+	if spell4:
+		if $Spell4Cooldown.is_stopped():
+			readSpell(left, right, down, jump, 3)
+			$Spell4Cooldown.wait_time = spellCooldowns[3]
+			$Spell4Cooldown.start()
 
 	# Crouching
 	if crouch and is_on_floor():
@@ -200,7 +206,7 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	if enterArea and onTrigger.areaType == "entrance":
+	if enterArea and onTrigger and onTrigger.areaType == "entrance":
 		nextLevel.emit(onTrigger.entranceLevel)
 	
 	move_and_slide()
@@ -214,7 +220,7 @@ func linearDampener(left, right):
 	var on_ice: bool = false
 	if not left and not right:
 		var body = %floor_ray.get_collider()
-		if body and body is not RigidBody2D:
+		if body and body is TileMapLayer:
 			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
 			tile = tile - Vector2i(0, -1)
 			var data = check_data(tile, body, "terrain_type")

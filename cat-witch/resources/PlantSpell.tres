@@ -10,4 +10,4 @@ description = "hidden., test"
 icon = ExtResource("1_sutnm")
 cooldown = 5.0
 rarity = "Rare"
-spell_type = 2
+spell_type = 3

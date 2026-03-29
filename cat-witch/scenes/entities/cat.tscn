@@ -276,6 +276,9 @@ one_shot = true
 [node name="Spell3Cooldown" type="Timer" parent="." unique_id=1225652611]
 one_shot = true
 
+[node name="Spell4Cooldown" type="Timer" parent="." unique_id=1306411650]
+one_shot = true
+
 [node name="HeadCheck" type="Area2D" parent="." unique_id=1349780301]
 collision_layer = 32
 collision_mask = 33

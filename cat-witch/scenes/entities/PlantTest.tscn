@@ -85,46 +85,34 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionPolygon2D:disabled")
+tracks/0/path = NodePath("CollisionPolygon2D:polygon")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [PackedVector2Array(82, -8, 58, -16, 41, -12, 28, 8, 37, 28, 56, 34, 71, 25, 84, 14)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionPolygon2D:polygon")
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(82, -8, 58, -16, 41, -12, 28, 8, 37, 28, 56, 34, 71, 25, 84, 14)]
+"update": 1,
+"values": [0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:frame")
+tracks/2/path = NodePath("InteractiveArea:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("InteractiveArea:monitoring")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -167,28 +155,16 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 2.7333336),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [PackedVector2Array(83, -12, 61, -14, -57, -12, -71, -9, -77, -2, -77, 2, -72, 5, -39, 4, 15, 1, 75, 0, 84, 1), PackedVector2Array(82, -8, 58, -16, 41, -12, 28, 8, 37, 28, 56, 34, 71, 25, 84, 14)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionPolygon2D:disabled")
+tracks/3/path = NodePath("InteractiveArea:monitoring")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 2.7333336),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("InteractiveArea:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(2.7333333),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -231,28 +207,16 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 2.7333333),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [PackedVector2Array(82, -8, 58, -16, 41, -12, 28, 8, 37, 28, 56, 34, 71, 25, 84, 14), PackedVector2Array(83, -12, 61, -14, -57, -12, -71, -9, -77, -2, -77, 2, -72, 5, -39, 4, 15, 1, 75, 0, 84, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CollisionPolygon2D:disabled")
+tracks/3/path = NodePath("InteractiveArea:monitoring")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 2.7333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("InteractiveArea:monitoring")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,

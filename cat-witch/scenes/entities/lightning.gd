@@ -8,7 +8,7 @@ func _ready() -> void:
 	$GPUParticles2D.amount = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_position(local_body, local_rain)
 
 func _on_timer_timeout() -> void:

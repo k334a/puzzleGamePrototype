@@ -18,8 +18,8 @@ func light_on(colour: Color) -> void:
 func light_off() -> void:
 	$Panel.hide()
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	areaHit.emit(self)
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	areaLeft.emit(self)
