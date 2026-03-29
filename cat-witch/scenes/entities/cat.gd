@@ -26,6 +26,7 @@ var wall_jump_lock: float = 0.0
 #Spell Variables
 var windObject = load("res://scenes/spells/wind.tscn")
 var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
+var onTrigger: interactive_area = null
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -33,47 +34,68 @@ var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 # For respawn:
 @onready var startPosition: Vector2 = global_position
 
+# Rain
+var wet = false
+var frozenSelf = false
+
 signal resetLevel
 signal freezeTiles
+signal unfurlPlant
+signal nextLevel
 
-func apply_outside_force(forceVector):
-	velocity.x += forceVector.x
-	velocity.y += forceVector.y
 
 func _input(event):
 	if(event.is_action_released("jump")):
 		if (velocity.y < 0):
 			velocity.y *= cutHeight
 
+func _ready() -> void:
+	%PickupArea.area_entered.connect(_on_pickup_area_entered)
+	$PointLight2D.hide()
+	$FreezeCollisionShape2D.disabled = true
 
-func linearDampener(left, right):
-	var on_ice: bool = false
-	if not left and not right:
-		var body = %floor_ray.get_collider()
-		if body and body is not RigidBody2D:
-			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
-			tile = tile - Vector2i(0, -1)
-			var data = check_data(tile, body, "terrain_type")
-			if data == "ice":
-				on_ice = true
-		if on_ice:
-			velocity.x -= velocity.x * 0.01
-		elif is_on_floor():
-			velocity.x -= velocity.x * 1
+func resetCat() -> void:
+	velocity = Vector2.ZERO
+	%FreezeBubble.reset()
+	global_position = startPosition
+	$Spell1Cooldown.stop()
+	$Spell2Cooldown.stop()
+	$Spell3Cooldown.stop()
+	resetLevel.emit()
 
-# Problem: We have decceleration but we do not have acceleration
+func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> void:
+	$Camera2D.limit_top = top
+	$Camera2D.limit_right = right
+	$Camera2D.limit_bottom = bottom
+	$Camera2D.limit_left = left
+	$Camera2D.zoom = zoom
+
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
 	var left = Input.is_action_pressed('move_left')
 	var jump = Input.is_action_pressed('jump')
 	var down = Input.is_action_pressed('down')
 	var crouch = Input.is_action_pressed('crouch')
+	var enterArea = Input.is_action_just_pressed("enter")
 	#var run = Input.is_action_pressed('run')
-	#var scratch = Input.is_action_just_pressed('scratch')
-	var spell1 = Input.is_action_just_pressed('wind')
-	var spell2 = Input.is_action_just_pressed('freeze')
+	var scratch = Input.is_action_just_pressed('scratch')
+	var spell1 = Input.is_action_just_pressed('spell1')
+	var spell2 = Input.is_action_just_pressed('spell2')
+	var spell3 = Input.is_action_just_pressed('spell3')
+	var spell4 = Input.is_action_just_pressed('spell4')
 	
-	
+	if frozenSelf:
+		right = false
+		left = false
+		jump = false
+		down = false
+		crouch = false
+		#run = false
+		scratch = false
+		spell1 = false
+		spell2 = false
+		spell3 = false
+
 	# Gravity Physics
 	if not is_on_floor():
 		if velocity.x > 0:
@@ -108,8 +130,7 @@ func _physics_process(delta):
 	#Wall Collision
 	if wall_jump_lock > 0.0:
 		wall_jump_lock -= delta
-	print(%wall_ray.is_colliding())
-	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck()
+	var on_wall: bool = %wall_ray.is_colliding() and TileMapCheck(%wall_ray, Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0), "climbable")
 	var on_wall_in_air: bool = on_wall and !is_on_floor()
 	
 	# Wall Sliding
@@ -123,7 +144,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Jumping
-	if (is_on_floor() or wall_contact_coyote > 0.0) and jump:
+	if (is_on_floor() or wall_contact_coyote > 0.0) and jump and not crouch:
 		velocity.y = jump_speed
 		airtime = true
 		if wall_contact_coyote > 0.0 and !is_on_floor():
@@ -146,7 +167,18 @@ func _physics_process(delta):
 			readSpell(left, right, down, jump, 1)
 			$Spell2Cooldown.wait_time = spellCooldowns[1]
 			$Spell2Cooldown.start()
+	if spell3:
+		if $Spell3Cooldown.is_stopped():
+			readSpell(left, right, down, jump, 2)
+			$Spell3Cooldown.wait_time = spellCooldowns[2]
+			$Spell3Cooldown.start()
+	if spell4:
+		if $Spell4Cooldown.is_stopped():
+			readSpell(left, right, down, jump, 3)
+			$Spell4Cooldown.wait_time = spellCooldowns[3]
+			$Spell4Cooldown.start()
 
+	# Crouching
 	if crouch and is_on_floor():
 		velocity.x = 0
 		$AnimatedSprite2D.scale = Vector2(1.5, 0.5)
@@ -155,38 +187,75 @@ func _physics_process(delta):
 		$AnimatedSprite2D.scale = Vector2(1, 1)
 		$AnimatedSprite2D.offset.y = 0
 	
-	# Velocity
+	# Scratching
+	if scratch:
+		$Pivot/ClawArea.show()
+		$Pivot/ClawArea/CollisionShape2D.disabled = false
+	else:
+		$Pivot/ClawArea.hide()
+		$Pivot/ClawArea/CollisionShape2D.disabled = true
+	
+	# Pushing
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
 		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 		if collision_crate.is_in_group("box"): # We have a problem with delta correction pushing things through walls
-			if spell1 or spell2:	# Just to see if it works
+			if spell1 or spell2: # Just to see if it works
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	move_and_slide()
+	if enterArea and onTrigger and onTrigger.areaType == "entrance":
+		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
-		
-	
-			
+	move_and_slide()	
+
+func apply_outside_force(forceVector):
+	velocity.x += forceVector.x
+	velocity.y += forceVector.y
+
+func linearDampener(left, right):
+	var on_ice: bool = false
+	if not left and not right:
+		var body = %floor_ray.get_collider()
+		if body and body is TileMapLayer:
+			var tile: Vector2i = body.local_to_map(body.to_local(%floor_ray.global_position))
+			tile = tile - Vector2i(0, -1)
+			var data = check_data(tile, body, "terrain_type")
+			if data == "ice":
+				on_ice = true
+		if on_ice:
+			velocity.x -= velocity.x * 0.01
+		elif is_on_floor():
+			if frozenSelf:
+				velocity.x -= velocity.x * 0.01
+			else:
+				velocity.x -= velocity.x * 1
+
 # Read Tilemap Helper
-func TileMapCheck():
-	var body = %wall_ray.get_collider()
+func TileMapCheck(object, offset, flag):
+	var body = object.get_collider()
 	if body is TileMapLayer:
-		var centerTile: Vector2i = body.local_to_map(body.to_local(%wall_ray.global_position)) #Gets a tile in local coordinates of TileMapLayer for center of bubble
-		var tile: Vector2i = centerTile + Vector2i(int(-%wall_ray.get_collision_normal().x) * 2, 0)
-		var data = check_data(tile, body, "climbable")
+		var centerTile: Vector2i = body.local_to_map(body.to_local(object.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var tile: Vector2i = centerTile + offset
+		var data = check_data(tile, body, flag)
 		if data:
 			return true
 	return false
 
+# This is duplicated in freeze_bubble and world
+func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
+	var data: TileData = layer.get_cell_tile_data(tile)
+	if data and data.has_custom_data(attribute):
+		return data.get_custom_data(attribute)
+	return null
+
 # Spell Functions
 func readSpell(left_input, right_input, down_input, up_input, index):
 	if not $Inventory.spells[index]:
-		return 		# Ends the function if there is no valid spell
-		
+		return # Ends the function if there is no valid spell
+	
 	# Compute current key presses into vector
 	var lookVector = Vector2.ZERO
 	if left_input:
@@ -205,32 +274,57 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 1,
-		1: func(): freeze(); spellCooldowns[index] = 5,
+		1: func(): freeze(); spellCooldowns[index] = 7,
+		2: func(): light(); spellCooldowns[index] = 1,
+		3: func(): spellCooldowns[index] = plant(),
 	}
 	
 	var spell = $Inventory.spells[index].spell_type
 	
 	spell_list[spell].call()
 
+func _spell_cooldown_ended(index: int):
+	spellCooldowns[index] = false
+
 func freeze():
 	%FreezeBubble.startFreeze()
+	if wet:
+		frozenSelf = true
+		var block_timer = Timer.new()
+		add_child(block_timer)
+		var unfreeze = func(): 
+			frozenSelf = false
+			$FreezeCollisionShape2D.disabled = true;
+			floor_max_angle = deg_to_rad(45)
+			block_timer.queue_free()
+			
+		block_timer.timeout.connect(func(): unfreeze.call())
+		block_timer.one_shot = true
+		block_timer.start(5)
+		$FreezeCollisionShape2D.disabled = false
+		floor_max_angle = deg_to_rad(15)
 
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	#lookVector *= -1
 	var outsideForce = 1500
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
-	
-func _spell_cooldown_ended(index: int):
-	spellCooldowns[index] = false
-	
-func _ready() -> void:
-	%PickupArea.area_entered.connect(_on_pickup_area_entered)
+
+func light():
+	if $PointLight2D.visible:
+		$PointLight2D.hide()
+	else:
+		$PointLight2D.show()
+
+func plant() -> float:
+	if onTrigger and onTrigger.areaType == "plant":
+		unfurlPlant.emit(onTrigger)
+		return 5.0
+	return 0.1
 
 #handler
 func _on_pickup_area_entered(area: Area2D) -> void:
@@ -238,29 +332,16 @@ func _on_pickup_area_entered(area: Area2D) -> void:
 		return
 	
 	var try_pickup = inventory.add_item(area.item)
-
+	
 	if try_pickup:
 		if area.item.isSpell:
 			inventory.add_spell(area.item)
 		area.queue_free()
-
+	
 	else:
 		print("Inventory full!")
 
 # when spell is picked up, move it to the first spell slot. allow movement between slots
-
-func resetCat() -> void:
-	velocity = Vector2.ZERO
-	%FreezeBubble.reset()
-	global_position = startPosition
-	resetLevel.emit()
-
-# This is duplicated in freeze_bubble and world
-func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Variant:
-	var data: TileData = layer.get_cell_tile_data(tile)
-	if data and data.has_custom_data(attribute):
-		return data.get_custom_data(attribute)
-	return null
 
 func _on_water_checker_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
@@ -281,3 +362,19 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pushable"): # Check type of box
 		self.velocity.y *= 0.5
 		body.collision_layer -= 1 # Remove box from layer allow move_and_slide()
+
+func check_for_spell(spell: String) -> bool:
+	return $Inventory.check_for_spell(spell)
+
+func _on_claw_area_body_entered(body: Node2D) -> void:
+	if body is TileMapLayer:
+		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
+		var top_tile: Vector2i = centerTile - Vector2i(0, 1)
+		var tile = top_tile
+		for i in range(2):
+			for j in range(3):
+				var data = check_data(tile, body, "removable")
+				if data:
+					body.erase_cell(tile)
+				tile += Vector2i(0, 1)
+			tile = top_tile + Vector2i($Pivot.scale.x, 0)

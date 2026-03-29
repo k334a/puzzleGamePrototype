@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cgfk6g5qnhyg0"]
+
+[ext_resource type="Texture2D" uid="uid://cv6jd1kilegxw" path="res://Images/Items/Jar.png" id="1_0kib7"]
+[ext_resource type="Script" uid="uid://bvi6udivyk5xu" path="res://scenes/entities/jar.gd" id="1_en78b"]
+
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_en78b"]
+radius = 43.0
+height = 194.0
+
+[node name="Jar" type="RigidBody2D" unique_id=1110553694 groups=["breakable", "pushable"]]
+collision_layer = 33
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 65)
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_en78b")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=133060341]
+texture = ExtResource("1_0kib7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=942878741]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_en78b")

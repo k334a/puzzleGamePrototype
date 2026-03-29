@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-func teleport(target_pos: Vector2):
+func reset(target_pos: Vector2):
 	# 1. Update the Physics Server directly
 	var transform_2d = Transform2D(0, target_pos) # 0 is rotation
 	PhysicsServer2D.body_set_state(

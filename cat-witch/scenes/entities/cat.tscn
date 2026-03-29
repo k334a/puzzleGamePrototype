@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b216hnk25p1h" path="res://Images/jump_cat_pixels/sprite_3.png" id="6_goc2s"]
 [ext_resource type="Texture2D" uid="uid://263ne0oqn8an" path="res://Images/jump_cat_pixels/sprite_4.png" id="7_a4tgn"]
 [ext_resource type="Texture2D" uid="uid://btglqt0ut0kk8" path="res://Images/jump_cat_pixels/sprite_5.png" id="8_coyar"]
+[ext_resource type="Texture2D" uid="uid://b4t3qgin377q8" path="res://Images/light-gradient.png" id="17_aqghj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 size = Vector2(42.666664, 34)
@@ -86,6 +87,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
+size = Vector2(37, 89)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
@@ -127,6 +129,9 @@ corner_radius_bottom_left = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqabe"]
 size = Vector2(125, 8)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aqghj"]
+radius = 125.92458
+
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
 script = ExtResource("1_52fj1")
@@ -138,22 +143,23 @@ shape = SubResource("RectangleShape2D_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650473877]
 sprite_frames = SubResource("SpriteFrames_2v165")
-animation = &"jump"
+animation = &"crouching"
 autoplay = "idle"
+frame = 2
+frame_progress = 0.5846262
 
 [node name="Pivot" type="Node2D" parent="." unique_id=1048754509]
 
 [node name="ClawArea" type="Area2D" parent="Pivot" unique_id=1666767283]
 unique_name_in_owner = true
-visible = false
 
 [node name="claw_vfx" type="Sprite2D" parent="Pivot/ClawArea" unique_id=1177768105]
-position = Vector2(123, -1)
-scale = Vector2(0.7734375, 0.7265625)
+position = Vector2(115, -1)
+scale = Vector2(0.578125, 0.7265625)
 texture = ExtResource("3_6fl1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=636994079]
-position = Vector2(124, 0)
+position = Vector2(97.5, 0.5)
 shape = SubResource("RectangleShape2D_6fl1u")
 
 [node name="wall_ray" type="RayCast2D" parent="Pivot" unique_id=279979177]
@@ -250,6 +256,7 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2062734317]
 zoom = Vector2(0.75, 0.75)
+limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
@@ -266,6 +273,12 @@ one_shot = true
 [node name="Spell2Cooldown" type="Timer" parent="." unique_id=1339852716]
 one_shot = true
 
+[node name="Spell3Cooldown" type="Timer" parent="." unique_id=1225652611]
+one_shot = true
+
+[node name="Spell4Cooldown" type="Timer" parent="." unique_id=1306411650]
+one_shot = true
+
 [node name="HeadCheck" type="Area2D" parent="." unique_id=1349780301]
 collision_layer = 32
 collision_mask = 33
@@ -275,6 +288,16 @@ collision_priority = 1.1
 position = Vector2(-1, -54)
 shape = SubResource("RectangleShape2D_aqabe")
 
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1178764303]
+visible = false
+position = Vector2(8.000002, 10.000015)
+scale = Vector2(3.0000002, 2.5708334)
+texture = ExtResource("17_aqghj")
+
+[node name="FreezeCollisionShape2D" type="CollisionShape2D" parent="." unique_id=804649788]
+shape = SubResource("CircleShape2D_aqghj")
+
+[connection signal="body_entered" from="Pivot/ClawArea" to="." method="_on_claw_area_body_entered"]
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]

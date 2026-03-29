@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4mu8uv4rh3ph"
-path="res://.godot/imported/scroll.png-e07e35abcbbc64eb46aa7f1b22c195f6.ctex"
+uid="uid://bf7bp43eu448l"
+path="res://.godot/imported/plant_test_3.png-9fe48179214159eefe4ac4ce4a0f693a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/scroll.png"
-dest_files=["res://.godot/imported/scroll.png-e07e35abcbbc64eb46aa7f1b22c195f6.ctex"]
+source_file="res://Images/Plants/plant_test_3.png"
+dest_files=["res://.godot/imported/plant_test_3.png-9fe48179214159eefe4ac4ce4a0f693a.ctex"]
 
 [params]
 

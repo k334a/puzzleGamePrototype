@@ -36,3 +36,9 @@ func remove_item(index: int) -> bool: #test if you can remove an item
 		return true
 	items[index] = null
 	return false
+
+func check_for_spell(spellName: String) -> bool:
+	for spell: Item in spells:
+		if spell and spell.name == spellName:
+			return true
+	return false

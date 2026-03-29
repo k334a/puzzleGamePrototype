@@ -1,22 +1,36 @@
 extends Node
 
-@export var nextLevel: PackedScene
+@export var zoom: Vector2 = Vector2(0.75, 0.75)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
 
 var pushableStartPoints: Array[Vector2]
+var breakableStatus: Dictionary[RigidBody2D, bool]
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
 
-enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE }
-enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR }
+enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
+enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
+enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		pushableStartPoints.push_back(node.global_position)
+	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
+		breakableStatus.set(node, false)
+		node.jar_broken.connect(_on_jar_broken)
+	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
+	for node: interactive_area in get_tree().get_nodes_in_group("interaction"):
+		node.areaHit.connect(_on_interaction_area_entered)
+		node.areaLeft.connect(_on_interaction_area_exited)
+
+func _on_jar_broken(jar: RigidBody2D) -> void:
+	breakableStatus.set(jar, true)
+	if breakableStatus.values().all(func(jarStatus): return jarStatus):
+		print("Broke all jars!")
 
 func _physics_process(delta: float) -> void:
 	
@@ -38,7 +52,7 @@ func _physics_process(delta: float) -> void:
 		for tile: Vector2i in tilesRemove:
 			frozenTiles.erase(tile)
 		if not toUnfreezeFlat.is_empty():
-			$TileMapLayer.set_cells_terrain_connect(toUnfreezeFlat, TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
+			%LevelTiles.set_cells_terrain_connect(toUnfreezeFlat, TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
 	
 	if not frozenStreamsX.is_empty():
 		var toUnfreezeFalling: Array[Vector2i] = []
@@ -51,29 +65,33 @@ func _physics_process(delta: float) -> void:
 		for stream: int in streamsRemove:
 			frozenStreamsX.erase(stream)
 		if not toUnfreezeFalling.is_empty():
-			$TileMapLayer.set_cells_terrain_connect(toUnfreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
+			%LevelTiles.set_cells_terrain_connect(toUnfreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 
 # Currently missing functionality for resetting inventory and items
 func _on_cat_reset_level() -> void:
 	# If we end up adding different tile map layers, this will need to instead be a unique named one or passed in onready
-	$TileMapLayer.set_cells_terrain_connect(frozenTiles.keys(), TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
+	%LevelTiles.set_cells_terrain_connect(frozenTiles.keys(), TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
 	frozenTiles.clear()
 	
 	var frozenStreamTiles: Array[Vector2i] = []
 	for stream: int in frozenStreamsX:
 		frozenStreamTiles.append_array(get_stream_tiles(stream, frozenStreamsX[stream]))
 	
-	$TileMapLayer.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
+	%LevelTiles.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 	frozenStreamsX.clear()
 	
 	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		node.teleport(pushableStartPoints[i])
+		if not breakableStatus.keys().has(node) or not breakableStatus.get(node):
+			node.reset(pushableStartPoints[i])
 		i += 1
+	
+	for node: AnimatableBody2D in get_tree().get_nodes_in_group("plant"):
+		node.reset()
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	
-	var layer: TileMapLayer = $TileMapLayer
+	var layer: TileMapLayer = %LevelTiles
 	var toFreezeFlat: Array[Vector2i] = []
 	var toFreezeFalling: Array[Vector2i] = []
 	
@@ -123,11 +141,6 @@ func freeze_stream(x: int, yValues: Array, layer: TileMapLayer) -> Array[Vector2
 	
 	return freezeTiles
 
-
-func _on_next_level_placeholder_body_entered(_body: Node2D) -> void:
-	get_tree().call_deferred("change_scene_to_packed", nextLevel)
-
-
 func get_stream_tiles(x: int, stream: Array) -> Array[Vector2i]:
 	var tiles: Array[Vector2i]
 	
@@ -141,3 +154,36 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 	if data and data.has_custom_data(attribute):
 		return data.get_custom_data(attribute)
 	return null
+
+func _on_interaction_area_entered(area: interactive_area) -> void:
+	match area.areaType:
+		"entrance":
+			area.light_on(Color(0.447, 0.549, 0.573, 0.561))
+			cat.onTrigger = area
+		"plant":
+			if cat.check_for_spell("Plant Spell"):
+				area.light_on(Color(0.499, 0.896, 0.0, 0.467))
+				cat.onTrigger = area
+		"scratch":
+			area.light_on(Color(0.576, 0.039, 0.643, 0.502))
+			cat.onTrigger = area
+		_:
+			print("un-assigned area!")
+
+func _on_interaction_area_exited(area: interactive_area) -> void:
+	area.light_off()
+	cat.onTrigger = null
+	
+
+func _on_cat_unfurl_plant(area: interactive_area) -> void:
+	area.plantNode.unfurl()
+
+
+func _on_cat_next_level(nextLevel: PackedScene, inventory: Array) -> void:
+	var level = nextLevel.instantiate()
+	get_tree().root.add_child(level)
+	level.set_up_cat(inventory)
+	self.queue_free()
+
+func set_up_cat(inventory: Array):
+	$cat/Inventory.spells = inventory

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbvw82d8v2web"
-path="res://.godot/imported/ice_block_1.png-b255072b6c9550cf9fc005bb2b355bca.ctex"
+uid="uid://bsmut5qi7wdt2"
+path="res://.godot/imported/plant_test_2.png-a1728278d46bb11a693943e18bab6298.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/ice_blocks/ice_block_1.png"
-dest_files=["res://.godot/imported/ice_block_1.png-b255072b6c9550cf9fc005bb2b355bca.ctex"]
+source_file="res://Images/Plants/plant_test_2.png"
+dest_files=["res://.godot/imported/plant_test_2.png-a1728278d46bb11a693943e18bab6298.ctex"]
 
 [params]
 

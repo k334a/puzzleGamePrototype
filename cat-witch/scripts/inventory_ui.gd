@@ -4,8 +4,7 @@ class_name InventoryUI
 @onready var grid: GridContainer = $Control/Panel/GridContainer
 @onready var spellPanel: Panel = $Control/SpellPanel
 
-const SlotScene = preload("res://scenes/slot.tscn")
-
+const SlotScene = preload("res://scenes/Inventory_and_Items/slot.tscn")
 func _ready() -> void:
 	visible = false
 

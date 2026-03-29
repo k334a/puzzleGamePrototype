@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dphf4pxu6a7jg"]
+
+[ext_resource type="Script" uid="uid://cwflebrjtmkw7" path="res://scripts/interactive_area.gd" id="1_ecmr1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxbl4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hx4i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+
+[node name="InteractiveArea" type="Area2D" unique_id=115439003 groups=["interaction"]]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_ecmr1")
+metadata/_custom_type_script = "uid://cwflebrjtmkw7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1048322137]
+shape = SubResource("RectangleShape2D_oxbl4")
+
+[node name="Panel" type="Panel" parent="." unique_id=289482323]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_4hx4i")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
