@@ -173,11 +173,17 @@ func _on_interaction_area_entered(area: interactive_area) -> void:
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()
 	cat.onTrigger = null
-
+	
 
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(nextLevel: PackedScene) -> void:
-	get_tree().call_deferred("change_scene_to_packed", nextLevel)
+func _on_cat_next_level(nextLevel: PackedScene, inventory: Array) -> void:
+	var level = nextLevel.instantiate()
+	get_tree().root.add_child(level)
+	level.set_up_cat(inventory)
+	self.queue_free()
+
+func set_up_cat(inventory: Array):
+	$cat/Inventory.spells = inventory

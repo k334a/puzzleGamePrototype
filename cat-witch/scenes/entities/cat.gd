@@ -144,7 +144,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 
 	# Jumping
-	if (is_on_floor() or wall_contact_coyote > 0.0) and jump:
+	if (is_on_floor() or wall_contact_coyote > 0.0) and jump and not crouch:
 		velocity.y = jump_speed
 		airtime = true
 		if wall_contact_coyote > 0.0 and !is_on_floor():
@@ -207,10 +207,9 @@ func _physics_process(delta):
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
 	if enterArea and onTrigger and onTrigger.areaType == "entrance":
-		nextLevel.emit(onTrigger.entranceLevel)
+		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
-	move_and_slide()
-
+	move_and_slide()	
 
 func apply_outside_force(forceVector):
 	velocity.x += forceVector.x

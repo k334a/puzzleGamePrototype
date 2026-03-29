@@ -58,7 +58,6 @@ position = Vector2(793, -462)
 [node name="Rain" parent="." index="13" unique_id=617827363 instance=ExtResource("12_p6tsc")]
 position = Vector2(2258, -514.00006)
 scale = Vector2(1.0218873, 1.3917108)
-lightning_on = true
 
 [node name="PushableObject" parent="." index="14" unique_id=2104414850 instance=ExtResource("3_rwuno")]
 position = Vector2(-1160, -71)
