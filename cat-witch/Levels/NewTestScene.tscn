@@ -10,9 +10,37 @@
 [ext_resource type="PackedScene" uid="uid://cgfk6g5qnhyg0" path="res://scenes/entities/jar.tscn" id="11_00cuc"]
 [ext_resource type="Resource" uid="uid://chtnfennnvtsk" path="res://resources/lightSpell.tres" id="11_8cwch"]
 [ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="12_p6tsc"]
+[ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="12_ufh65"]
+[ext_resource type="Texture2D" uid="uid://dcv3s0tbq1hb1" path="res://Images/Tiles/Doors/glass_door_1.png" id="13_hhm4g"]
+[ext_resource type="Texture2D" uid="uid://bl00ruk8tjh4m" path="res://Images/Tiles/Doors/broken_glass_door_1.png" id="14_3cfv0"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="14_w13gb"]
-[ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="15_hhm4g"]
+[ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://Images/goldSpot.png" id="15_hhm4g"]
 [ext_resource type="PackedScene" uid="uid://4ilmoq6idauw" path="res://scenes/entities/PlantTest.tscn" id="15_lpmgw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4684f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_hhm4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_3cfv0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3cfv0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_hhm4g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="TestScene" unique_id=1378909801 instance=ExtResource("1_g1pj0")]
 
@@ -25,26 +53,26 @@ position = Vector2(97, 367)
 collision_layer = 32777
 
 [node name="SpellPickup" parent="." index="5" unique_id=1021825572 instance=ExtResource("3_evb8t")]
-position = Vector2(482, 348)
+position = Vector2(323, 350)
 item = ExtResource("5_evb8t")
 
 [node name="SpellPickup2" parent="." index="6" unique_id=658073006 instance=ExtResource("3_evb8t")]
-position = Vector2(603, 352)
+position = Vector2(444, 354)
 item = ExtResource("4_lbwr7")
 
 [node name="SpellPickup3" parent="." index="7" unique_id=1202439123 instance=ExtResource("3_evb8t")]
-position = Vector2(740, 356)
+position = Vector2(581, 358)
 item = ExtResource("7_2h2qg")
 
 [node name="SpellPickup4" parent="." index="8" unique_id=1653644546 instance=ExtResource("3_evb8t")]
-position = Vector2(854, 364)
+position = Vector2(695, 366)
 item = ExtResource("11_8cwch")
 
 [node name="Box" parent="." index="9" unique_id=963461222 instance=ExtResource("10_2h2qg")]
 position = Vector2(-823, -237)
 
 [node name="Jar" parent="." index="10" unique_id=1110553694 instance=ExtResource("11_00cuc")]
-position = Vector2(506, -319)
+position = Vector2(-1030, -291)
 
 [node name="Jar2" parent="." index="11" unique_id=134765167 instance=ExtResource("11_00cuc")]
 position = Vector2(793, -462)
@@ -68,20 +96,43 @@ position = Vector2(-397, 357)
 [node name="LightObject" parent="." index="17" unique_id=1376024650 instance=ExtResource("14_w13gb")]
 position = Vector2(2268, 109)
 
-[node name="PlantTest" parent="." index="18" unique_id=1048012712 instance=ExtResource("15_lpmgw")]
-position = Vector2(669, -305)
-
-[node name="InteractiveArea" parent="." index="19" unique_id=115439003 instance=ExtResource("15_hhm4g")]
-position = Vector2(-162.99988, 65.00003)
-scale = Vector2(3.34215, -11.007377)
-areaType = "scratch"
-scratchType = Dictionary[String, int]({
-"entrance": -1,
-"plant": -1,
-"reveal": 1
+[node name="InteractionSprite" parent="." index="20" unique_id=983612869 instance=ExtResource("12_ufh65")]
+position = Vector2(-160, 89)
+sprite_frames = SubResource("SpriteFrames_4684f")
+interactionType = "Scratch"
+scratchType = "Reveal"
+scratchValue = 1
+scratchColour = Color(0.6787402, 0.36583382, 0.56500727, 1)
+lightUpArea = Dictionary[String, int]({
+"height": 9,
+"width": 6,
+"x": -60,
+"y": -80
+})
+collisionArea = Dictionary[String, int]({
+"height": 9,
+"width": 6,
+"x": 0,
+"y": 0
 })
 
-[node name="InteractiveArea2" parent="." index="22" unique_id=1330678360 instance=ExtResource("15_hhm4g")]
-position = Vector2(895, 369)
-areaType = "entrance"
-entranceLevel = "cityScape"
+[node name="InteractionSprite2" parent="." index="21" unique_id=410239393 instance=ExtResource("12_ufh65")]
+position = Vector2(818, 354)
+sprite_frames = SubResource("SpriteFrames_3cfv0")
+interactionType = "Entrance"
+entrance = "cityScape"
+lightUpArea = Dictionary[String, int]({
+"height": 1,
+"width": 3,
+"x": -30,
+"y": -10
+})
+collisionArea = Dictionary[String, int]({
+"height": 2,
+"width": 3,
+"x": 0,
+"y": 0
+})
+
+[node name="PlantTest" parent="." index="22" unique_id=1048012712 instance=ExtResource("15_lpmgw")]
+position = Vector2(675, -285)

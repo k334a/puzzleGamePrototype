@@ -1,7 +1,7 @@
 extends Node
 
 @export var zoom: Vector2 = Vector2(0.75, 0.75)
-@export var entranceColour: Color = Color(0.447, 0.549, 0.573, 0.561)
+@export var entranceColour: Color = Color("c2944187")
 @export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
 @export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
 

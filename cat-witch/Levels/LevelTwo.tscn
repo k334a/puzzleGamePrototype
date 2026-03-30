@@ -9,6 +9,17 @@
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="7_kfbls"]
 [ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://Images/goldSpot.png" id="8_ovf17"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfbls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ovf17")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="LevelTwo" unique_id=1378909801 instance=ExtResource("1_4g1jt")]
 
 [node name="LevelTiles" parent="." index="0" unique_id=474357427]
@@ -28,8 +39,22 @@ item = ExtResource("7_fyo0n")
 [node name="Exit" parent="." index="5" unique_id=1063323564 instance=ExtResource("7_kfbls")]
 position = Vector2(144, -251)
 scale = Vector2(2.4285717, 2.4285715)
-texture = ExtResource("8_ovf17")
+sprite_frames = SubResource("SpriteFrames_kfbls")
+interactionType = "Entrance"
 entrance = "testScene"
+entranceColour = Color(0.8032919, 0.6829037, 0.28077155, 1)
+lightUpArea = Dictionary[String, int]({
+"height": 1,
+"width": 3,
+"x": -30,
+"y": -10
+})
+collisionArea = Dictionary[String, int]({
+"height": 2,
+"width": 3,
+"x": 0,
+"y": 0
+})
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="7" unique_id=840103507]
 color = Color(0, 0, 0, 1)

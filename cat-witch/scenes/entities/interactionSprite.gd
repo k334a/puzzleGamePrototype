@@ -13,8 +13,9 @@ extends AnimatedSprite2D
 @export_range(0, 5, 1, "or_greater") var scratchValue: int
 @export var item: Item
 @export var scratchColour: Color
-@export_category("Animation")
-@export var damageFrameOffset: int
+@export_category("")
+@export var lightUpArea: Dictionary[String, int] = { "width": 1, "height": 1, "x": 0, "y": 0}
+@export var collisionArea: Dictionary[String, int] = { "width": 1, "height": 1, "x": 0, "y": 0}
 var damage: int = 0
 
 signal damage_self
@@ -23,22 +24,12 @@ signal destroyed
 func _ready() -> void:
 	if not interactionType:
 		push_error("Interaction type of interactive area not set: " + self.to_string())
-	
-	$InteractiveArea.scratchable = (not interactionType == "Entrance" or scratchToReveal)
-	match interactionType:
-		"Entrance" when not scratchToReveal:
-			$InteractiveArea.entranceLevel = entrance
-		"Plant":
-			$InteractiveArea.plantNode = plant
-		"":
-			$InteractiveArea.areaType = "scratch"
-			if scratchToReveal:
-				$InteractiveArea.entranceLevel = entrance
-			if item:
-				$InteractiveArea.item = item
+	$InteractiveArea.set_up(interactionType, scratchToReveal, entrance, plant, lightUpArea, item, collisionArea)
 
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
+	frame += 1
+	damage_self.emit()
 	if damage == scratchValue:
 		match scratchType:
 			"Entrance":
@@ -46,23 +37,7 @@ func _on_interactive_area_damage_self() -> void:
 				$InteractiveArea.light_on(entranceColour)
 			"Item":
 				print("reveal item!")
-			"":
+			_:
 				$InteractiveArea.light_off()
 				$InteractiveArea.monitoring = false
-				hide()
 		destroyed.emit()
-	else:
-		frame += damageFrameOffset * damage
-		damage_self.emit()
-
-func resetPlant() -> void:
-	show()
-	$InteractiveArea.monitoring = true
-	$InteractiveArea.areaType = "plant"
-	damage = 0
-
-func plantUnfurled() -> void:
-	$InteractiveArea.areaType = "Scratch"
-
-func plantFurled() -> void:
-	$InteractiveArea.areaType = "Plant"
