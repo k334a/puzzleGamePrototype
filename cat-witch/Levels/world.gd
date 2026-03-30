@@ -1,6 +1,9 @@
 extends Node
 
 @export var zoom: Vector2 = Vector2(0.75, 0.75)
+@export var entranceColour: Color = Color(0.447, 0.549, 0.573, 0.561)
+@export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
+@export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
@@ -164,18 +167,18 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 
 func _on_interaction_area_entered(area: interactive_area) -> void:
 	match area.areaType:
-		"entrance":
-			area.light_on(Color(0.447, 0.549, 0.573, 0.561))
+		"Entrance":
+			area.light_on(entranceColour)
 			cat.onTrigger = area
-		"plant":
+		"Plant":
 			if cat.check_for_spell("Plant Spell"):
-				area.light_on(Color(0.499, 0.896, 0.0, 0.467))
+				area.light_on(plantColour)
 				cat.onTrigger = area
-		"scratch":
-			area.light_on(Color(0.576, 0.039, 0.643, 0.502))
+		"Scratch":
+			area.light_on(scratchColour)
 			cat.onTrigger = area
 		_:
-			print("un-assigned area!")
+			print("Un-assigned area!")
 
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()

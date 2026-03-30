@@ -1,40 +1,46 @@
 extends AnimatableBody2D
 
+@export_range(0, 5, 1, "or_greater") var scratchesToDestroy: int = 1
+@export_range(0, 5, 1, "or_greater") var damageFramesOffset: int = 0
+@export var lightUpColour: Color
+@export var plantAnimations: SpriteFrames
+@export var damageFrameOffset: int
 var damage: int = 0
 
+func _ready() -> void:
+	$InteractionSprite.interactionType = "Plant"
+	$InteractionSprite.plant = self
+	$InteractionSprite.plantColour = lightUpColour
+	$InteractionSprite.scratchValue = scratchesToDestroy
+	$InteractionSprite.scratchType = "Plant"
+	$InteractionSprite.scratchValue = scratchesToDestroy
+	$InteractionSprite.sprite_frames = plantAnimations
+	$InteractionSprite.damageFrameOffset = damageFramesOffset
+
 func unfurl() -> void:
-	match damage:
-		0:
-			$AnimationPlayer.play("unfurl")
-		1:
-			$AnimationPlayer.play("unfurl_damage_1")
-		2:
-			$AnimationPlayer.play("unfurl_damage_2")
-	$InteractiveArea.areaType = "scratch"
+	if damage == 0:
+		$AnimationPlayer.play("unfurl")
+	else:
+		$AnimationPlayer.play("unfurl_damage_" + String.num(damage))
+	$InteractionSprite.plantUnfurled()
 
 func furlup() -> void:
-	match damage:
-		0:
-			$AnimationPlayer.play("furlup")
-		1:
-			$AnimationPlayer.play("furlup_damage_1")
-		2:
-			$AnimationPlayer.play("furlup_damage_2")
-	$InteractiveArea.areaType = "plant"
+	if damage == 0:
+		$AnimationPlayer.play("furlup")
+	else:
+		$AnimationPlayer.play("furlup_damage_" + String.num(damage))
+	$InteractionSprite.plantFurled()
 
 func reset() -> void:
-	$AnimatedSprite2D.show()
+	show()
 	$CollisionPolygon2D.disabled = false
 	$AnimationPlayer.play("RESET")
-	$InteractiveArea.areaType = "plant"
-	$InteractiveArea.scratchType.plant = 2
+	$InteractionSprite.resetPlant()
 	damage = 0
 
-
-func _on_interactive_area_damage_self() -> void:
+func _on_interactive_sprite_damage_self() -> void:
 	damage += 1
-	$AnimatedSprite2D.frame += 12
 
-func _on_interactive_area_destroyed() -> void:
-	$AnimatedSprite2D.hide()
+func _on_interactive_sprite_destroyed() -> void:
 	$CollisionPolygon2D.disabled = true
+	hide()

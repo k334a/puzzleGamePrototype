@@ -190,7 +190,7 @@ func _physics_process(delta):
 		$AnimatedSprite2D.offset.y = 0
 	
 	# Scratching
-	if scratch and onTrigger and onTrigger.areaType == "scratch":
+	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
 	else:
@@ -207,7 +207,7 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	if enterArea and onTrigger and onTrigger.areaType == "entrance":
+	if enterArea and onTrigger and onTrigger.areaType == "Entrance":
 		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
 	move_and_slide()
@@ -322,7 +322,7 @@ func light():
 		$PointLight2D.show()
 
 func plant() -> float:
-	if onTrigger and onTrigger.areaType == "plant":
+	if onTrigger and onTrigger.areaType == "Plant":
 		unfurlPlant.emit(onTrigger)
 		return 5.0
 	return 0.1

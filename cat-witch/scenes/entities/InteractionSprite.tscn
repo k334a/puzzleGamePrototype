@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="1_8nxf6"]
 [ext_resource type="Script" uid="uid://16gbf3q2x5d0" path="res://scenes/entities/interactionSprite.gd" id="1_520bv"]
 
-[node name="InteractionSprite" type="Sprite2D" unique_id=1063323564]
+[node name="InteractionSprite" type="AnimatedSprite2D" unique_id=983612869]
 script = ExtResource("1_520bv")
 
 [node name="InteractiveArea" parent="." unique_id=115439003 instance=ExtResource("1_8nxf6")]
