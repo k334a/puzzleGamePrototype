@@ -16,6 +16,13 @@ enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
+var SCENES: Dictionary[String, Resource] = {
+	"level1": load("res://Levels/LevelOne.tscn"),
+	"level2": load("res://Levels/LevelTwo.tscn"),
+	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
+	"testScene": load("res://Levels/NewTestScene.tscn"),
+}
+
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		pushableStartPoints.push_back(node.global_position)
@@ -179,8 +186,8 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(nextLevel: PackedScene, inventory: Array) -> void:
-	var level = nextLevel.instantiate()
+func _on_cat_next_level(levelName: String, inventory: Array) -> void:
+	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
 	level.set_up_cat(inventory)
 	self.queue_free()

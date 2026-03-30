@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c0htreg0ewcuw" path="res://Images/Items/light.png" id="1_kxp31"]
 [ext_resource type="Texture2D" uid="uid://b4t3qgin377q8" path="res://Images/light-gradient.png" id="1_x4w0x"]
+[ext_resource type="Texture2D" uid="uid://bip56uv5rpvs4" path="res://Images/light_top.png" id="3_103pr"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xdpxu"]
+polygon = PackedVector2Array(-22.671644, -0.7313433, -21.208958, -7.679105, -15.723882, -16.089554, -5.8507466, -21.574627, -0.36567166, -23.037313, 4.0223885, -22.671642, 10.97015, -20.11194, 18.283583, -13.529852, 22.305971, -4.0223885, 22.305971, -0.36567166)
 
 [node name="LightObject" type="Sprite2D" unique_id=1376024650]
 texture = ExtResource("1_kxp31")
@@ -10,3 +14,11 @@ texture = ExtResource("1_kxp31")
 scale = Vector2(2.6333334, 2.6333334)
 shadow_enabled = true
 texture = ExtResource("1_x4w0x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1073929470]
+position = Vector2(-1, 1)
+scale = Vector2(2.7346938, 2.7346938)
+texture = ExtResource("3_103pr")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D" unique_id=1121208314]
+occluder = SubResource("OccluderPolygon2D_xdpxu")
