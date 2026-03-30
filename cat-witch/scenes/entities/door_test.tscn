@@ -1,0 +1,40 @@
+[gd_scene format=4 uid="uid://c17reujf55s2d"]
+
+[ext_resource type="Script" uid="uid://d1lh447swksxq" path="res://door_test.gd" id="1_2dxf0"]
+[ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_2f6xt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mqa4"]
+size = Vector2(61, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2xot"]
+size = Vector2(65.5, 683)
+
+[node name="Door" type="Node2D" unique_id=1781360982]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1129924916]
+script = ExtResource("1_2dxf0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=872709411]
+position = Vector2(35.5, 198)
+shape = SubResource("RectangleShape2D_2mqa4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=583088393]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1334938514]
+position = Vector2(107.25, 269.5)
+shape = SubResource("RectangleShape2D_n2xot")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1270585074]
+z_index = 1
+offset_left = 70.0
+offset_top = -73.0
+offset_right = 144.0
+offset_bottom = 615.0
+color = Color(0.52156866, 0.2509804, 0, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1891174623]
+tile_map_data = PackedByteArray("AAAAAAYAAQAAAAQAAAABAAYAAQACAAQAAAACAAYAAQAAAAEAAAADAAYAAQACAAEAAAACAAUAAQAAAAEAAAADAAUAAQACAAEAAAADAAQAAQACAAEAAAACAAQAAQAAAAEAAAACAAMAAQAAAAEAAAACAAIAAQAAAAEAAAACAAEAAQAAAAEAAAACAAAAAQAAAAEAAAACAP//AQAAAAEAAAACAP7/AQAAAAAAAAACAAcAAQAAAAEAAAACAAgAAQAAAAEAAAACAAkAAQAAAAEAAAACAAoAAQAAAAEAAAACAAsAAQAAAAEAAAACAAwAAQAAAAEAAAACAA0AAQAAAAEAAAACAA4AAQAAAAEAAAACAA8AAQAAAAEAAAACABAAAQAAAAIAAAADABAAAQACAAIAAAADAA8AAQACAAEAAAADAA4AAQACAAEAAAADAA0AAQACAAEAAAADAAwAAQACAAEAAAADAAsAAQACAAEAAAADAAoAAQACAAEAAAADAAkAAQACAAEAAAADAAgAAQACAAEAAAADAAcAAQACAAEAAAADAAMAAQACAAEAAAADAAIAAQACAAEAAAADAAEAAQACAAEAAAADAAAAAQACAAEAAAADAP//AQACAAEAAAADAP7/AQACAAAAAAA=")
+tile_set = ExtResource("2_2f6xt")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

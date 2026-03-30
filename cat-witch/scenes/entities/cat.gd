@@ -199,6 +199,8 @@ func _physics_process(delta):
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collision_crate = collision.get_collider()
+		if not is_instance_valid(collision_crate):
+			break
 		if collision_crate.is_in_group("pushable") and abs(collision_crate.get_linear_velocity().x) < MAX_VELOCITY:
 			collision_crate.apply_central_impulse(collision.get_normal() * -PUSH_FORCE)
 		if collision_crate.is_in_group("box"): # We have a problem with delta correction pushing things through walls
