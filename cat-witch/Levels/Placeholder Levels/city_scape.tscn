@@ -151,5 +151,5 @@ position = Vector2(0, -2952)
 position = Vector2(5796, 108)
 
 [node name="SpellPickup" parent="." index="19" unique_id=1021825572 instance=ExtResource("5_lo40e")]
-position = Vector2(510, -77)
+position = Vector2(2244, -904)
 item = ExtResource("6_1syct")

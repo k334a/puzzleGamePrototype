@@ -210,6 +210,7 @@ func _physics_process(delta):
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
 	if enterArea and onTrigger and onTrigger.areaType == "Entrance":
+		print(onTrigger.entranceLevel)
 		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
 	move_and_slide()
