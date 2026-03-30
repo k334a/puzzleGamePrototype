@@ -1,0 +1,8 @@
+[gd_scene format=4 uid="uid://b83oaa3lp6cly"]
+
+[ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_445mn"]
+
+[node name="Building1" unique_id=1378909801 instance=ExtResource("1_445mn")]
+
+[node name="LevelTiles" parent="." index="0" unique_id=474357427]
+tile_map_data = PackedByteArray("AAD6/wIAAQAAAAMAAAD7/wIAAQABAAMAAAD8/wIAAQABAAMAAAD9/wIAAQABAAMAAAD+/wIAAQABAAMAAAD//wIAAQABAAMAAAAAAAIAAQABAAMAAAABAAIAAQABAAMAAAACAAIAAQABAAMAAAADAAIAAQABAAMAAAAEAAIAAQABAAMAAAAFAAIAAQACAAMAAAA=")

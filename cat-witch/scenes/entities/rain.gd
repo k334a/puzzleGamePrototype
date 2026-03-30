@@ -9,7 +9,7 @@ func _ready() -> void:
 	$RainCollision.lightning_on = lightning_on
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$ColorRect.hide()
 
 func _on_lightning_timer_timeout() -> void:

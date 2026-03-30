@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://crwrlxa3je0dv"]
 
 [ext_resource type="Script" uid="uid://bycp1tx7yr20p" path="res://scenes/entities/cat.gd" id="1_52fj1"]
-[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="3_6fl1u"]
 [ext_resource type="Texture2D" uid="uid://dguiuh3t8t6ys" path="res://Images/jump_cat_pixels/sprite_0.png" id="3_aqghj"]
 [ext_resource type="Texture2D" uid="uid://dmyct608qxn62" path="res://Images/idle_cat_pixels/sprite_cat_idle0.png" id="3_ctms4"]
 [ext_resource type="Script" uid="uid://bg65cdqlf5fne" path="res://scenes/spells/freeze_bubble.gd" id="4_2hdoq"]
@@ -86,8 +85,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fl1u"]
-size = Vector2(37, 89)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqghj"]
+size = Vector2(65, 89)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
@@ -153,14 +152,9 @@ frame_progress = 0.5846262
 [node name="ClawArea" type="Area2D" parent="Pivot" unique_id=1666767283]
 unique_name_in_owner = true
 
-[node name="claw_vfx" type="Sprite2D" parent="Pivot/ClawArea" unique_id=1177768105]
-position = Vector2(115, -1)
-scale = Vector2(0.578125, 0.7265625)
-texture = ExtResource("3_6fl1u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=636994079]
-position = Vector2(97.5, 0.5)
-shape = SubResource("RectangleShape2D_6fl1u")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=1928984223]
+position = Vector2(83.5, 0.5)
+shape = SubResource("RectangleShape2D_aqghj")
 
 [node name="wall_ray" type="RayCast2D" parent="Pivot" unique_id=279979177]
 unique_name_in_owner = true

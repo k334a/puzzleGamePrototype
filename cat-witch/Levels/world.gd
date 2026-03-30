@@ -1,6 +1,9 @@
 extends Node
 
 @export var zoom: Vector2 = Vector2(0.75, 0.75)
+@export var entranceColour: Color = Color("c2944187")
+@export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
+@export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
@@ -15,6 +18,19 @@ enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
 enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
+
+var SCENES: Dictionary[String, Resource] = {
+	"level1": load("res://Levels/LevelOne.tscn"),
+	"level2": load("res://Levels/LevelTwo.tscn"),
+	"testScene": load("res://Levels/NewTestScene.tscn"),
+	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
+	"alleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
+	"greenhouse_1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
+	"greenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
+	"leakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
+	"warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
+	"building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
+}
 
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
@@ -157,18 +173,18 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 
 func _on_interaction_area_entered(area: interactive_area) -> void:
 	match area.areaType:
-		"entrance":
-			area.light_on(Color(0.447, 0.549, 0.573, 0.561))
+		"Entrance":
+			area.light_on(entranceColour)
 			cat.onTrigger = area
-		"plant":
+		"Plant":
 			if cat.check_for_spell("Plant Spell"):
-				area.light_on(Color(0.499, 0.896, 0.0, 0.467))
+				area.light_on(plantColour)
 				cat.onTrigger = area
-		"scratch":
-			area.light_on(Color(0.576, 0.039, 0.643, 0.502))
+		"Scratch":
+			area.light_on(scratchColour)
 			cat.onTrigger = area
 		_:
-			print("un-assigned area!")
+			print("Un-assigned area!")
 
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()
@@ -179,8 +195,8 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(nextLevel: PackedScene, inventory: Array) -> void:
-	var level = nextLevel.instantiate()
+func _on_cat_next_level(levelName: String, inventory: Array) -> void:
+	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
 	level.set_up_cat(inventory)
 	self.queue_free()

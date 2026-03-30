@@ -61,6 +61,7 @@ func resetCat() -> void:
 	$Spell1Cooldown.stop()
 	$Spell2Cooldown.stop()
 	$Spell3Cooldown.stop()
+	$Spell4Cooldown.stop()
 	resetLevel.emit()
 
 func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> void:
@@ -95,6 +96,7 @@ func _physics_process(delta):
 		spell1 = false
 		spell2 = false
 		spell3 = false
+		spell4 = false
 
 	# Gravity Physics
 	if not is_on_floor():
@@ -188,11 +190,10 @@ func _physics_process(delta):
 		$AnimatedSprite2D.offset.y = 0
 	
 	# Scratching
-	if scratch:
-		$Pivot/ClawArea.show()
+	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
+		onTrigger.scratch()
 	else:
-		$Pivot/ClawArea.hide()
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
 	# Pushing
@@ -208,10 +209,10 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	if enterArea and onTrigger and onTrigger.areaType == "entrance":
+	if enterArea and onTrigger and onTrigger.areaType == "Entrance":
 		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
 	
-	move_and_slide()	
+	move_and_slide()
 
 func apply_outside_force(forceVector):
 	velocity.x += forceVector.x
@@ -323,7 +324,7 @@ func light():
 		$PointLight2D.show()
 
 func plant() -> float:
-	if onTrigger and onTrigger.areaType == "plant":
+	if onTrigger and onTrigger.areaType == "Plant":
 		unfurlPlant.emit(onTrigger)
 		return 5.0
 	return 0.1

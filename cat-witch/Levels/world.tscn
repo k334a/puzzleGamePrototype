@@ -3,15 +3,23 @@
 [ext_resource type="PackedScene" uid="uid://crwrlxa3je0dv" path="res://scenes/entities/cat.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://Levels/world.gd" id="1_tlwt5"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_4dvsh"]
+[ext_resource type="TileSet" uid="uid://clltl41f8o0j6" path="res://resources/visualTiles.tres" id="3_ks8n1"]
 [ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/Inventory_and_Items/InventoryUI.tscn" id="4_aqk2v"]
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
+entranceColour = Color(0.7617416, 0.5793735, 0.25524214, 0.53000003)
 
 [node name="LevelTiles" type="TileMapLayer" parent="." unique_id=474357427]
 unique_name_in_owner = true
 tile_set = ExtResource("2_4dvsh")
 navigation_enabled = false
+
+[node name="BackgroundTiles" type="TileMapLayer" parent="." unique_id=1025315294]
+tile_set = ExtResource("3_ks8n1")
+
+[node name="BackgroundTiles2" type="TileMapLayer" parent="." unique_id=1209216120]
+tile_set = ExtResource("3_ks8n1")
 
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_f3sb7")]
 
