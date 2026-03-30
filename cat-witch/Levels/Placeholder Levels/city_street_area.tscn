@@ -1,9 +1,7 @@
 [gd_scene format=4 uid="uid://dvs7yv0dbd6jr"]
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_1x1hf"]
-[ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="2_smjrp"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="3_srs0l"]
-[ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="4_osbuc"]
 
 [node name="CityStreetArea" unique_id=1378909801 instance=ExtResource("1_1x1hf")]
 zoom = Vector2(0.5, 0.5)
@@ -647,57 +645,27 @@ offset_right = 1971.0
 offset_bottom = 578.0
 color = Color(0.095622696, 0.25589836, 0.11822965, 1)
 
-[node name="InteractiveArea3" parent="." index="3" unique_id=403613191 instance=ExtResource("2_smjrp")]
-position = Vector2(5368, 500)
-rotation = -3.1415927
-scale = Vector2(49.44265, -7.3918457)
-areaType = "entrance"
-entranceLevel = "cityScape"
-
-[node name="InteractiveArea4" parent="." index="4" unique_id=515140064 instance=ExtResource("2_smjrp")]
-position = Vector2(6384.0005, 475)
-rotation = -3.1415927
-scale = Vector2(11.093036, -7.3917875)
-areaType = "scratch"
-scratchType = Dictionary[String, int]({
-"entrance": 1,
-"item": -1,
-"plant": -1,
-"reveal": -1
-})
-entranceLevel = "cityScape"
-
-[node name="LightObject" parent="." index="5" unique_id=1376024650 instance=ExtResource("3_srs0l")]
+[node name="LightObject" parent="." index="3" unique_id=1376024650 instance=ExtResource("3_srs0l")]
 position = Vector2(2132, -1566.1538)
 scale = Vector2(0.6923077, 0.6923077)
 
-[node name="LightObject2" parent="." index="6" unique_id=786689 instance=ExtResource("3_srs0l")]
+[node name="LightObject2" parent="." index="4" unique_id=786689 instance=ExtResource("3_srs0l")]
 position = Vector2(2134, -1141)
 scale = Vector2(0.6923077, 0.6923077)
 
-[node name="LightObject3" parent="." index="7" unique_id=1384589183 instance=ExtResource("3_srs0l")]
+[node name="LightObject3" parent="." index="5" unique_id=1384589183 instance=ExtResource("3_srs0l")]
 position = Vector2(2128, -680.6539)
 scale = Vector2(0.6923077, 0.6923077)
 
-[node name="LightObject4" parent="." index="8" unique_id=1003379697 instance=ExtResource("3_srs0l")]
+[node name="LightObject4" parent="." index="6" unique_id=1003379697 instance=ExtResource("3_srs0l")]
 position = Vector2(2130, -255.50006)
 scale = Vector2(0.6923077, 0.6923077)
 
-[node name="Broken Window" parent="." index="9" unique_id=1063323564 instance=ExtResource("4_osbuc")]
-position = Vector2(2776.9998, 396.00003)
-scale = Vector2(1.1607738, 0.98741484)
-entrance = "testScene"
-
-[node name="Broken Window2" parent="." index="10" unique_id=1250671527 instance=ExtResource("4_osbuc")]
-position = Vector2(1294.7651, 70.13267)
-scale = Vector2(0.66927594, 0.3214852)
-entrance = "testScene"
-
-[node name="cat" parent="." index="13" unique_id=1659453483]
+[node name="cat" parent="." index="9" unique_id=1659453483]
 position = Vector2(88, 512)
 
-[node name="CameraTopLeft" parent="." index="15" unique_id=1897197015]
+[node name="CameraTopLeft" parent="." index="11" unique_id=1897197015]
 position = Vector2(0, -3709)
 
-[node name="CameraBottomRight" parent="." index="16" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="12" unique_id=490815159]
 position = Vector2(7491, 643)

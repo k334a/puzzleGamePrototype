@@ -22,8 +22,14 @@ enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 var SCENES: Dictionary[String, Resource] = {
 	"level1": load("res://Levels/LevelOne.tscn"),
 	"level2": load("res://Levels/LevelTwo.tscn"),
-	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
 	"testScene": load("res://Levels/NewTestScene.tscn"),
+	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
+	"alleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
+	"greenhouse_1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
+	"greenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
+	"leakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
+	"warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
+	"building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
 }
 
 func _ready() -> void:

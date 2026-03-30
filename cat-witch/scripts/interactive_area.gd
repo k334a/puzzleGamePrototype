@@ -34,14 +34,14 @@ func set_up(interactionType: String, scratchToReveal: bool, entrance: String, pl
 	scratchable = ((not interactionType == "Entrance") or scratchToReveal)
 	areaType = interactionType
 	match interactionType:
-		"Entrance" when not scratchToReveal:
+		"Entrance":
+			if scratchable:
+				areaType = "Scratch"
 			entranceLevel = entrance
 		"Plant":
 			plantNode = plant
 		"":
 			areaType = "Scratch"
-			if scratchToReveal:
-				entranceLevel = entrance
 			if itemObject:
 				item = itemObject
 	

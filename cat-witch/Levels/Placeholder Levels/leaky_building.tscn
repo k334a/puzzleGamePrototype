@@ -1,0 +1,8 @@
+[gd_scene format=4 uid="uid://b1u8xop7kyyht"]
+
+[ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_72u0u"]
+
+[node name="LeakyBuilding" unique_id=1378909801 instance=ExtResource("1_72u0u")]
+
+[node name="LevelTiles" parent="." index="0" unique_id=474357427]
+tile_map_data = PackedByteArray("AAD7/wIAAQAAAAMAAAD8/wIAAQABAAMAAAD9/wIAAQABAAMAAAD+/wIAAQABAAMAAAD//wIAAQABAAMAAAAAAAIAAQABAAMAAAABAAIAAQABAAMAAAACAAIAAQABAAMAAAADAAIAAQACAAMAAAA=")

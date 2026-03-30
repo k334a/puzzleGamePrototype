@@ -1,0 +1,8 @@
+[gd_scene format=4 uid="uid://eb3evs2v1710"]
+
+[ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_r3imy"]
+
+[node name="Greenhouse1" unique_id=1378909801 instance=ExtResource("1_r3imy")]
+
+[node name="LevelTiles" parent="." index="0" unique_id=474357427]
+tile_map_data = PackedByteArray("AAD6/wIAAQAAAAMAAAD7/wIAAQABAAMAAAD8/wIAAQABAAMAAAD9/wIAAQABAAMAAAD+/wIAAQABAAMAAAD//wIAAQABAAMAAAAAAAIAAQABAAMAAAABAAIAAQABAAMAAAACAAIAAQABAAMAAAADAAIAAQABAAMAAAAEAAIAAQABAAMAAAAFAAIAAQACAAMAAAA=")

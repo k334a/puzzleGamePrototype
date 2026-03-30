@@ -3,7 +3,18 @@
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_v7yq8"]
 [ext_resource type="Texture2D" uid="uid://ba1n8gyrqy40n" path="res://Images/garage_closed.png" id="2_600y7"]
 [ext_resource type="Texture2D" uid="uid://decya6bfhdsrx" path="res://Images/garage_open.png" id="3_6jf5r"]
-[ext_resource type="PackedScene" uid="uid://dphf4pxu6a7jg" path="res://scenes/interactive_area.tscn" id="4_lo40e"]
+[ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="4_600y7"]
+[ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="5_lo40e"]
+[ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="6_1syct"]
+[ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="6_4dy0b"]
+[ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="6_6m6de"]
+[ext_resource type="PackedScene" uid="uid://bovoq4oftlg0j" path="res://scenes/entities/dumpster.tscn" id="7_1syct"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_600y7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lo40e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1syct"]
 
 [node name="City_Scape" unique_id=1378909801 instance=ExtResource("1_v7yq8")]
 zoom = Vector2(0.7, 0.7)
@@ -31,43 +42,114 @@ position = Vector2(3852, -326)
 texture = ExtResource("3_6jf5r")
 
 [node name="BackgroundTiles2" parent="." index="5" unique_id=1209216120]
-tile_map_data = PackedByteArray("AAAUAOr/DgAAAAEAAAAMAOr/FgAAAAEAAAAEAOr/DgAAAAEAAAAEAN3/DgAAAAEAAAAMAN3/DgAAAAEAAAAUAN3/DgAAAAEAAAAEAMP/DgAAAAEAAAAEAND/DgAAAAEAAAAMAMP/DgAAAAEAAAAMAND/DgAAAAEAAAAUAMP/DgAAAAEAAAAUAND/DgAAAAEAAAAsAM3/DgACAAAAAAAsANj/DgACAAAAAAAsAOP/DgACAAAAAACXAPX/DgACAAEAAACPAP//DwABAAYAAACQAP//DwABAAYAAACRAP//DwABAAYAAACSAP//DwABAAYAAACTAP//DwABAAYAAACUAP//DwABAAYAAACVAP//DwABAAYAAACWAP//DwABAAYAAACXAP//DwABAAYAAACYAP//DwABAAYAAACZAP//DwABAAcAAACaAP//DwABAAcAAACPAP3/DwABAAQAAACPAP7/DwABAAUAAACQAP7/DwABAAUAAACQAP3/DwABAAQAAACRAP7/DwABAAUAAACRAP3/DwABAAQAAACSAP7/DwABAAUAAACSAP3/DwABAAQAAACTAP7/DwABAAUAAACTAP3/DwABAAQAAACUAP7/DwABAAUAAACUAP3/DwABAAQAAACVAP7/DwABAAUAAACVAP3/DwACAAQAAACWAP7/DwABAAQAAACXAP7/DwABAAQAAACYAP7/DwACAAQAAACbAP//DwACAAcAAACKAOT/DgAAAAEAAACYAOT/FgAAAAEAAAAbANb/DwAAAAkAAAAbANX/DwAAAAkAAAAbANT/DwAAAAgAAAAdAOH/DwACAAkAAAAdAOD/DwACAAkAAAAdAN//DwACAAkAAAAdAN7/DwACAAkAAAAdAN3/DwACAAkAAAAdANz/DwACAAkAAAAdANv/DwACAAkAAAAdANr/DwACAAkAAAAdANn/DwACAAkAAAAdANj/DwACAAkAAAAdANf/DwACAAkAAAAdANb/DwACAAkAAAAdANX/DwACAAkAAAAdANT/DwACAAgAAAAcAOH/DwABAAkAAAAcAOD/DwABAAkAAAAcAN//DwABAAkAAAAcAN7/DwABAAkAAAAcAN3/DwABAAkAAAAcANz/DwABAAkAAAAcANv/DwABAAkAAAAcANr/DwABAAkAAAAcANn/DwABAAkAAAAcANj/DwABAAkAAAAcANf/DwABAAkAAAAcANb/DwABAAkAAAAcANX/DwABAAkAAAAcANT/DwABAAgAAAAbAOH/DwAAAAkAAAAbAOD/DwAAAAkAAAAbAN//DwAAAAkAAAAbAN7/DwAAAAkAAAAbAN3/DwAAAAkAAAAbANz/DwAAAAkAAAAbANv/DwAAAAkAAAAbANr/DwAAAAkAAAAbANn/DwAAAAkAAAAbANj/DwAAAAkAAAAbANf/DwAAAAkAAAAdAOb/DwACAAoAAAAdAOX/DwACAAkAAAAdAOT/DwACAAkAAAAdAOP/DwACAAkAAAAdAOL/DwACAAkAAAAcAOb/DwABAAoAAAAcAOX/DwABAAkAAAAcAOT/DwABAAkAAAAcAOP/DwABAAkAAAAcAOL/DwABAAkAAAAbAOb/DwAAAAoAAAAbAOX/DwAAAAkAAAAbAOT/DwAAAAkAAAAbAOP/DwAAAAkAAAAbAOL/DwAAAAkAAAAaANT/BwADAAIAAAAZANT/BwACAAIAAAAIAPv/KgAFAAEAAAAqAAAABwABAAMAAAArAAAABwABAAMAAAAsAAAABwABAAMAAAAtAAAABwABAAMAAAAuAAAABwABAAMAAAAvAAAABwABAAMAAAAwAAAABwABAAMAAAAxAAAABwABAAMAAAAyAAAABwABAAMAAAAzAAAABwABAAMAAAA0AAAABwABAAMAAAAxAPv/KgACAAAAAAAsAPv/KgACAAIAAAAzANn/KgABAAIAAAA7AM7/KgABAAIAAAA7AOX/KgABAAIAAAA2AOD/FwAPAAAAAAA2AOH/FwAPAAAAAAA2AOL/FwAPAAAAAAA2AOP/FwAPAAAAAAA2AOT/FwAPAAAAAAA2AOX/FwAPAAAAAAA2AOb/FwAPAAAAAAA2AOf/FwAPAAAAAAA2AOj/FwAPAAAAAAA2AOn/FwAPAAAAAAA2AOv/FwAPAAEAAAA3AOv/FwAPAAEAAAA4AOv/FwAPAAEAAAA5AOv/FwAPAAEAAAA6AOv/FwAPAAEAAAA7AOv/FwAPAAEAAAA8AOv/FwAPAAEAAAA9AOv/FwAPAAEAAAA1AN//FwAPAAEAAAA0AN//FwAPAAEAAAAzAN//FwAPAAEAAAAyAN//FwAPAAEAAAAxAN//FwAPAAEAAAA2AN//FwAPAAEAAAAwAN3/FwAPAAEAAAAwAN7/FwAPAAEAAAAwAN//FwAPAAEAAAA+AOv/FwAPAAEAAAA+AOr/FwAPAAEAAAA+AOn/FwAPAAEAAAA2AOr/FwAPAAAAAAA2AN7/FwAPAAAAAAA2AN3/FwAPAAAAAAA2ANz/FwAPAAAAAAA2ANv/FwAPAAAAAAA2ANr/FwAPAAAAAAA2ANn/FwAPAAAAAAA2ANj/FwAPAAAAAAA2ANf/FwAPAAAAAAA2ANb/FwAPAAAAAAA2ANX/FwAPAAAAAAA9ANT/FwAPAAEAAAA8ANT/FwAPAAEAAAA7ANT/FwAPAAEAAAA6ANT/FwAPAAEAAAA5ANT/FwAPAAEAAAA4ANT/FwAPAAEAAAA3ANT/FwAPAAEAAAA1ANP/FwAPAAEAAAA2ANP/FwAPAAAAAAA2ANT/FwAPAAEAAAA1ANL/FwAPAAEAAAA+ANL/FwAPAAEAAAA+ANP/FwAPAAEAAAA+ANT/FwAPAAEAAABGAOf/DgAAAAEAAABKAOf/DgAAAAEAAABOAOf/DgAAAAEAAABSAOf/DgAAAAEAAABWAOf/DgAAAAEAAABjAOf/DgAAAAEAAABnAOf/DgAAAAEAAABrAOf/DgAAAAEAAABvAOf/DgAAAAEAAABzAOf/DgAAAAEAAACQAPj/KgAAAAEAAACOAP3/DwAAAAQAAACOAP7/DwAAAAUAAACOAP//DwAAAAYAAAA=")
+tile_map_data = PackedByteArray("AAAUAOr/DgAAAAEAAAAMAOr/FgAAAAEAAAAEAOr/DgAAAAEAAAAEAN3/DgAAAAEAAAAMAN3/DgAAAAEAAAAUAN3/DgAAAAEAAAAEAMP/DgAAAAEAAAAEAND/DgAAAAEAAAAMAMP/DgAAAAEAAAAMAND/DgAAAAEAAAAUAMP/DgAAAAEAAAAUAND/DgAAAAEAAAAsAM3/DgACAAAAAAAsANj/DgACAAAAAAAsAOP/DgACAAAAAACXAPX/DgACAAEAAACPAP//DwABAAYAAACQAP//DwABAAYAAACRAP//DwABAAYAAACSAP//DwABAAYAAACTAP//DwABAAYAAACUAP//DwABAAYAAACVAP//DwABAAYAAACWAP//DwABAAYAAACXAP//DwABAAYAAACYAP//DwABAAYAAACZAP//DwABAAcAAACaAP//DwABAAcAAACPAP3/DwABAAQAAACPAP7/DwABAAUAAACQAP7/DwABAAUAAACQAP3/DwABAAQAAACRAP7/DwABAAUAAACRAP3/DwABAAQAAACSAP7/DwABAAUAAACSAP3/DwABAAQAAACTAP7/DwABAAUAAACTAP3/DwABAAQAAACUAP7/DwABAAUAAACUAP3/DwABAAQAAACVAP7/DwABAAUAAACVAP3/DwACAAQAAACWAP7/DwABAAQAAACXAP7/DwABAAQAAACYAP7/DwACAAQAAACbAP//DwACAAcAAACKAOT/DgAAAAEAAACYAOT/FgAAAAEAAAAbANb/DwAAAAkAAAAbANX/DwAAAAkAAAAbANT/DwAAAAgAAAAdAOH/DwACAAkAAAAdAOD/DwACAAkAAAAdAN//DwACAAkAAAAdAN7/DwACAAkAAAAdAN3/DwACAAkAAAAdANz/DwACAAkAAAAdANv/DwACAAkAAAAdANr/DwACAAkAAAAdANn/DwACAAkAAAAdANj/DwACAAkAAAAdANf/DwACAAkAAAAdANb/DwACAAkAAAAdANX/DwACAAkAAAAdANT/DwACAAgAAAAcAOH/DwABAAkAAAAcAOD/DwABAAkAAAAcAN//DwABAAkAAAAcAN7/DwABAAkAAAAcAN3/DwABAAkAAAAcANz/DwABAAkAAAAcANv/DwABAAkAAAAcANr/DwABAAkAAAAcANn/DwABAAkAAAAcANj/DwABAAkAAAAcANf/DwABAAkAAAAcANb/DwABAAkAAAAcANX/DwABAAkAAAAcANT/DwABAAgAAAAbAOH/DwAAAAkAAAAbAOD/DwAAAAkAAAAbAN//DwAAAAkAAAAbAN7/DwAAAAkAAAAbAN3/DwAAAAkAAAAbANz/DwAAAAkAAAAbANv/DwAAAAkAAAAbANr/DwAAAAkAAAAbANn/DwAAAAkAAAAbANj/DwAAAAkAAAAbANf/DwAAAAkAAAAdAOb/DwACAAoAAAAdAOX/DwACAAkAAAAdAOT/DwACAAkAAAAdAOP/DwACAAkAAAAdAOL/DwACAAkAAAAcAOb/DwABAAoAAAAcAOX/DwABAAkAAAAcAOT/DwABAAkAAAAcAOP/DwABAAkAAAAcAOL/DwABAAkAAAAbAOb/DwAAAAoAAAAbAOX/DwAAAAkAAAAbAOT/DwAAAAkAAAAbAOP/DwAAAAkAAAAbAOL/DwAAAAkAAAAaANT/BwADAAIAAAAZANT/BwACAAIAAAAIAPv/KgAFAAEAAAAqAAAABwABAAMAAAArAAAABwABAAMAAAAsAAAABwABAAMAAAAtAAAABwABAAMAAAAuAAAABwABAAMAAAAvAAAABwABAAMAAAAwAAAABwABAAMAAAAxAAAABwABAAMAAAAyAAAABwABAAMAAAAzAAAABwABAAMAAAA0AAAABwABAAMAAAAxAPv/KgACAAAAAAAsAPv/KgACAAIAAAAzANn/KgABAAIAAAA7AM7/KgABAAIAAAA7AOX/KgABAAIAAAA2AOD/FwAPAAAAAAA2AOH/FwAPAAAAAAA2AOL/FwAPAAAAAAA2AOP/FwAPAAAAAAA2AOT/FwAPAAAAAAA2AOX/FwAPAAAAAAA2AOb/FwAPAAAAAAA2AOf/FwAPAAAAAAA2AOj/FwAPAAAAAAA2AOn/FwAPAAAAAAA2AOv/FwAPAAEAAAA3AOv/FwAPAAEAAAA4AOv/FwAPAAEAAAA5AOv/FwAPAAEAAAA6AOv/FwAPAAEAAAA7AOv/FwAPAAEAAAA8AOv/FwAPAAEAAAA9AOv/FwAPAAEAAAA1AN//FwAPAAEAAAA0AN//FwAPAAEAAAAzAN//FwAPAAEAAAAyAN//FwAPAAEAAAAxAN//FwAPAAEAAAA2AN//FwAPAAEAAAAwAN3/FwAPAAEAAAAwAN7/FwAPAAEAAAAwAN//FwAPAAEAAAA+AOv/FwAPAAEAAAA+AOr/FwAPAAEAAAA+AOn/FwAPAAEAAAA2AOr/FwAPAAAAAAA2AN7/FwAPAAAAAAA2AN3/FwAPAAAAAAA2ANz/FwAPAAAAAAA2ANv/FwAPAAAAAAA2ANr/FwAPAAAAAAA2ANn/FwAPAAAAAAA2ANj/FwAPAAAAAAA2ANf/FwAPAAAAAAA2ANb/FwAPAAAAAAA2ANX/FwAPAAAAAAA9ANT/FwAPAAEAAAA8ANT/FwAPAAEAAAA7ANT/FwAPAAEAAAA6ANT/FwAPAAEAAAA5ANT/FwAPAAEAAAA4ANT/FwAPAAEAAAA3ANT/FwAPAAEAAAA1ANP/FwAPAAEAAAA2ANP/FwAPAAAAAAA2ANT/FwAPAAEAAAA1ANL/FwAPAAEAAAA+ANL/FwAPAAEAAAA+ANP/FwAPAAEAAAA+ANT/FwAPAAEAAABGAOf/DgAAAAEAAABKAOf/DgAAAAEAAABOAOf/DgAAAAEAAABSAOf/DgAAAAEAAABWAOf/DgAAAAEAAABjAOf/DgAAAAEAAABnAOf/DgAAAAEAAABrAOf/DgAAAAEAAABvAOf/DgAAAAEAAABzAOf/DgAAAAEAAACQAPj/KgAAAAEAAACOAP3/DwAAAAQAAACOAP7/DwAAAAUAAACOAP//DwAAAAYAAAAKAO3/DwAAAAcAAAALAO3/DwABAAcAAAAMAO3/DwABAAcAAAANAO3/DwABAAcAAAAOAO3/DwACAAcAAAA=")
 
-[node name="InteractiveArea" parent="." index="6" unique_id=115439003 instance=ExtResource("4_lo40e")]
-position = Vector2(3852, -56.000004)
-scale = Vector2(35.83445, 5.4712315)
-areaType = "entrance"
-entranceLevel = "testScene"
-
-[node name="InteractiveArea2" parent="." index="7" unique_id=884811607 instance=ExtResource("4_lo40e")]
-position = Vector2(1782, -169.00002)
-scale = Vector2(7.287802, 15.51508)
-areaType = "entrance"
-entranceLevel = "testScene"
-
-[node name="InteractiveArea3" parent="." index="8" unique_id=242270670 instance=ExtResource("4_lo40e")]
-position = Vector2(449.99997, -773.99994)
-scale = Vector2(6.4519873, 6.390027)
-areaType = "entrance"
-entranceLevel = "testScene"
-
-[node name="InteractiveArea4" parent="." index="9" unique_id=1261481974 instance=ExtResource("4_lo40e")]
-position = Vector2(4788.0005, -75.00001)
-scale = Vector2(7.066017, 7.4252615)
-areaType = "scratch"
-scratchType = Dictionary[String, int]({
-"entrance": 1,
-"item": -1,
-"plant": -1,
-"reveal": -1
+[node name="InteractionSprite" parent="." index="6" unique_id=983612869 instance=ExtResource("4_600y7")]
+position = Vector2(450, -776)
+sprite_frames = SubResource("SpriteFrames_600y7")
+interactionType = "Entrance"
+entrance = "building1"
+entranceColour = Color(0.63454276, 0.53109235, 0.20705095, 1)
+lightUpArea = Dictionary[String, int]({
+"height": 7,
+"width": 7,
+"x": -70,
+"y": -70
 })
-entranceLevel = "testScene"
+collisionArea = Dictionary[String, int]({
+"height": 7,
+"width": 7,
+"x": 0,
+"y": 0
+})
 
-[node name="cat" parent="." index="10" unique_id=1659453483]
+[node name="InteractionSprite2" parent="." index="7" unique_id=1640836315 instance=ExtResource("4_600y7")]
+position = Vector2(4791, -73)
+sprite_frames = SubResource("SpriteFrames_600y7")
+interactionType = "Entrance"
+entrance = "alleyWay"
+scratchToReveal = true
+entranceColour = Color(0.63454276, 0.53109235, 0.20705095, 1)
+scratchType = "Entrance"
+scratchValue = 1
+scratchColour = Color(0.95864946, 0.67081916, 0.61860937, 1)
+lightUpArea = Dictionary[String, int]({
+"height": 7,
+"width": 7,
+"x": -70,
+"y": -70
+})
+collisionArea = Dictionary[String, int]({
+"height": 7,
+"width": 7,
+"x": 0,
+"y": 0
+})
+
+[node name="InteractionSprite3" parent="." index="8" unique_id=2005038794 instance=ExtResource("4_600y7")]
+position = Vector2(3860, -56)
+sprite_frames = SubResource("SpriteFrames_lo40e")
+interactionType = "Entrance"
+entrance = "warehouse"
+lightUpArea = Dictionary[String, int]({
+"height": 5,
+"width": 36,
+"x": -370,
+"y": -50
+})
+collisionArea = Dictionary[String, int]({
+"height": 5,
+"width": 36,
+"x": 0,
+"y": 0
+})
+
+[node name="InteractionSprite4" parent="." index="9" unique_id=1350100393 instance=ExtResource("4_600y7")]
+position = Vector2(1782, -168)
+sprite_frames = SubResource("SpriteFrames_1syct")
+interactionType = "Entrance"
+entrance = "leakyBuilding"
+lightUpArea = Dictionary[String, int]({
+"height": 16,
+"width": 9,
+"x": -95,
+"y": -160
+})
+collisionArea = Dictionary[String, int]({
+"height": 16,
+"width": 9,
+"x": 0,
+"y": 0
+})
+
+[node name="Dumpster" parent="." index="10" unique_id=963461222 instance=ExtResource("7_1syct")]
+position = Vector2(1087, -241)
+
+[node name="LightObject" parent="." index="11" unique_id=1376024650 instance=ExtResource("6_6m6de")]
+position = Vector2(1600, -1635)
+scale = Vector2(0.5200025, 0.5200025)
+
+[node name="LightObject2" parent="." index="12" unique_id=415045224 instance=ExtResource("6_6m6de")]
+position = Vector2(1599.9999, -850.9999)
+scale = Vector2(0.5200025, 0.5200025)
+
+[node name="LightObject3" parent="." index="13" unique_id=1148636917 instance=ExtResource("6_6m6de")]
+position = Vector2(1601.9999, -1252.9999)
+scale = Vector2(0.5200025, 0.5200025)
+
+[node name="cat" parent="." index="14" unique_id=1659453483]
 position = Vector2(121, -44)
 
-[node name="CameraTopLeft" parent="." index="12" unique_id=1897197015]
+[node name="Rain" parent="." index="15" unique_id=617827363 instance=ExtResource("6_4dy0b")]
+position = Vector2(2846, -778)
+scale = Vector2(4.089458, 13.376976)
+
+[node name="CameraTopLeft" parent="." index="17" unique_id=1897197015]
 position = Vector2(0, -2952)
 
-[node name="CameraBottomRight" parent="." index="13" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="18" unique_id=490815159]
 position = Vector2(5796, 108)
+
+[node name="SpellPickup" parent="." index="19" unique_id=1021825572 instance=ExtResource("5_lo40e")]
+position = Vector2(510, -77)
+item = ExtResource("6_1syct")
