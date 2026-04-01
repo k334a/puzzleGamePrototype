@@ -8,4 +8,5 @@ script = ExtResource("1_520bv")
 
 [node name="InteractiveArea" parent="." unique_id=115439003 instance=ExtResource("1_8nxf6")]
 
+[connection signal="clicked" from="InteractiveArea" to="." method="_on_interactive_area_button_pressed"]
 [connection signal="damageSelf" from="InteractiveArea" to="." method="_on_interactive_area_damage_self"]

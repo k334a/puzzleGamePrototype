@@ -41,6 +41,7 @@ position = Vector2(1547, -288)
 position = Vector2(-127, -1)
 interactionType = "Entrance"
 entrance = "cityScape"
+location = Vector2i(4791, -56)
 lightUpArea = Dictionary[String, int]({
 "height": 10,
 "width": 2,

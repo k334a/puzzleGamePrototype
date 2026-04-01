@@ -141,6 +141,7 @@ scale = Vector2(0.5200025, 0.5200025)
 position = Vector2(121, -44)
 
 [node name="Rain" parent="." index="15" unique_id=617827363 instance=ExtResource("6_4dy0b")]
+visible = false
 position = Vector2(2846, -778)
 scale = Vector2(4.089458, 13.376976)
 

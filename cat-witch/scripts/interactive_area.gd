@@ -5,12 +5,14 @@ class_name interactive_area
 var areaType: String
 var scratchable: bool
 var entranceLevel: String
+var entranceLocation: Vector2
 var plantNode: AnimatableBody2D
 var item: Item
 
 signal areaHit
 signal areaLeft
 signal damageSelf
+signal clicked
 
 func light_on(colour: Color) -> void:
 	var styleBox: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
@@ -30,7 +32,7 @@ func _on_body_exited(_body: Node2D) -> void:
 func scratch() -> void:
 	damageSelf.emit()
 
-func set_up(interactionType: String, scratchToReveal: bool, entrance: String, plant: AnimatableBody2D, lightUpArea: Dictionary[String, int]={}, itemObject: Item=null, collisionArea: Dictionary[String, int]={}) -> void:
+func set_up(interactionType: String, scratchToReveal: bool, entrance: String, location: Vector2, plant: AnimatableBody2D, lightUpArea: Dictionary[String, int]={}, itemObject: Item=null, collisionArea: Dictionary[String, int]={}) -> void:
 	scratchable = ((not interactionType == "Entrance") or scratchToReveal)
 	areaType = interactionType
 	match interactionType:
@@ -38,8 +40,11 @@ func set_up(interactionType: String, scratchToReveal: bool, entrance: String, pl
 			if scratchable:
 				areaType = "Scratch"
 			entranceLevel = entrance
+			entranceLocation = location
 		"Plant":
 			plantNode = plant
+		"Button":
+			pass
 		"":
 			areaType = "Scratch"
 			if itemObject:
@@ -51,3 +56,6 @@ func set_up(interactionType: String, scratchToReveal: bool, entrance: String, pl
 	if not lightUpArea.is_empty():
 		$Panel.scale = Vector2(lightUpArea["width"], lightUpArea["height"])
 		$Panel.position = Vector2(lightUpArea["x"], lightUpArea["y"])
+
+func click() -> void:
+	clicked.emit()

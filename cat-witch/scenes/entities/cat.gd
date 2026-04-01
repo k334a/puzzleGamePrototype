@@ -77,7 +77,7 @@ func _physics_process(delta):
 	var jump = Input.is_action_pressed('jump')
 	var down = Input.is_action_pressed('down')
 	var crouch = Input.is_action_pressed('crouch')
-	var enterArea = Input.is_action_just_pressed("enter")
+	var interact = Input.is_action_just_pressed("interact")
 	#var run = Input.is_action_pressed('run')
 	var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('spell1')
@@ -209,9 +209,12 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	if enterArea and onTrigger and onTrigger.areaType == "Entrance":
+	if interact and onTrigger and onTrigger.areaType == "Entrance":
 		print(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
+	elif interact and  onTrigger and onTrigger.areaType == "Button":
+		print("button clicked")
+		onTrigger.click()
 	
 	move_and_slide()
 

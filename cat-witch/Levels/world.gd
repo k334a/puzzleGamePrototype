@@ -4,6 +4,7 @@ extends Node
 @export var entranceColour: Color = Color("c2944187")
 @export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
 @export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
+@export var buttonColour: Color = Color(0.1, 0.41, 0.464, 0.502)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
@@ -183,6 +184,9 @@ func _on_interaction_area_entered(area: interactive_area) -> void:
 		"Scratch":
 			area.light_on(scratchColour)
 			cat.onTrigger = area
+		"Button":
+			area.light_on(buttonColour)
+			cat.onTrigger = area
 		_:
 			print("Un-assigned area!")
 
@@ -195,11 +199,14 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(levelName: String, inventory: Array) -> void:
+func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
 	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
-	level.set_up_cat(inventory)
+	level.set_up_cat(inventory, location)
 	self.queue_free()
 
-func set_up_cat(inventory: Array):
+func set_up_cat(inventory: Array, location: Vector2):
 	$cat/Inventory.spells = inventory
+	if location != Vector2.ZERO:
+		$cat.startPosition = location
+		$cat.global_position = location
