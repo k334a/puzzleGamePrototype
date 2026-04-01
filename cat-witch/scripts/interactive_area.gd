@@ -32,7 +32,7 @@ func _on_body_exited(_body: Node2D) -> void:
 func scratch() -> void:
 	damageSelf.emit()
 
-func set_up(interactionType: String, scratchToReveal: bool, entrance: String, location: Vector2, plant: AnimatableBody2D, lightUpArea: Dictionary[String, int]={}, itemObject: Item=null, collisionArea: Dictionary[String, int]={}) -> void:
+func set_up(interactionType: String, scratchToReveal: bool, entrance: String, plant: AnimatableBody2D, location: Vector2=Vector2.ZERO, lightUpArea: Dictionary[String, int]={}, itemObject: Item=null, collisionArea: Dictionary[String, int]={}) -> void:
 	scratchable = ((not interactionType == "Entrance") or scratchToReveal)
 	areaType = interactionType
 	match interactionType:

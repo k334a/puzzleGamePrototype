@@ -27,7 +27,7 @@ var damage: int = 0
 func _ready() -> void:
 	if not interactionType:
 		push_error("Interaction type of interactive area not set: " + self.to_string())
-	$InteractiveArea.set_up(interactionType, scratchToReveal, entrance, location, plant, lightUpArea, item, collisionArea)
+	$InteractiveArea.set_up(interactionType, scratchToReveal, entrance, plant, location, lightUpArea, item, collisionArea)
 
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
