@@ -208,7 +208,7 @@ func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array, 
 		var area = damagedAreas.get(node)
 		if area:
 			print(area)
-			for _i in range(area):
+			for _i in range(area+1):
 				node.scratch()
 	level.set_up_cat(inventory, location, damagedAreas)
 	self.queue_free()

@@ -8,7 +8,7 @@ func ItemPopup(slot_node: Control, item: Item):
 		%ItemPopup.size = Vector2i(170, 0)
 	
 	var slot_global_pos = slot_node.global_position
-	var slot_size = slot_node.size
+	#var slot_size = slot_node.size
 	
 	var popup_size = %ItemPopup.size
 	var final_pos = Vector2i()

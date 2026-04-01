@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cat Witch"
-run/main_scene="uid://cgi5178x8dyda"
+run/main_scene="uid://b8b6y0i84bqux"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
