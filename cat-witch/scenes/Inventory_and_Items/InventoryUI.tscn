@@ -1,18 +1,19 @@
 [gd_scene format=3 uid="uid://bx3g2anfgwjk6"]
 
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_wqexf"]
+[ext_resource type="Script" uid="uid://dy86ew35dtblb" path="res://scenes/Inventory_and_Items/spell_panel.gd" id="2_h4av0"]
 [ext_resource type="Script" uid="uid://bx20g1b1sjaie" path="res://scripts/slot.gd" id="2_ju2k0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju2k0"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqexf"]
-bg_color = Color(0.61544746, 0.5629943, 0.7719125, 1)
+bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0.76080275, 0.78101814, 0.9998494, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
 border_blend = true
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -41,8 +42,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1166.0
-offset_bottom = 160.0
+offset_left = 30.0
+offset_top = 7.0
+offset_right = 1196.0
+offset_bottom = 167.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -62,89 +65,107 @@ offset_bottom = 167.0
 
 [node name="SpellPanel" type="Panel" parent="Control" unique_id=663672309]
 layout_mode = 0
-offset_left = 2043.0
+offset_left = 1550.0
 offset_top = 18.0
 offset_right = 2282.0
-offset_bottom = 204.0
+offset_bottom = 193.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqexf")
+script = ExtResource("2_h4av0")
 
-[node name="InventorySlot" type="PanelContainer" parent="Control/SpellPanel" unique_id=648825917]
+[node name="InventorySlot2" type="PanelContainer" parent="Control/SpellPanel" unique_id=241161336]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 9.0
-offset_right = 110.0
-offset_bottom = 84.0
+offset_left = 540.0
+offset_right = 690.0
+offset_bottom = 150.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
 script = ExtResource("2_ju2k0")
 metadata/_custom_type_script = "uid://bx20g1b1sjaie"
 
-[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot" unique_id=1218239372]
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot2" unique_id=721981415]
+z_index = 100
 layout_mode = 2
-theme_override_font_sizes/font_size = 65
-text = "F"
-horizontal_alignment = 1
+
+[node name="InventorySlot" type="PanelContainer" parent="Control/SpellPanel" unique_id=648825917]
+layout_mode = 0
+offset_left = 180.0
+offset_right = 330.0
+offset_bottom = 150.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
 
 [node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot" unique_id=362723716]
 z_index = 100
 layout_mode = 2
 
 [node name="InventorySlot4" type="PanelContainer" parent="Control/SpellPanel" unique_id=1356184378]
-layout_mode = 0
-offset_left = 128.0
-offset_top = 97.0
-offset_right = 227.0
-offset_bottom = 172.0
+layout_mode = 1
+anchors_preset = -1
+offset_top = 1.0
+offset_right = 150.0
+offset_bottom = 151.0
+mouse_force_pass_scroll_events = false
 theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
 script = ExtResource("2_ju2k0")
 metadata/_custom_type_script = "uid://bx20g1b1sjaie"
-
-[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot4" unique_id=458098344]
-layout_mode = 2
-theme_override_font_sizes/font_size = 65
-text = "Q"
-horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot4" unique_id=1505803988]
 layout_mode = 2
 
 [node name="InventorySlot3" type="PanelContainer" parent="Control/SpellPanel" unique_id=587514513]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 96.0
-offset_right = 109.0
-offset_bottom = 171.0
+offset_left = 360.0
+offset_right = 510.0
+offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
 script = ExtResource("2_ju2k0")
 metadata/_custom_type_script = "uid://bx20g1b1sjaie"
-
-[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot3" unique_id=1642419770]
-layout_mode = 2
-theme_override_font_sizes/font_size = 65
-text = "X"
-horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot3" unique_id=1577825064]
 layout_mode = 2
 
-[node name="InventorySlot2" type="PanelContainer" parent="Control/SpellPanel" unique_id=241161336]
+[node name="CLabel" type="Label" parent="Control" unique_id=1642419770]
 layout_mode = 0
-offset_left = 129.0
-offset_top = 8.0
-offset_right = 228.0
-offset_bottom = 83.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
-script = ExtResource("2_ju2k0")
-metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+offset_left = 1911.0
+offset_top = 168.0
+offset_right = 2057.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 65
+text = "C"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="Control/SpellPanel/InventorySlot2" unique_id=1997834524]
-layout_mode = 2
+[node name="ZLabel" type="Label" parent="Control" unique_id=458098344]
+layout_mode = 0
+offset_left = 1552.0
+offset_top = 168.0
+offset_right = 1698.0
+offset_bottom = 234.0
 theme_override_font_sizes/font_size = 65
 text = "Z"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot2" unique_id=721981415]
-z_index = 100
-layout_mode = 2
+[node name="XLabel" type="Label" parent="Control" unique_id=1218239372]
+layout_mode = 0
+offset_left = 1732.0
+offset_top = 168.0
+offset_right = 1878.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 65
+text = "X"
+horizontal_alignment = 1
+
+[node name="VLabel" type="Label" parent="Control" unique_id=1997834524]
+layout_mode = 0
+offset_left = 2092.0
+offset_top = 168.0
+offset_right = 2238.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 65
+text = "V"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1230187460]
 layout_mode = 0

@@ -20,6 +20,8 @@ shadow_size = 1
 [node name="Popups" type="Control" unique_id=1207599007]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
 script = ExtResource("1_2qj80")
 
 [node name="InventoryUI" type="CanvasLayer" parent="." unique_id=1432707837]
