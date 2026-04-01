@@ -7,7 +7,7 @@ class_name InventoryUI
 const SlotScene = preload("res://scenes/Inventory_and_Items/slot.tscn")
 func _ready() -> void:
 	visible = false
-
+	
 func refresh(inventory: Inventory) -> void: 
 	for child in grid.get_children():
 		grid.remove_child(child)
@@ -22,6 +22,8 @@ func refresh(inventory: Inventory) -> void:
 
 	for i in range(slots.size()):
 		var slot = slots[i]
+		if slot is Label:
+			continue
 		if i < inventory.spells.size():
 			slot.set_item(inventory.spells[i])
 		else:
