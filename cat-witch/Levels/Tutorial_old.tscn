@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://b8b6y0i84bqux"]
+[gd_scene format=4 uid="uid://8npx0v3ww42n"]
 
 [ext_resource type="Script" uid="uid://bhs727el8x8hf" path="res://Levels/world.gd" id="1_tuaq2"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_ixs1y"]
