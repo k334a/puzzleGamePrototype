@@ -61,7 +61,7 @@ position = Vector2(-145, 0)
 sprite_frames = SubResource("SpriteFrames_sp1s4")
 offset = Vector2(-350, -300)
 interactionType = "Entrance"
-entrance = "cityScape"
+entrance = "CityScape"
 location = Vector2i(3860, -56)
 lightUpArea = Dictionary[String, int]({
 "height": 3,

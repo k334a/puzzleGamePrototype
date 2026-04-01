@@ -21,16 +21,16 @@ enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
 var SCENES: Dictionary[String, Resource] = {
-	"level1": load("res://Levels/LevelOne.tscn"),
-	"level2": load("res://Levels/LevelTwo.tscn"),
-	"testScene": load("res://Levels/NewTestScene.tscn"),
-	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
-	"alleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
-	"greenhouse_1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
-	"greenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
-	"leakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
-	"warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
-	"building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
+	"LevelOne": load("res://Levels/LevelOne.tscn"),
+	"LevelTwo": load("res://Levels/LevelTwo.tscn"),
+	"NewTestScene": load("res://Levels/NewTestScene.tscn"),
+	"CityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
+	"AlleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
+	"Greenhouse1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
+	"GreenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
+	"LeakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
+	"Warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
+	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
 }
 
 func _ready() -> void:
@@ -199,14 +199,23 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
+func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array, damagedAreas: Dictionary[interactive_area, int]) -> void:
 	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
-	level.set_up_cat(inventory, location)
+	print(damagedAreas)
+	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+		print(node)
+		var area = damagedAreas.get(node)
+		if area:
+			print(area)
+			for _i in range(area):
+				node.scratch()
+	level.set_up_cat(inventory, location, damagedAreas)
 	self.queue_free()
 
-func set_up_cat(inventory: Array, location: Vector2):
+func set_up_cat(inventory: Array, location: Vector2, damagedAreas: Dictionary[interactive_area, int]):
 	$cat/Inventory.spells = inventory
 	if location != Vector2.ZERO:
 		$cat.startPosition = location
 		$cat.global_position = location
+		print(damagedAreas)

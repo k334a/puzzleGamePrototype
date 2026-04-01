@@ -120,7 +120,7 @@ collisionArea = Dictionary[String, int]({
 position = Vector2(818, 354)
 sprite_frames = SubResource("SpriteFrames_3cfv0")
 interactionType = "Entrance"
-entrance = "cityScape"
+entrance = "CityScape"
 lightUpArea = Dictionary[String, int]({
 "height": 1,
 "width": 3,

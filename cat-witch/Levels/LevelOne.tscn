@@ -30,7 +30,7 @@ position = Vector2(2397, -103)
 scale = Vector2(2.538927, 2.108532)
 sprite_frames = SubResource("SpriteFrames_cfl6m")
 interactionType = "Entrance"
-entrance = "level2"
+entrance = "LevelTwo"
 entranceColour = Color(0.8617283, 0.7816747, 0.30343065, 1)
 lightUpArea = Dictionary[String, int]({
 "height": 1,

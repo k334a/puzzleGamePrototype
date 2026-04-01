@@ -24,9 +24,6 @@ extends AnimatedSprite2D
 @export var collisionArea: Dictionary[String, int] = { "width": 1, "height": 1, "x": 0, "y": 0}
 var damage: int = 0
 
-#signal damage_self
-#signal destroyed
-
 func _ready() -> void:
 	if not interactionType:
 		push_error("Interaction type of interactive area not set: " + self.to_string())
@@ -35,7 +32,6 @@ func _ready() -> void:
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
 	frame += 1
-	#damage_self.emit()
 	if damage == scratchValue:
 		match scratchType:
 			"Entrance":
@@ -46,7 +42,6 @@ func _on_interactive_area_damage_self() -> void:
 			_:
 				$InteractiveArea.light_off()
 				$InteractiveArea.monitoring = false
-		#destroyed.emit()
 
 func _on_interactive_area_button_pressed() -> void:
 	if buttonType == "Reveal":
