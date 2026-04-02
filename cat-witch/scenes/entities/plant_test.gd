@@ -5,7 +5,8 @@ var damage: int = 0
 @export var damageFrameOffset: int = 1
 
 func _ready() -> void:
-	$InteractiveArea.set_up("Plant", false, "", self)
+	$InteractiveArea.set_up("Plant", Vector2(0,-50))
+	$InteractiveArea.set_up_plant(self)
 
 func unfurl() -> void:
 	if damage == 0:
@@ -13,6 +14,7 @@ func unfurl() -> void:
 	else:
 		$AnimationPlayer.play("plant_test_animation/unfurl_damage_" + String.num(damage))
 	$InteractiveArea.areaType = "Scratch"
+	$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]Scratch"
 
 func furlup() -> void:
 	if damage == 0:

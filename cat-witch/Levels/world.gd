@@ -171,7 +171,7 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 	return null
 
 func _on_interaction_area_entered(area: interactive_area) -> void:
-	if area.instantEntrance:
+	if area.instantEntrance and area.areaType == "Entrance":
 		cat.instantEntrance(area)
 		return
 	

@@ -36,25 +36,13 @@ item = ExtResource("6_fyo0n")
 position = Vector2(88, 585)
 item = ExtResource("7_fyo0n")
 
-[node name="Exit" parent="." index="5" unique_id=1063323564 instance=ExtResource("7_kfbls")]
-position = Vector2(144, -251)
-scale = Vector2(2.4285717, 2.4285715)
+[node name="Exit" parent="." index="6" unique_id=983612869 instance=ExtResource("7_kfbls")]
+position = Vector2(125, -233)
 sprite_frames = SubResource("SpriteFrames_kfbls")
 interactionType = "Entrance"
 entrance = "NewTestScene"
-entranceColour = Color(0.8032919, 0.6829037, 0.28077155, 1)
-lightUpArea = Dictionary[String, int]({
-"height": 1,
-"width": 3,
-"x": -30,
-"y": -10
-})
-collisionArea = Dictionary[String, int]({
-"height": 2,
-"width": 3,
-"x": 0,
-"y": 0
-})
+collisionScale = Vector2(4, 2)
+textOffset = Vector2(0, -30)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="7" unique_id=840103507]
 color = Color(0, 0, 0, 1)

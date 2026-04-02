@@ -102,37 +102,13 @@ sprite_frames = SubResource("SpriteFrames_4684f")
 interactionType = "Scratch"
 scratchType = "Reveal"
 scratchValue = 1
-scratchColour = Color(0.6787402, 0.36583382, 0.56500727, 1)
-lightUpArea = Dictionary[String, int]({
-"height": 9,
-"width": 6,
-"x": -60,
-"y": -80
-})
-collisionArea = Dictionary[String, int]({
-"height": 9,
-"width": 6,
-"x": 0,
-"y": 0
-})
+collisionScale = Vector2(5, 10)
 
 [node name="InteractionSprite2" parent="." index="21" unique_id=410239393 instance=ExtResource("12_ufh65")]
 position = Vector2(818, 354)
 sprite_frames = SubResource("SpriteFrames_3cfv0")
 interactionType = "Entrance"
 entrance = "CityScape"
-lightUpArea = Dictionary[String, int]({
-"height": 1,
-"width": 3,
-"x": -30,
-"y": -10
-})
-collisionArea = Dictionary[String, int]({
-"height": 2,
-"width": 3,
-"x": 0,
-"y": 0
-})
 
 [node name="PlantTest" parent="." index="22" unique_id=1048012712 instance=ExtResource("15_lpmgw")]
 position = Vector2(675, -285)
