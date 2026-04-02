@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_wqexf"]
 [ext_resource type="Script" uid="uid://dy86ew35dtblb" path="res://scenes/Inventory_and_Items/spell_panel.gd" id="2_h4av0"]
 [ext_resource type="Script" uid="uid://bx20g1b1sjaie" path="res://scripts/slot.gd" id="2_ju2k0"]
+[ext_resource type="Texture2D" uid="uid://bxglyaqg174e4" path="res://Images/outline-frame-with-background.png" id="3_kikn4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ju2k0"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -20,19 +21,17 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l5txx"]
-bg_color = Color(0.8675476, 0.8627839, 0.9962407, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-corner_detail = 18
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vyus1"]
+texture = ExtResource("3_kikn4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fq2rm"]
+texture = ExtResource("3_kikn4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7pdfy"]
+texture = ExtResource("3_kikn4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1jqyy"]
+texture = ExtResource("3_kikn4")
 
 [node name="InventoryUI" type="CanvasLayer" unique_id=1380888454]
 script = ExtResource("1_wqexf")
@@ -73,58 +72,59 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqexf")
 script = ExtResource("2_h4av0")
 
-[node name="InventorySlot2" type="PanelContainer" parent="Control/SpellPanel" unique_id=241161336]
-layout_mode = 0
-offset_left = 540.0
-offset_right = 690.0
-offset_bottom = 150.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
-script = ExtResource("2_ju2k0")
-metadata/_custom_type_script = "uid://bx20g1b1sjaie"
-
-[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot2" unique_id=721981415]
-z_index = 100
-layout_mode = 2
-
-[node name="InventorySlot" type="PanelContainer" parent="Control/SpellPanel" unique_id=648825917]
-layout_mode = 0
-offset_left = 180.0
-offset_right = 330.0
-offset_bottom = 150.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
-script = ExtResource("2_ju2k0")
-metadata/_custom_type_script = "uid://bx20g1b1sjaie"
-
-[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot" unique_id=362723716]
-z_index = 100
-layout_mode = 2
-
-[node name="InventorySlot4" type="PanelContainer" parent="Control/SpellPanel" unique_id=1356184378]
+[node name="InventorySlotZ" type="PanelContainer" parent="Control/SpellPanel" unique_id=1356184378]
 layout_mode = 1
 anchors_preset = -1
 offset_top = 1.0
 offset_right = 150.0
 offset_bottom = 151.0
 mouse_force_pass_scroll_events = false
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+theme_override_styles/panel = SubResource("StyleBoxTexture_vyus1")
 script = ExtResource("2_ju2k0")
 metadata/_custom_type_script = "uid://bx20g1b1sjaie"
 
-[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot4" unique_id=1505803988]
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlotZ" unique_id=1505803988]
+layout_mode = 2
+expand_mode = 5
+
+[node name="InventorySlotX" type="PanelContainer" parent="Control/SpellPanel" unique_id=648825917]
+layout_mode = 0
+offset_left = 180.0
+offset_right = 330.0
+offset_bottom = 150.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_fq2rm")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlotX" unique_id=362723716]
+z_index = 100
 layout_mode = 2
 
-[node name="InventorySlot3" type="PanelContainer" parent="Control/SpellPanel" unique_id=587514513]
+[node name="InventorySlotC" type="PanelContainer" parent="Control/SpellPanel" unique_id=587514513]
 layout_mode = 0
 offset_left = 360.0
 offset_right = 510.0
 offset_bottom = 150.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_l5txx")
+theme_override_styles/panel = SubResource("StyleBoxTexture_7pdfy")
 script = ExtResource("2_ju2k0")
 metadata/_custom_type_script = "uid://bx20g1b1sjaie"
 
-[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlot3" unique_id=1577825064]
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlotC" unique_id=1577825064]
+layout_mode = 2
+
+[node name="InventorySlotV" type="PanelContainer" parent="Control/SpellPanel" unique_id=241161336]
+layout_mode = 0
+offset_left = 540.0
+offset_right = 690.0
+offset_bottom = 150.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_1jqyy")
+script = ExtResource("2_ju2k0")
+metadata/_custom_type_script = "uid://bx20g1b1sjaie"
+
+[node name="TextureRect" type="TextureRect" parent="Control/SpellPanel/InventorySlotV" unique_id=721981415]
+z_index = 100
 layout_mode = 2
 
 [node name="CLabel" type="Label" parent="Control" unique_id=1642419770]

@@ -27,6 +27,7 @@ func objectBreak() -> void:
 	print(previousVertVelocity)
 	print(linear_velocity.y)
 	broken = true
+	$JarBreak.play()
 	jar_broken.emit(self) # Connect this to counter for broken jars?
 
 func reset(target_pos: Vector2):
