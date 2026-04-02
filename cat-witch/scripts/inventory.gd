@@ -7,6 +7,7 @@ signal updated
 
 var items: Array
 var spells: Array
+var spellsKnown: Array
 
 func _ready():
 	items = []
@@ -26,11 +27,21 @@ func add_spell(item: Item) -> bool:
 	for i in range(spells.size()):
 		if spells[i] == null:
 			spells[i] = item
+			spellsKnown.append(item)
 			updated.emit(self)
 			print("test, spell added to spell slot ", i)
 			return true
 	return false
 
+func remove_spell(spell_name: String) -> bool:
+	for i in range(spells.size()):
+		if spells[i] and spells[i].name == spell_name:
+			spells[i] = null
+			updated.emit(self)
+			print("test, spell removed from spell slot ", i)
+			return true
+	return false
+	
 func remove_item(index: int) -> bool: #test if you can remove an item
 	if items[index] != null:
 		return true

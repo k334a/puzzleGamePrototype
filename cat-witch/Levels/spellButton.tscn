@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cua5mnklcitow"]
+
+[ext_resource type="Texture2D" uid="uid://4mu8uv4rh3ph" path="res://Images/Items/scroll.png" id="1_osngn"]
+[ext_resource type="Script" uid="uid://b476154enk6sw" path="res://scripts/spell_button.gd" id="1_w853n"]
+[ext_resource type="Texture2D" uid="uid://t8qcocus8lhb" path="res://Images/outline-frame-without-background.png" id="2_osngn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pqlbd"]
+texture = ExtResource("2_osngn")
+
+[node name="SpellButton" type="TextureButton" unique_id=2143874025]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -902.0
+offset_bottom = -398.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_osngn")
+stretch_mode = 3
+script = ExtResource("1_w853n")
+
+[node name="Panel" type="Panel" parent="." unique_id=857823093]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 4.5880003
+anchor_bottom = 2.5890002
+offset_right = -897.0001
+offset_bottom = -397.25006
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_pqlbd")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

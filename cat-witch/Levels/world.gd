@@ -203,3 +203,15 @@ func _on_cat_next_level(levelName: String, inventory: Array) -> void:
 
 func set_up_cat(inventory: Array):
 	$cat/Inventory.spells = inventory
+
+
+func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> void:
+	var spells = cat.inventory.spellsKnown
+	if selected:
+		for i in range(spells.size()):
+			if spells[i].name == spell_name:
+				cat.inventory.add_spell(spells[i])
+				break
+	else:
+		cat.inventory.remove_spell(spell_name)
+				

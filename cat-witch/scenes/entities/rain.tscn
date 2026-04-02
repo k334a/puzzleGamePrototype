@@ -52,7 +52,7 @@ size = Vector2(1500, 969)
 script = ExtResource("1_1fblw")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=756393101]
-amount = 1000
+amount = 3000
 amount_ratio = 0.9963
 preprocess = 0.5
 visibility_rect = Rect2(-750, -100, 1500, 400)
