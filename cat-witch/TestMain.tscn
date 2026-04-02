@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bihh7gfbw2l5n"]
+
+[ext_resource type="PackedScene" uid="uid://bm32amm8cm35u" path="res://Levels/Placeholder Levels/city_scape.tscn" id="1_a6wyt"]
+[ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
+
+[node name="Main" type="Node" unique_id=866150532]
+script = ExtResource("1_iveyk")
+
+[node name="City_Scape" parent="." unique_id=1378909801 instance=ExtResource("1_a6wyt")]
+
+[connection signal="loadLevel" from="City_Scape" to="." method="_load_level"]
+[connection signal="saveLevel" from="City_Scape" to="." method="_save_level"]
