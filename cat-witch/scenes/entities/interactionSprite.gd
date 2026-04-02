@@ -40,7 +40,7 @@ func _ready() -> void:
 		"Scratch":
 			$InteractiveArea.set_up_scratchable(item)
 	if interactionType == "TextHover":
-		$InteractiveArea/RichTextLabel.add_text(text)
+		$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
 
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
@@ -49,6 +49,7 @@ func _on_interactive_area_damage_self() -> void:
 		match scratchType:
 			"Entrance":
 				$InteractiveArea.areaType = "Entrance"
+				$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]Enter"
 				$InteractiveArea.light_on()
 			"Item":
 				print("reveal item!")

@@ -172,7 +172,7 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 
 func _on_interaction_area_entered(area: interactive_area) -> void:
 	if area.instantEntrance:
-		_on_cat_next_level(area.entranceLevel, area.entranceLocation, $cat/Inventory.spells, {})
+		cat.instantEntrance(area)
 		return
 	
 	if (not area.areaType == "Plant") or (cat.check_for_spell("Plant Spell")):
@@ -187,23 +187,14 @@ func _on_interaction_area_exited(area: interactive_area) -> void:
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
-func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array, damagedAreas: Dictionary[interactive_area, int]) -> void:
+func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
 	var level = SCENES.get(levelName).instantiate()
-	get_tree().root.add_child(level)
-	#print(damagedAreas)
-	#for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
-		#print(node)
-		#var area = damagedAreas.get(node)
-		#if area:
-			#print(area)
-			#for _i in range(area+1):
-				#node.scratch()
-	level.set_up_cat(inventory, location, damagedAreas)
+	get_tree().root.call_deferred("add_child", level)
+	level.set_up_cat(inventory, location)
 	self.queue_free()
 
-func set_up_cat(inventory: Array, location: Vector2, damagedAreas: Dictionary[interactive_area, int]):
+func set_up_cat(inventory: Array, location: Vector2):
 	$cat/Inventory.spells = inventory
 	if location != Vector2.ZERO:
 		$cat.startPosition = location
 		$cat.global_position = location
-		print(damagedAreas)

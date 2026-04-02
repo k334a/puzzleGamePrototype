@@ -65,6 +65,7 @@ position = Vector2(3851, -306)
 sprite_frames = SubResource("SpriteFrames_lo40e")
 interactionType = "Entrance"
 entrance = "Warehouse"
+location = Vector2i(71, 0)
 collisionScale = Vector2(36, 5.6)
 collisionOffset = Vector2(0, 250)
 textOffset = Vector2(0, 205)

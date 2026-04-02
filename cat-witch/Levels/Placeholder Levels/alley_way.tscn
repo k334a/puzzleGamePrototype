@@ -41,19 +41,9 @@ position = Vector2(1547, -288)
 position = Vector2(-127, -1)
 interactionType = "Entrance"
 entrance = "CityScape"
-location = Vector2i(4791, -73)
-lightUpArea = Dictionary[String, int]({
-"height": 10,
-"width": 2,
-"x": -10,
-"y": -100
-})
-collisionArea = Dictionary[String, int]({
-"height": 10,
-"width": 2,
-"x": 0,
-"y": 0
-})
+location = Vector2i(4791, -46)
+instant = true
+collisionScale = Vector2(2, 7.15)
 
 [node name="CameraTopLeft" parent="." index="11" unique_id=1897197015]
 position = Vector2(-145.1531, -1404.4617)
