@@ -77,19 +77,27 @@ entrance = "LeakyBuilding"
 collisionScale = Vector2(7.44, 15.52)
 textOffset = Vector2(0, -148)
 
-[node name="LightObject" parent="." index="8" unique_id=1376024650 instance=ExtResource("6_6m6de")]
+[node name="InteractionSprite5" parent="." index="8" unique_id=1800080741 instance=ExtResource("4_600y7")]
+position = Vector2(26, -65)
+interactionType = "Entrance"
+entrance = "Hub"
+location = Vector2i(4583, 6)
+collisionScale = Vector2(7, 2.5)
+textOffset = Vector2(30, -60)
+
+[node name="LightObject" parent="." index="9" unique_id=1376024650 instance=ExtResource("6_6m6de")]
 position = Vector2(1600, -1635)
 scale = Vector2(0.5200025, 0.5200025)
 
-[node name="LightObject2" parent="." index="9" unique_id=415045224 instance=ExtResource("6_6m6de")]
+[node name="LightObject2" parent="." index="10" unique_id=415045224 instance=ExtResource("6_6m6de")]
 position = Vector2(1599.9999, -850.9999)
 scale = Vector2(0.5200025, 0.5200025)
 
-[node name="LightObject3" parent="." index="10" unique_id=1148636917 instance=ExtResource("6_6m6de")]
+[node name="LightObject3" parent="." index="11" unique_id=1148636917 instance=ExtResource("6_6m6de")]
 position = Vector2(1601.9999, -1252.9999)
 scale = Vector2(0.5200025, 0.5200025)
 
-[node name="Dumpster" type="StaticBody2D" parent="." index="11" unique_id=1218455983]
+[node name="Dumpster" type="StaticBody2D" parent="." index="12" unique_id=1218455983]
 position = Vector2(-1, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="Dumpster" index="0" unique_id=1949679845]
@@ -106,20 +114,20 @@ position = Vector2(0, -2)
 polygon = PackedVector2Array(767, -271, 1325, -271, 1312, -307, 782, -305)
 one_way_collision = true
 
-[node name="cat" parent="." index="12" unique_id=1659453483]
+[node name="cat" parent="." index="13" unique_id=1659453483]
 position = Vector2(121, -44)
 
-[node name="Rain" parent="." index="13" unique_id=617827363 instance=ExtResource("6_4dy0b")]
+[node name="Rain" parent="." index="14" unique_id=617827363 instance=ExtResource("6_4dy0b")]
 visible = false
 position = Vector2(2846, -778)
 scale = Vector2(4.089458, 13.376976)
 
-[node name="CameraTopLeft" parent="." index="15" unique_id=1897197015]
+[node name="CameraTopLeft" parent="." index="16" unique_id=1897197015]
 position = Vector2(0, -2952)
 
-[node name="CameraBottomRight" parent="." index="16" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="17" unique_id=490815159]
 position = Vector2(5796, 108)
 
-[node name="SpellPickup" parent="." index="17" unique_id=1021825572 instance=ExtResource("5_lo40e")]
+[node name="SpellPickup" parent="." index="18" unique_id=1021825572 instance=ExtResource("5_lo40e")]
 position = Vector2(2244, -904)
 item = ExtResource("6_1syct")

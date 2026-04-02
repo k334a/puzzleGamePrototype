@@ -9,7 +9,7 @@ func _process(_delta: float) -> void:
 				var parent = get_parent()
 				parent.get_node("AudioStreamPlayer").play()
 				parent.get_node("StaticBody2D").queue_free()
-				parent.get_node("ColorRect").visible = true
+				parent.get_node("StaticBody2D2").show()
 				self.queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

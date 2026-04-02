@@ -21,6 +21,7 @@ extends AnimatedSprite2D
 @export var collisionScale: Vector2
 @export var collisionOffset: Vector2
 @export var textOffset: Vector2
+@export var textBoxScale: Vector2
 @export var text: String
 
 var damage: int = 0
@@ -29,7 +30,7 @@ func _ready() -> void:
 	if not interactionType:
 		push_error("Interaction type of interactive area not set: " + self.to_string())
 		return
-	$InteractiveArea.set_up(interactionType, textOffset, collisionScale, collisionOffset)
+	$InteractiveArea.set_up(interactionType, textOffset, textBoxScale, collisionScale, collisionOffset)
 	match interactionType:
 		"Entrance":
 			$InteractiveArea.set_up_entrance(entrance, instant, location)

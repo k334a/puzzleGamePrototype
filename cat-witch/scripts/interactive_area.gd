@@ -30,9 +30,11 @@ func _on_body_exited(_body: Node2D) -> void:
 func scratch() -> void:
 	damageSelf.emit()
 
-func set_up(interactionType: String, textOffset: Vector2=Vector2.ZERO, collisionScale: Vector2=Vector2.ONE, collisionOffset: Vector2=Vector2.ZERO) -> void:
+func set_up(interactionType: String, textOffset: Vector2=Vector2.ZERO, textBoxScale: Vector2=Vector2.ZERO, collisionScale: Vector2=Vector2.ONE, collisionOffset: Vector2=Vector2.ZERO) -> void:
 	areaType = interactionType
 	$RichTextLabel.global_position += textOffset
+	if textBoxScale != Vector2.ZERO:
+		$RichTextLabel.custom_minimum_size = textBoxScale
 	$CollisionShape2D.apply_scale(collisionScale)
 	$CollisionShape2D.position = collisionOffset
 	if interactionType == "Button":
