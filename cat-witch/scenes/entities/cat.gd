@@ -7,6 +7,7 @@ var gravity = 1500
 var windResistance = 1500
 var cutHeight = 0.5
 var airtime = false
+const MAX_PLAYER_SPEED = 360
 #var outsideForce = 0
 
 #Push Extras
@@ -100,10 +101,10 @@ func _physics_process(delta):
 
 	# Gravity Physics
 	if not is_on_floor():
-		if velocity.x > 0:
-			velocity.x -= 350 * delta
-		elif velocity.x < 0:
-			velocity.x += 350 * delta
+		#if velocity.x > 0:
+			#velocity.x -= 350 * delta
+		#elif velocity.x < 0:
+			#velocity.x += 350 * delta
 		if velocity.y < 0: # Moving UP
 			$AnimatedSprite2D.play("jump")
 		elif velocity.y > 0:              # Moving DOWN
@@ -111,7 +112,8 @@ func _physics_process(delta):
 	else:
 		if velocity.y == 0:
 			$AnimatedSprite2D.play("idle")
-
+	if abs(velocity.x) > MAX_PLAYER_SPEED:
+		velocity.x -= sign(velocity.x) * 350 * delta
 	# Movement
 	if right:
 		if velocity.x < 350:
@@ -236,7 +238,7 @@ func linearDampener(left, right):
 				velocity.x -= velocity.x * 0.01
 			else:
 				velocity.x -= velocity.x * 1
-
+		
 # Read Tilemap Helper
 func TileMapCheck(object, offset, flag):
 	var body = object.get_collider()
@@ -277,7 +279,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 		lookVector = Vector2(lookVector.x / magnitude, lookVector.y / magnitude)
 	
 	var spell_list = {
-		0: func(): wind(lookVector); spellCooldowns[index] = 1,
+		0: func(): wind(lookVector); spellCooldowns[index] = 2,
 		1: func(): freeze(); spellCooldowns[index] = 7,
 		2: func(): light(); spellCooldowns[index] = 1,
 		3: func(): spellCooldowns[index] = plant(),

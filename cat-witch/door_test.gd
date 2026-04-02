@@ -6,7 +6,11 @@ var player_in
 func _process(_delta: float) -> void:
 	if player_in:
 		if player_in.is_on_floor():
-				get_parent().queue_free()
+				var parent = get_parent()
+				parent.get_node("AudioStreamPlayer").play()
+				parent.get_node("StaticBody2D").queue_free()
+				parent.get_node("ColorRect").visible = true
+				self.queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body:
