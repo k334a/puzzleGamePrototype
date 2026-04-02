@@ -197,7 +197,7 @@ func _physics_process(delta):
 	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
-		damagedAreas.set(onTrigger, damagedAreas.get_or_add(onTrigger, 0) + 1)
+		#damagedAreas.set(onTrigger, damagedAreas.get_or_add(onTrigger, 0) + 1)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	

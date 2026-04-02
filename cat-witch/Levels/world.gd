@@ -1,10 +1,6 @@
 extends Node
 
 @export var zoom: Vector2 = Vector2(0.75, 0.75)
-@export var entranceColour: Color = Color("c2944187")
-@export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
-@export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
-@export var buttonColour: Color = Color(0.1, 0.41, 0.464, 0.502)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
@@ -31,6 +27,8 @@ var SCENES: Dictionary[String, Resource] = {
 	"LeakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
 	"Warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
 	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
+	"Hub": load("res://Levels/hub.tscn"),
+	"Tutorial": load("res://Levels/Tutorial.tscn"),
 }
 
 func _ready() -> void:
@@ -173,43 +171,33 @@ func check_data(tile: Vector2i, layer: TileMapLayer, attribute: String) -> Varia
 	return null
 
 func _on_interaction_area_entered(area: interactive_area) -> void:
-	match area.areaType:
-		"Entrance":
-			area.light_on(entranceColour)
-			cat.onTrigger = area
-		"Plant":
-			if cat.check_for_spell("Plant Spell"):
-				area.light_on(plantColour)
-				cat.onTrigger = area
-		"Scratch":
-			area.light_on(scratchColour)
-			cat.onTrigger = area
-		"Button":
-			area.light_on(buttonColour)
-			cat.onTrigger = area
-		_:
-			print("Un-assigned area!")
+	if area.instantEntrance:
+		_on_cat_next_level(area.entranceLevel, area.entranceLocation, $cat/Inventory.spells, {})
+		return
+	
+	if (not area.areaType == "Plant") or (cat.check_for_spell("Plant Spell")):
+		area.light_on()
+		cat.onTrigger = area
+	
 
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()
 	cat.onTrigger = null
-	
 
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
-
 func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array, damagedAreas: Dictionary[interactive_area, int]) -> void:
 	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
-	print(damagedAreas)
-	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
-		print(node)
-		var area = damagedAreas.get(node)
-		if area:
-			print(area)
-			for _i in range(area+1):
-				node.scratch()
+	#print(damagedAreas)
+	#for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+		#print(node)
+		#var area = damagedAreas.get(node)
+		#if area:
+			#print(area)
+			#for _i in range(area+1):
+				#node.scratch()
 	level.set_up_cat(inventory, location, damagedAreas)
 	self.queue_free()
 
