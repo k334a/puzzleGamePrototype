@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1lh447swksxq" path="res://door_test.gd" id="1_2dxf0"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_2f6xt"]
+[ext_resource type="AudioStream" uid="uid://c4lfwdhntgdeb" path="res://doorOpen.mp3" id="3_2f6xt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mqa4"]
 size = Vector2(61, 40)
@@ -20,6 +21,10 @@ shape = SubResource("RectangleShape2D_2mqa4")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=583088393]
 
+[node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D" unique_id=1891174623]
+tile_map_data = PackedByteArray("AAAAAAYAAQAAAAQAAAABAAYAAQACAAQAAAACAAYAAQAAAAEAAAADAAYAAQACAAEAAAACAAUAAQAAAAEAAAADAAUAAQACAAEAAAADAAQAAQACAAEAAAACAAQAAQAAAAEAAAACAAMAAQAAAAEAAAACAAIAAQAAAAEAAAACAAEAAQAAAAEAAAACAAAAAQAAAAEAAAACAP//AQAAAAEAAAACAP7/AQAAAAAAAAACAAcAAQAAAAEAAAACAAgAAQAAAAEAAAACAAkAAQAAAAEAAAACAAoAAQAAAAEAAAACAAsAAQAAAAEAAAACAAwAAQAAAAEAAAACAA0AAQAAAAEAAAACAA4AAQAAAAEAAAACAA8AAQAAAAEAAAACABAAAQAAAAIAAAADABAAAQACAAIAAAADAA8AAQACAAEAAAADAA4AAQACAAEAAAADAA0AAQACAAEAAAADAAwAAQACAAEAAAADAAsAAQACAAEAAAADAAoAAQACAAEAAAADAAkAAQACAAEAAAADAAgAAQACAAEAAAADAAcAAQACAAEAAAADAAMAAQACAAEAAAADAAIAAQACAAEAAAADAAEAAQACAAEAAAADAAAAAQACAAEAAAADAP//AQACAAEAAAADAP7/AQACAAAAAAA=")
+tile_set = ExtResource("2_2f6xt")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1334938514]
 position = Vector2(107.25, 269.5)
 shape = SubResource("RectangleShape2D_n2xot")
@@ -32,9 +37,27 @@ offset_right = 144.0
 offset_bottom = 615.0
 color = Color(0.52156866, 0.2509804, 0, 1)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1891174623]
-tile_map_data = PackedByteArray("AAAAAAYAAQAAAAQAAAABAAYAAQACAAQAAAACAAYAAQAAAAEAAAADAAYAAQACAAEAAAACAAUAAQAAAAEAAAADAAUAAQACAAEAAAADAAQAAQACAAEAAAACAAQAAQAAAAEAAAACAAMAAQAAAAEAAAACAAIAAQAAAAEAAAACAAEAAQAAAAEAAAACAAAAAQAAAAEAAAACAP//AQAAAAEAAAACAP7/AQAAAAAAAAACAAcAAQAAAAEAAAACAAgAAQAAAAEAAAACAAkAAQAAAAEAAAACAAoAAQAAAAEAAAACAAsAAQAAAAEAAAACAAwAAQAAAAEAAAACAA0AAQAAAAEAAAACAA4AAQAAAAEAAAACAA8AAQAAAAEAAAACABAAAQAAAAIAAAADABAAAQACAAIAAAADAA8AAQACAAEAAAADAA4AAQACAAEAAAADAA0AAQACAAEAAAADAAwAAQACAAEAAAADAAsAAQACAAEAAAADAAoAAQACAAEAAAADAAkAAQACAAEAAAADAAgAAQACAAEAAAADAAcAAQACAAEAAAADAAMAAQACAAEAAAADAAIAAQACAAEAAAADAAEAAQACAAEAAAADAAAAAQACAAEAAAADAP//AQACAAEAAAADAP7/AQACAAAAAAA=")
-tile_set = ExtResource("2_2f6xt")
+[node name="ColorRect" type="ColorRect" parent="." unique_id=970353191]
+visible = false
+z_index = -1
+offset_left = 382.0
+offset_top = 220.0
+offset_right = 478.0
+offset_bottom = 260.0
+color = Color(0.48805398, 0.48805404, 0.48805404, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect" unique_id=318034011]
+z_index = -1
+layout_mode = 0
+offset_left = -238.0
+offset_top = -290.0
+offset_right = 118.0
+offset_bottom = 396.0
+color = Color(0.52156866, 0.2509804, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=454548371]
+stream = ExtResource("3_2f6xt")
+volume_db = -10.0
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
