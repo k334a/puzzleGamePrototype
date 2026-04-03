@@ -210,12 +210,12 @@ func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) 
 	print(damagedAreas2)
 	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
 		#print(node)
-		var area = damagedAreas.get(node)
+		var area = damagedAreas2.get(node)
 		if area:
 			#print(area)
 			for _i in range(area+1):
 				node.scratch()
-	level.set_up_cat(inventory, location, damagedAreas)
+	level.set_up_cat(inventory, location, damagedAreas2)
 	#print(level.damagedAreas2)
 	saveLevel.emit(damagedAreas2, breakableStatus, name)
 	loadLevel.emit(level)
