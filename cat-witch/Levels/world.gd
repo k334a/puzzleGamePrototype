@@ -196,14 +196,14 @@ func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) 
 	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
 	print(damagedAreas2)
-	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+	#for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
 		#print(node)
-		var area = damagedAreas.get(node)
-		if area:
+		#var area = damagedAreas.get(node)
+		#if area:
 			#print(area)
-			for _i in range(area+1):
-				node.scratch()
-	level.set_up_cat(inventory, location, damagedAreas)
+			#for _i in range(area+1):
+				#node.scratch()
+	level.set_up_cat(inventory, location)
 	#print(level.damagedAreas2)
 	saveLevel.emit(damagedAreas2, breakableStatus, name)
 	loadLevel.emit(level)

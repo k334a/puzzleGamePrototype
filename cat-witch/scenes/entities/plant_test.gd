@@ -5,7 +5,7 @@ var damage: int = 0
 @export var damageFrameOffset: int = 1
 
 func _ready() -> void:
-	$InteractiveArea.set_up("Plant", false, "", self)
+	$InteractiveArea.set_up("Plant")
 
 func unfurl() -> void:
 	if damage == 0:

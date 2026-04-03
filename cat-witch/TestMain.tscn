@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bihh7gfbw2l5n"]
+[gd_scene format=3 uid="uid://bu61prbwgghvo"]
 
 [ext_resource type="PackedScene" uid="uid://bm32amm8cm35u" path="res://Levels/Placeholder Levels/city_scape.tscn" id="1_a6wyt"]
-[ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
+[ext_resource type="Script" path="res://test_main.gd" id="1_iveyk"]
 
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
