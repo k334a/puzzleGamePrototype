@@ -36,5 +36,7 @@ position = Vector2(10000000, 10000000)
 
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
 [connection signal="nextLevel" from="cat" to="." method="_on_cat_next_level"]
+[connection signal="recordScratch" from="cat" to="." method="_on_cat_record_scratch"]
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
 [connection signal="unfurlPlant" from="cat" to="." method="_on_cat_unfurl_plant"]
+[connection signal="update_inventory" from="InventoryUI" to="." method="_on_spell_select_update_inventory"]

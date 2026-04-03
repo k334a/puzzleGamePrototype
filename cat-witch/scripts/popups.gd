@@ -14,7 +14,7 @@ func ItemPopup(slot_node: Control, item: Item):
 	var final_pos = Vector2i()
 	
 	# Temporary math since we know its just the last one
-	if slot_global_pos.x / 2 + %ItemPopup.size.x >= get_viewport_rect().size.x:
+	if slot_global_pos.x / 2 + %ItemPopup.size.x >= get_viewport_rect().size.x - 50:
 		final_pos = Vector2i(slot_global_pos.x, slot_global_pos.y + 100)
 	else:
 		final_pos = Vector2i(slot_global_pos.x - popup_size.x, slot_global_pos.y)

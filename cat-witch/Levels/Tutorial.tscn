@@ -7,6 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://bovmqfjq4c1cx" path="res://scenes/entities/StaticProp.tscn" id="5_ixs1y"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="6_o4sb5"]
 
+[sub_resource type="Gradient" id="Gradient_ixs1y"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o4sb5"]
+gradient = SubResource("Gradient_ixs1y")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0.5)
+
 [node name="Tutorial" unique_id=1378909801 instance=ExtResource("1_i6m5q")]
 
 [node name="LevelTiles" parent="." index="0" unique_id=474357427]

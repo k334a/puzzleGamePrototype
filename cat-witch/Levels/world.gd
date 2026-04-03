@@ -7,9 +7,14 @@ extends Node
 
 var pushableStartPoints: Array[Vector2]
 var breakableStatus: Dictionary[RigidBody2D, bool]
+var damagedAreas2: Dictionary[interactive_area, int] = {}
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
+
+signal saveLevel
+signal loadLevel
+
 
 enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
 enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
@@ -201,8 +206,19 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 
 func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
 	var level = SCENES.get(levelName).instantiate()
-	get_tree().root.call_deferred("add_child", level)
-	level.set_up_cat(inventory, location)
+	get_tree().root.add_child(level)
+	print(damagedAreas2)
+	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+		#print(node)
+		var area = damagedAreas.get(node)
+		if area:
+			#print(area)
+			for _i in range(area+1):
+				node.scratch()
+	level.set_up_cat(inventory, location, damagedAreas)
+	#print(level.damagedAreas2)
+	saveLevel.emit(damagedAreas2, breakableStatus, name)
+	loadLevel.emit(level)
 	self.queue_free()
 
 func set_up_cat(inventory: Array, location: Vector2):
@@ -210,3 +226,24 @@ func set_up_cat(inventory: Array, location: Vector2):
 	if location != Vector2.ZERO:
 		$cat.startPosition = location
 		$cat.global_position = location
+		#print(damagedAreas)
+
+func set_world_values(oldDamagedArea: Dictionary):
+	if not oldDamagedArea.is_empty():
+		damagedAreas2 = oldDamagedArea
+
+func _on_cat_record_scratch(triggered: interactive_area) -> void:
+	damagedAreas2[triggered] = damagedAreas2.get(triggered, 0) + 1
+
+#func _process(delta: float) -> void:
+	#print(damagedAreas2)
+
+func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> void:
+	var spells = cat.inventory.spellsKnown
+	if selected:
+		for i in range(spells.size()):
+			if spells[i].name == spell_name:
+				cat.inventory.add_spell(spells[i])
+				break
+	else:
+		cat.inventory.remove_spell(spell_name)

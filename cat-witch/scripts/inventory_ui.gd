@@ -5,8 +5,12 @@ class_name InventoryUI
 @onready var spellPanel: Panel = $Control/SpellPanel
 var totalJars: int = 0
 var brokenJars: int = 0
+@onready var spellBook: Panel = $Control/SpellbookWindow
 
 const SlotScene = preload("res://scenes/Inventory_and_Items/slot.tscn")
+
+signal update_inventory
+
 func _ready() -> void:
 	visible = false
 
@@ -29,13 +33,16 @@ func refresh(inventory: Inventory) -> void:
 		if i < inventory.spells.size():
 			slot.set_item(inventory.spells[i])
 		else:
-			slot.clear()  # optional: empty slot
+			#slot.clear()  # optional: empty slot
+			pass
 
 
 func toggle(inventory: Inventory) -> bool:
 	visible = !visible
 	if visible:
 		refresh(inventory)
+		spellBook.refresh(inventory)
+		#self.inventory = inventory
 	return visible
 
 func update_vases(broke: bool, total: int=0) -> void:
@@ -53,3 +60,14 @@ func show_jars() -> void:
 	await get_tree().create_timer(2, false).timeout
 	$Control.show()
 	hide()
+	
+
+func _on_spellbook_button_pressed() -> void:
+	var window = $Control/SpellbookWindow
+	window.visible = not window.visible
+
+
+func _on_button_pressed(source: BaseButton) -> void:
+	var selectedPanel = source.get_child(0)
+	selectedPanel.visible = not selectedPanel.visible
+	update_inventory.emit(source.Spell, selectedPanel.visible)
