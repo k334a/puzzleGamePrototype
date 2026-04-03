@@ -5,6 +5,38 @@
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_4dvsh"]
 [ext_resource type="TileSet" uid="uid://clltl41f8o0j6" path="res://resources/visualTiles.tres" id="3_ks8n1"]
 [ext_resource type="PackedScene" uid="uid://bx3g2anfgwjk6" path="res://scenes/Inventory_and_Items/InventoryUI.tscn" id="4_aqk2v"]
+[ext_resource type="Texture2D" uid="uid://bihr83meos3g3" path="res://Images/Tiles/ladder.png" id="4_x5oxt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vqnaq"]
+texture = ExtResource("4_x5oxt")
+texture_region_size = Vector2i(36, 12)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-18, -6, -13, -6, -13, -2, 13, -2, 13, -6, 18, -6, 18, 2, 13, 2, -13, 2, -18, 2)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13, 2, 13, 2, 13, -2, -13, -2)
+0:1/0/physics_layer_0/polygon_0/one_way = true
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13, 2, 13, 2, 13, -2, -13, -2)
+0:2/0/physics_layer_0/polygon_0/one_way = true
+0:2/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSet" id="TileSet_rljl1"]
+tile_size = Vector2i(36, 12)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Ladder"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_vqnaq")
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
@@ -19,6 +51,9 @@ tile_set = ExtResource("3_ks8n1")
 
 [node name="BackgroundTiles2" type="TileMapLayer" parent="." unique_id=1209216120]
 tile_set = ExtResource("3_ks8n1")
+
+[node name="Ladders" type="TileMapLayer" parent="." unique_id=2120670079]
+tile_set = SubResource("TileSet_rljl1")
 
 [node name="cat" parent="." unique_id=1659453483 instance=ExtResource("1_f3sb7")]
 

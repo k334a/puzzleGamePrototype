@@ -40,8 +40,10 @@ func _ready() -> void:
 			$InteractiveArea.set_up_plant(plant)
 		"Scratch":
 			$InteractiveArea.set_up_scratchable(item)
-	if interactionType == "TextHover":
-		$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
+		"Button":
+			pass
+		"TextHover":
+			$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
 
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
