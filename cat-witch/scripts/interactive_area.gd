@@ -4,6 +4,7 @@ class_name interactive_area
 
 var areaType: String
 var scratchable: bool
+var instantEntrance: bool
 var entranceLevel: String
 var entranceLocation: Vector2
 var plantNode: AnimatableBody2D
@@ -14,14 +15,11 @@ signal areaLeft
 signal damageSelf
 signal clicked
 
-func light_on(colour: Color) -> void:
-	var styleBox: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
-	styleBox.set("border_color", colour)
-	$Panel.add_theme_stylebox_override("panel", styleBox)
-	$Panel.show()
+func light_on() -> void:
+	$RichTextLabel.show()
 
 func light_off() -> void:
-	$Panel.hide()
+	$RichTextLabel.hide()
 
 func _on_body_entered(_body: Node2D) -> void:
 	areaHit.emit(self)
@@ -32,30 +30,31 @@ func _on_body_exited(_body: Node2D) -> void:
 func scratch() -> void:
 	damageSelf.emit()
 
-func set_up(interactionType: String, scratchToReveal: bool, entrance: String, plant: AnimatableBody2D, location: Vector2=Vector2.ZERO, lightUpArea: Dictionary[String, int]={}, itemObject: Item=null, collisionArea: Dictionary[String, int]={}) -> void:
-	scratchable = ((not interactionType == "Entrance") or scratchToReveal)
+func set_up(interactionType: String, textOffset: Vector2=Vector2.ZERO, textBoxScale: Vector2=Vector2.ZERO, collisionScale: Vector2=Vector2.ONE, collisionOffset: Vector2=Vector2.ZERO) -> void:
 	areaType = interactionType
-	match interactionType:
-		"Entrance":
-			if scratchable:
-				areaType = "Scratch"
-			entranceLevel = entrance
-			entranceLocation = location
-		"Plant":
-			plantNode = plant
-		"Button":
-			pass
-		"":
-			areaType = "Scratch"
-			if itemObject:
-				item = itemObject
-	
-	if not collisionArea.is_empty():
-		$CollisionShape2D.apply_scale(Vector2(collisionArea["width"], collisionArea["height"]))
-		$CollisionShape2D.position = Vector2(collisionArea["x"], collisionArea["y"])
-	if not lightUpArea.is_empty():
-		$Panel.scale = Vector2(lightUpArea["width"], lightUpArea["height"])
-		$Panel.position = Vector2(lightUpArea["x"], lightUpArea["y"])
+	$RichTextLabel.global_position += textOffset
+	if textBoxScale != Vector2.ZERO:
+		$RichTextLabel.custom_minimum_size = textBoxScale
+	$CollisionShape2D.apply_scale(collisionScale)
+	$CollisionShape2D.position = collisionOffset
+	if interactionType == "Button":
+		$RichTextLabel.text = "[wave amp=10 freq=5]Click"
+
+func set_up_scratchable(itemObject: Item=null) -> void:
+	areaType = "Scratch"
+	scratchable = true
+	item = itemObject
+	$RichTextLabel.text = "[wave amp=10 freq=5]Scratch"
+
+func set_up_entrance(entrance: String, instant: bool, location: Vector2) -> void:
+	entranceLevel = entrance
+	entranceLocation = location
+	instantEntrance = instant
+	$RichTextLabel.text = "[wave amp=10 freq=5]Enter"
+
+func set_up_plant(plant: AnimatableBody2D) -> void:
+	plantNode = plant
+	$RichTextLabel.text = "[wave amp=10 freq=5]Plant"
 
 func click() -> void:
 	clicked.emit()

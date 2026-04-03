@@ -29,7 +29,6 @@ var windObject = load("res://scenes/spells/wind.tscn")
 var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
 
 var onTrigger: interactive_area = null
-var damagedAreas: Dictionary[interactive_area, int] = {}
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -197,7 +196,6 @@ func _physics_process(delta):
 	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
-		damagedAreas.set(onTrigger, damagedAreas.get_or_add(onTrigger, 0) + 1)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -216,7 +214,7 @@ func _physics_process(delta):
 	
 	if interact and onTrigger and onTrigger.areaType == "Entrance":
 		print(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, damagedAreas)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
 	elif interact and  onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
 		onTrigger.click()
@@ -390,3 +388,7 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 					body.erase_cell(tile)
 				tile += Vector2i(0, 1)
 			tile = top_tile + Vector2i($Pivot.scale.x, 0)
+
+func instantEntrance(area: interactive_area) -> void:
+	print(area.entranceLevel)
+	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells)

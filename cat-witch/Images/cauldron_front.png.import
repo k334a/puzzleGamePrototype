@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lhu5t6uc7qdb"
-path="res://.godot/imported/titlepage_withOptionButtons_(noText).png-a3874dace451464debe112552f11167b.ctex"
+uid="uid://dp1aupwwr5add"
+path="res://.godot/imported/cauldron_front.png-cc5280ce8465bc14650b3fcdc4cb090a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/titlepage_withOptionButtons_(noText).png"
-dest_files=["res://.godot/imported/titlepage_withOptionButtons_(noText).png-a3874dace451464debe112552f11167b.ctex"]
+source_file="res://Images/cauldron_front.png"
+dest_files=["res://.godot/imported/cauldron_front.png-cc5280ce8465bc14650b3fcdc4cb090a.ctex"]
 
 [params]
 
