@@ -4,15 +4,21 @@ extends Node
 @export var entranceColour: Color = Color("c2944187")
 @export var plantColour: Color = Color(0.499, 0.896, 0.0, 0.467)
 @export var scratchColour: Color = Color(0.576, 0.039, 0.643, 0.502)
+@export var buttonColour: Color = Color(0.1, 0.41, 0.464, 0.502)
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
 
 var pushableStartPoints: Array[Vector2]
 var breakableStatus: Dictionary[RigidBody2D, bool]
+var damagedAreas2: Dictionary[interactive_area, int] = {}
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
+
+signal saveLevel
+signal loadLevel
+
 
 enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
 enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
@@ -20,16 +26,16 @@ enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
 var SCENES: Dictionary[String, Resource] = {
-	"level1": load("res://Levels/LevelOne.tscn"),
-	"level2": load("res://Levels/LevelTwo.tscn"),
-	"testScene": load("res://Levels/NewTestScene.tscn"),
-	"cityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
-	"alleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
-	"greenhouse_1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
-	"greenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
-	"leakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
-	"warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
-	"building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
+	"LevelOne": load("res://Levels/LevelOne.tscn"),
+	"LevelTwo": load("res://Levels/LevelTwo.tscn"),
+	"NewTestScene": load("res://Levels/NewTestScene.tscn"),
+	"CityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
+	"AlleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
+	"Greenhouse1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
+	"GreenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
+	"LeakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
+	"Warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
+	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
 }
 
 func _ready() -> void:
@@ -183,6 +189,9 @@ func _on_interaction_area_entered(area: interactive_area) -> void:
 		"Scratch":
 			area.light_on(scratchColour)
 			cat.onTrigger = area
+		"Button":
+			area.light_on(buttonColour)
+			cat.onTrigger = area
 		_:
 			print("Un-assigned area!")
 
@@ -195,15 +204,39 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
 
-func _on_cat_next_level(levelName: String, inventory: Array) -> void:
+func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array, damagedAreas: Dictionary[interactive_area, int]) -> void:
 	var level = SCENES.get(levelName).instantiate()
 	get_tree().root.add_child(level)
-	level.set_up_cat(inventory)
+	print(damagedAreas2)
+	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+		#print(node)
+		var area = damagedAreas.get(node)
+		if area:
+			#print(area)
+			for _i in range(area+1):
+				node.scratch()
+	level.set_up_cat(inventory, location, damagedAreas)
+	#print(level.damagedAreas2)
+	saveLevel.emit(damagedAreas2, breakableStatus, name)
+	loadLevel.emit(level)
 	self.queue_free()
 
-func set_up_cat(inventory: Array):
+func set_up_cat(inventory: Array, location: Vector2, damagedAreas: Dictionary[interactive_area, int]):
 	$cat/Inventory.spells = inventory
+	if location != Vector2.ZERO:
+		$cat.startPosition = location
+		$cat.global_position = location
+		#print(damagedAreas)
 
+func set_world_values(oldDamagedArea: Dictionary):
+	if not oldDamagedArea.is_empty():
+		damagedAreas2 = oldDamagedArea
+
+func _on_cat_record_scratch(triggered: interactive_area) -> void:
+	damagedAreas2[triggered] = damagedAreas2.get(triggered, 0) + 1
+
+#func _process(delta: float) -> void:
+	#print(damagedAreas2)
 
 func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> void:
 	var spells = cat.inventory.spellsKnown

@@ -10,4 +10,5 @@ description = "hidden., test"
 icon = ExtResource("1_ui5cm")
 cooldown = 5.0
 strength = 5
+isSpell = false
 spell_type = 1

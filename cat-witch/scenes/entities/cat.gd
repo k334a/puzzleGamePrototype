@@ -27,7 +27,9 @@ var wall_jump_lock: float = 0.0
 #Spell Variables
 var windObject = load("res://scenes/spells/wind.tscn")
 var spellCooldowns = [0.1, 0.1, 0.1, 0.1]
+
 var onTrigger: interactive_area = null
+var damagedAreas: Dictionary[interactive_area, int] = {}
 
 #Inventory
 @onready var inventory: Inventory = $Inventory
@@ -78,7 +80,7 @@ func _physics_process(delta):
 	var jump = Input.is_action_pressed('jump')
 	var down = Input.is_action_pressed('down')
 	var crouch = Input.is_action_pressed('crouch')
-	var enterArea = Input.is_action_just_pressed("enter")
+	var interact = Input.is_action_just_pressed("interact")
 	#var run = Input.is_action_pressed('run')
 	var scratch = Input.is_action_just_pressed('scratch')
 	var spell1 = Input.is_action_just_pressed('spell1')
@@ -195,6 +197,7 @@ func _physics_process(delta):
 	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
+		damagedAreas.set(onTrigger, damagedAreas.get_or_add(onTrigger, 0) + 1)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -211,9 +214,12 @@ func _physics_process(delta):
 				collision_crate.apply_impulse(velocity)
 				apply_outside_force(collision_crate.linear_velocity * delta)
 	
-	if enterArea and onTrigger and onTrigger.areaType == "Entrance":
+	if interact and onTrigger and onTrigger.areaType == "Entrance":
 		print(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, $Inventory.spells)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, damagedAreas)
+	elif interact and  onTrigger and onTrigger.areaType == "Button":
+		print("button clicked")
+		onTrigger.click()
 	
 	move_and_slide()
 

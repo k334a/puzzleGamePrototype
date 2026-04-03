@@ -40,7 +40,8 @@ position = Vector2(1547, -288)
 [node name="InteractionSprite" parent="." index="8" unique_id=983612869 instance=ExtResource("4_faatx")]
 position = Vector2(-127, -1)
 interactionType = "Entrance"
-entrance = "cityScape"
+entrance = "CityScape"
+location = Vector2i(4791, -73)
 lightUpArea = Dictionary[String, int]({
 "height": 10,
 "width": 2,

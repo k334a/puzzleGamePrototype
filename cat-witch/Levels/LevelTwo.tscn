@@ -41,7 +41,7 @@ position = Vector2(144, -251)
 scale = Vector2(2.4285717, 2.4285715)
 sprite_frames = SubResource("SpriteFrames_kfbls")
 interactionType = "Entrance"
-entrance = "testScene"
+entrance = "NewTestScene"
 entranceColour = Color(0.8032919, 0.6829037, 0.28077155, 1)
 lightUpArea = Dictionary[String, int]({
 "height": 1,
