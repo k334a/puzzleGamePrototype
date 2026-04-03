@@ -34,9 +34,14 @@ var SCENES: Dictionary[String, Resource] = {
 func _ready() -> void:
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		pushableStartPoints.push_back(node.global_position)
+	$InventoryUI.update_vases(false, get_tree().get_node_count_in_group("breakable"))
 	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
-		breakableStatus.set(node, false)
-		node.jar_broken.connect(_on_jar_broken)
+		if breakableStatus.has(node) and breakableStatus.get(node):
+			node.removeObject()
+			$InventoryUI.update_vases(true)
+		else:
+			breakableStatus.set(node, false)
+			node.jar_broken.connect(_on_jar_broken)
 	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
 	for node: interactive_area in get_tree().get_nodes_in_group("interaction"):
 		node.areaHit.connect(_on_interaction_area_entered)
@@ -44,6 +49,9 @@ func _ready() -> void:
 
 func _on_jar_broken(jar: RigidBody2D) -> void:
 	breakableStatus.set(jar, true)
+	$InventoryUI.update_vases(true)
+	if not $InventoryUI.visible:
+		$InventoryUI.show_jars()
 	if breakableStatus.values().all(func(jarStatus): return jarStatus):
 		print("Broke all jars!")
 
@@ -100,6 +108,10 @@ func _on_cat_reset_level() -> void:
 		if not breakableStatus.keys().has(node) or not breakableStatus.get(node):
 			node.reset(pushableStartPoints[i])
 		i += 1
+	
+	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
+		if not breakableStatus.get(node):
+			node.reset()
 	
 	for node: AnimatableBody2D in get_tree().get_nodes_in_group("plant"):
 		node.reset()

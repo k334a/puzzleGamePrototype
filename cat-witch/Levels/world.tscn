@@ -8,7 +8,6 @@
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
-entranceColour = Color(0.7617416, 0.5793735, 0.25524214, 0.53000003)
 
 [node name="LevelTiles" type="TileMapLayer" parent="." unique_id=474357427]
 unique_name_in_owner = true

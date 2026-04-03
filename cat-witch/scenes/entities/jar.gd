@@ -4,6 +4,8 @@ var inAir = false
 var broken = false
 var previousVertVelocity = 0
 
+@onready var start_pos = global_position
+
 signal jar_broken
 
 func _physics_process(_delta: float) -> void:
@@ -28,9 +30,9 @@ func objectBreak() -> void:
 	print(linear_velocity.y)
 	broken = true
 	$JarBreak.play()
-	jar_broken.emit(self) # Connect this to counter for broken jars?
+	jar_broken.emit(self)
 
-func reset(target_pos: Vector2):
+func reset(target_pos: Vector2=start_pos) -> void:
 	inAir = false
 	broken = false
 	show()
@@ -38,3 +40,10 @@ func reset(target_pos: Vector2):
 	set_collision_layer_value(6, true)
 	set_collision_mask_value(1, true)
 	super.reset(target_pos)
+
+func objectRemove() -> void:
+	hide()
+	set_collision_layer_value(1, false)
+	set_collision_layer_value(6, false)
+	set_collision_mask_value(1, false)
+	broken = true

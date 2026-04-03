@@ -33,6 +33,14 @@ texture = ExtResource("3_kikn4")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1jqyy"]
 texture = ExtResource("3_kikn4")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kikn4"]
+bg_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.6117647, 0.3764706, 0.6117647, 1)
+
 [node name="InventoryUI" type="CanvasLayer" unique_id=1380888454]
 script = ExtResource("1_wqexf")
 
@@ -171,3 +179,16 @@ horizontal_alignment = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=348580179]
+offset_left = 1237.0
+offset_top = 81.0
+offset_right = 1562.0
+offset_bottom = 119.0
+theme_override_font_sizes/normal_font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_kikn4")
+bbcode_enabled = true
+text = "Vases Broken: "
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
