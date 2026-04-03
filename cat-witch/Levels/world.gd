@@ -214,4 +214,3 @@ func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> vo
 				break
 	else:
 		cat.inventory.remove_spell(spell_name)
-				
