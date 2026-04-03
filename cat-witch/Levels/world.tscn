@@ -8,7 +8,10 @@
 
 [node name="World" type="Node" unique_id=1378909801]
 script = ExtResource("1_tlwt5")
+zoom = null
 entranceColour = Color(0.7617416, 0.5793735, 0.25524214, 0.53000003)
+plantColour = null
+scratchColour = null
 
 [node name="LevelTiles" type="TileMapLayer" parent="." unique_id=474357427]
 unique_name_in_owner = true
@@ -37,5 +40,7 @@ position = Vector2(10000000, 10000000)
 
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
 [connection signal="nextLevel" from="cat" to="." method="_on_cat_next_level"]
+[connection signal="recordScratch" from="cat" to="." method="_on_cat_record_scratch"]
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
 [connection signal="unfurlPlant" from="cat" to="." method="_on_cat_unfurl_plant"]
+[connection signal="update_inventory" from="InventoryUI" to="." method="_on_spell_select_update_inventory"]
