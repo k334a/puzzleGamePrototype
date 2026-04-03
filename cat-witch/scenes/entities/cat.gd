@@ -45,7 +45,7 @@ signal resetLevel
 signal freezeTiles
 signal unfurlPlant
 signal nextLevel
-
+signal recordScratch
 
 func _input(event):
 	if(event.is_action_released("jump")):
