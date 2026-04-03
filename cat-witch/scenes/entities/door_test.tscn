@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://c17reujf55s2d"]
 
-[ext_resource type="Script" uid="uid://d1lh447swksxq" path="res://door_test.gd" id="1_2dxf0"]
 [ext_resource type="Script" uid="uid://to5vw185600e" path="res://scenes/entities/door_test.gd" id="1_n2xot"]
 [ext_resource type="TileSet" uid="uid://tfiyc2tqmhis" path="res://resources/prototype_tiles.tres" id="2_2f6xt"]
 [ext_resource type="AudioStream" uid="uid://c4lfwdhntgdeb" path="res://doorOpen.mp3" id="3_2f6xt"]
@@ -16,7 +15,6 @@ size = Vector2(65.5, 1)
 script = ExtResource("1_n2xot")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1129924916]
-script = ExtResource("1_2dxf0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=872709411]
 position = Vector2(35.5, 198)
