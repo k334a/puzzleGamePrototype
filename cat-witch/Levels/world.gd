@@ -120,6 +120,8 @@ func _on_cat_reset_level() -> void:
 	
 	for node: AnimatableBody2D in get_tree().get_nodes_in_group("plant"):
 		node.reset()
+	for node: Node2D in get_tree().get_nodes_in_group("doors"):
+		node.reset()
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	
@@ -206,16 +208,16 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 
 func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
 	var level = SCENES.get(levelName).instantiate()
-	get_tree().root.add_child(level)
+	get_tree().root.call_deferred("add_child", level)
 	print(damagedAreas2)
-	for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
+	#for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
 		#print(node)
-		var area = damagedAreas2.get(node)
-		if area:
+		#var area = damagedAreas.get(node)
+		#if area:
 			#print(area)
-			for _i in range(area+1):
-				node.scratch()
-	level.set_up_cat(inventory, location, damagedAreas2)
+			#for _i in range(area+1):
+				#node.scratch()
+	level.set_up_cat(inventory, location)
 	#print(level.damagedAreas2)
 	saveLevel.emit(damagedAreas2, breakableStatus, name)
 	loadLevel.emit(level)

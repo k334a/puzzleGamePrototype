@@ -28,6 +28,7 @@ box=""
 breakable=""
 interaction=""
 plant=""
+doors=""
 
 [gui]
 

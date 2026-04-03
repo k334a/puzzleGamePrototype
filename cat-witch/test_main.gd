@@ -23,8 +23,8 @@ func _ready() -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	print(damagedAreas)
+#func _process(delta: float) -> void:
+	#print(damagedAreas)
 
 #
 #func _on_cat_next_level() -> void:
@@ -48,9 +48,9 @@ func _on_set_camera(camera_top_y: int, camera_bottom_x: int, camera_bottom_y: in
 	$cat.set_camera(camera_top_y, camera_bottom_x, camera_bottom_y, camera_top_x, zoom)
 	currLevel.cat = $cat
 
-func _save_level(damagedArea: Dictionary, jarsSmash: Dictionary, levelName) -> void:
-	damagedAreas[levelName] = damagedArea
-	jarsSmashed[levelName] = jarsSmash
+func _save_level(damagedArea: Dictionary, jarsSmash: Dictionary, levelName2) -> void:
+	damagedAreas[levelName2] = damagedArea
+	jarsSmashed[levelName2] = jarsSmash
 	#print(damagedAreas)
 
 func _load_level(level) -> void:

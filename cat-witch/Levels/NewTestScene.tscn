@@ -44,8 +44,6 @@ animations = [{
 
 [node name="TestScene" unique_id=1378909801 instance=ExtResource("1_g1pj0")]
 zoom = Vector2(0.75, 0.75)
-plantColour = Color(0.499, 0.896, 0, 0.467)
-scratchColour = Color(0.576, 0.039, 0.643, 0.502)
 
 [node name="LevelTiles" parent="." index="0" unique_id=474357427]
 position = Vector2(1, 1)
