@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://l61n845mcny"]
+
+[ext_resource type="PackedScene" uid="uid://cgfk6g5qnhyg0" path="res://scenes/entities/jar.tscn" id="1_1js66"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1js66"]
+radius = 42.857094
+height = 162.14
+
+[node name="Jar_Mini" unique_id=1110553694 instance=ExtResource("1_1js66")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=133060341]
+scale = Vector2(0.28000033, 0.28000033)
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=942878741]
+scale = Vector2(0.28000033, 0.28000033)
+shape = SubResource("CapsuleShape2D_1js66")

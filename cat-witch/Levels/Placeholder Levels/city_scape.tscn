@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="6_4dy0b"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="6_6m6de"]
 [ext_resource type="Texture2D" uid="uid://ca7oqda6irrky" path="res://Images/dumpster.png" id="8_4dy0b"]
+[ext_resource type="PackedScene" uid="uid://b4te2gyvhbkai" path="res://scenes/entities/pushable_box_a.tscn" id="9_6m6de"]
+[ext_resource type="PackedScene" uid="uid://l61n845mcny" path="res://scenes/entities/jar_mini.tscn" id="10_t6yui"]
+[ext_resource type="Texture2D" uid="uid://d3bao3xfhekpx" path="res://Images/Plants/plant_test_1.png" id="11_meyii"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_600y7"]
 
@@ -134,3 +137,24 @@ item = ExtResource("6_1syct")
 
 [node name="CameraBottomRight" parent="." index="19" unique_id=490815159]
 position = Vector2(5796, 108)
+
+[node name="PushableBox_A" parent="." index="20" unique_id=963461222 instance=ExtResource("9_6m6de")]
+position = Vector2(2352, -74)
+
+[node name="PushableBox_A2" parent="." index="21" unique_id=407811533 instance=ExtResource("9_6m6de")]
+position = Vector2(2214, -65)
+
+[node name="PushableBox_A3" parent="." index="22" unique_id=1472626717 instance=ExtResource("9_6m6de")]
+position = Vector2(2278, -208)
+
+[node name="Jar_Mini" parent="." index="23" unique_id=1110553694 instance=ExtResource("10_t6yui")]
+position = Vector2(83, -1181)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Jar_Mini" index="3" unique_id=795622920]
+position = Vector2(1.0000153, -47)
+rotation = 1.5707964
+scale = Vector2(0.2809524, 0.2809524)
+texture = ExtResource("11_meyii")
+
+[node name="Jar_Mini2" parent="." index="24" unique_id=1318743532 instance=ExtResource("10_t6yui")]
+position = Vector2(242, -2117)

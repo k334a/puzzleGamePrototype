@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ba1n8gyrqy40n" path="res://Images/garage_closed.png" id="2_0pkum"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="3_uod83"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="4_faatx"]
+[ext_resource type="PackedScene" uid="uid://b4te2gyvhbkai" path="res://scenes/entities/pushable_box_a.tscn" id="5_uod83"]
 
 [node name="AlleyWay" unique_id=1378909801 instance=ExtResource("1_4diqw")]
 
@@ -45,8 +46,20 @@ location = Vector2i(4791, -46)
 instant = true
 collisionScale = Vector2(2, 7.15)
 
-[node name="CameraTopLeft" parent="." index="11" unique_id=1897197015]
+[node name="PushableBox_A" parent="." index="10" unique_id=963461222 instance=ExtResource("5_uod83")]
+position = Vector2(1170, 18)
+
+[node name="PushableBox_A2" parent="." index="11" unique_id=1315269982 instance=ExtResource("5_uod83")]
+position = Vector2(1308, 21)
+
+[node name="PushableBox_A3" parent="." index="12" unique_id=274024367 instance=ExtResource("5_uod83")]
+position = Vector2(1218, -112)
+
+[node name="PushableBox_A4" parent="." index="13" unique_id=444636737 instance=ExtResource("5_uod83")]
+position = Vector2(1346, -110)
+
+[node name="CameraTopLeft" parent="." index="16" unique_id=1897197015]
 position = Vector2(-145.1531, -1404.4617)
 
-[node name="CameraBottomRight" parent="." index="12" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="17" unique_id=490815159]
 position = Vector2(2375.6833, 214.75522)
