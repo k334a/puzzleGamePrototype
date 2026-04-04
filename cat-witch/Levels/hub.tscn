@@ -66,6 +66,14 @@ tile_map_data = PackedByteArray("AAAzAPP/AAAAAAEAAAAzAPL/AAAAAAEAAAAzAPH/AAAAAAE
 [node name="cat" parent="." index="12" unique_id=1659453483]
 position = Vector2(-939, -318)
 
+[node name="Control" type="Control" parent="." index="12" unique_id=42014169]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1628.0
+offset_top = 67.99994
+offset_right = 1668.0
+offset_bottom = 107.99994
+
 [node name="Rung6" type="ColorRect" parent="Control" index="0" unique_id=1995259585]
 layout_mode = 0
 offset_left = 199.0
@@ -130,9 +138,6 @@ offset_bottom = 23.624146
 rotation = -1.134464
 color = Color(0.8235294, 0.7058824, 0.54901963, 1)
 
-[node name="cat" parent="." index="13" unique_id=1659453483]
-position = Vector2(-929, -321)
-
 [node name="CameraTopLeft" parent="." index="15" unique_id=1897197015]
 position = Vector2(-2506, -1058)
 
@@ -189,6 +194,9 @@ scratchType = "Entrance"
 scratchValue = 1
 collisionScale = Vector2(2.256, 7.467)
 textOffset = Vector2(-85, -65)
+
+[node name="SpellPickup2" parent="." index="22" unique_id=392772895 instance=ExtResource("9_0u5up")]
+position = Vector2(3435, -352)
 
 [node name="CameraBottomRight" parent="." index="20" unique_id=490815159]
 position = Vector2(4727, 137)
