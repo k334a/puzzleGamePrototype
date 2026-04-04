@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmy6f3m5ea7hh"
-path="res://.godot/imported/outline-frame-with-background.png-09ec7a5b8a0361160b500f931512044a.ctex"
+uid="uid://c06abiej7n436"
+path="res://.godot/imported/simple_box_2.png-e69e8091c090b103e00dc9af8fb7b214.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/outline-frame-with-background.png"
-dest_files=["res://.godot/imported/outline-frame-with-background.png-09ec7a5b8a0361160b500f931512044a.ctex"]
+source_file="res://Images/simple_box_2.png"
+dest_files=["res://.godot/imported/simple_box_2.png-e69e8091c090b103e00dc9af8fb7b214.ctex"]
 
 [params]
 

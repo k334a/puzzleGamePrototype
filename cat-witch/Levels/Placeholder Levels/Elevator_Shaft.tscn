@@ -1,0 +1,42 @@
+[gd_scene format=4 uid="uid://fghaxspfdjtq"]
+
+[ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_18h2v"]
+[ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="3_mmxgl"]
+
+[node name="ElevatorShaft" unique_id=1378909801 instance=ExtResource("1_18h2v")]
+
+[node name="LevelTiles" parent="." index="0" unique_id=474357427]
+tile_map_data = PackedByteArray("AAD7/wIAAQABAAMAAAD8/wIAAQABAAMAAAD9/wIAAQABAAMAAAD+/wIAAQACAAMAAAD6/wIAAQABAAMAAAD5/wIAAQAAAAIAAAD5/wEAAQADAAEAAAD5/wAAAQADAAEAAAD5////AQADAAEAAAD5//7/AQADAAEAAAD5//3/AQADAAEAAAD5//z/AQADAAEAAAD5//v/AQADAAEAAAD5//r/AQADAAEAAAD5//n/AQADAAEAAAD5//j/AQADAAEAAAD5//f/AQADAAEAAAD5//b/AQADAAEAAAD5//X/AQADAAEAAAD5//T/AQADAAEAAAD5//P/AQADAAEAAAD5//L/AQADAAEAAAD5//H/AQADAAEAAAD5//D/AQADAAEAAAD5/+//AQADAAEAAAD5/+j/AQADAAEAAAD5/+f/AQADAAEAAAD5/+b/AQADAAEAAAD5/+X/AQADAAEAAAD5/+T/AQADAAAAAAD5/+7/AQADAAEAAAD5/+3/AQADAAEAAAD5/+z/AQADAAEAAAD5/+v/AQADAAEAAAD5/+r/AQADAAEAAAD5/+n/AQADAAEAAAA=")
+
+[node name="cat" parent="." index="3" unique_id=1659453483]
+position = Vector2(-125, 14)
+
+[node name="InventoryUI" parent="." index="4" unique_id=1380888454]
+visible = false
+
+[node name="CameraTopLeft" parent="." index="5" unique_id=1897197015]
+position = Vector2(-1015, -1243)
+
+[node name="CameraBottomRight" parent="." index="6" unique_id=490815159]
+position = Vector2(4739, 382)
+
+[node name="DEBUG" type="Control" parent="." index="7" unique_id=1279310881]
+layout_mode = 3
+anchor_bottom = 0.15400001
+offset_left = -645.0
+offset_top = 446.0
+offset_right = -605.0
+offset_bottom = 386.208
+
+[node name="Label2" type="Label" parent="DEBUG" index="0" unique_id=1380252358]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 256.0
+offset_right = 459.0
+offset_bottom = 273.0
+text = "Boarded up closed door, cant enter"
+
+[node name="InteractionSprite" parent="." index="8" unique_id=983612869 instance=ExtResource("3_mmxgl")]
+position = Vector2(3183.0002, -12)
+interactionType = "Entrance"
+entrance = "NewTestScene"

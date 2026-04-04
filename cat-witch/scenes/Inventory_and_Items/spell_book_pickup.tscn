@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bpr45fx1xoa3u"]
+
+[ext_resource type="Script" uid="uid://cxelpox268cvg" path="res://scripts/spell_pickup.gd" id="1_igqen"]
+[ext_resource type="Texture2D" uid="uid://c0htreg0ewcuw" path="res://Images/Items/light.png" id="2_1mhjp"]
+[ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="3_u1ync"]
+[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="4_aa6ur"]
+
+[sub_resource type="Resource" id="Resource_mhtq2"]
+script = ExtResource("3_u1ync")
+name = "Spellbook"
+description = "Your Spellbook, it appears to be missing some pages"
+icon = ExtResource("2_1mhjp")
+rarity = "Unique"
+isSpell = false
+metadata/_custom_type_script = "uid://16jaxb1kdoic"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3kvko"]
+
+[node name="SpellPickup" type="Area2D" unique_id=1021825572 groups=["pickup"]]
+collision_layer = 0
+script = ExtResource("1_igqen")
+item = SubResource("Resource_mhtq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2061928784]
+shape = SubResource("CircleShape2D_3kvko")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=471556266]
+texture = ExtResource("4_aa6ur")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
