@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cgihy2yak0e04"]
+
+[ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_4eg6k"]
+
+[node name="Warehouse_Office" unique_id=1378909801 instance=ExtResource("1_4eg6k")]
