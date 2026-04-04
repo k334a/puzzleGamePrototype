@@ -2,16 +2,17 @@ extends Area2D
 
 var player_in
 
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if player_in:
+		print("HEJ")
 		if player_in.is_on_floor():
-				var parent = get_parent()
-				parent.get_node("AudioStreamPlayer").play()
-				parent.get_node("DoorClosed").queue_free()
-				parent.get_node("DoorOpen").visible = true
-				parent.get_node("DoorOpen").get_child(0).collision_enabled = true
-				self.queue_free()
+			self.queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body:
