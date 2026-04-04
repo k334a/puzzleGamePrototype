@@ -284,7 +284,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 2,
-		1: func(): freeze(); spellCooldowns[index] = 7,
+		1: func(): freeze(); spellCooldowns[index] = 1,
 		2: func(): light(); spellCooldowns[index] = 1,
 		3: func(): spellCooldowns[index] = plant(),
 	}

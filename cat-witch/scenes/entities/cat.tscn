@@ -91,17 +91,18 @@ size = Vector2(65, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g454m"]
 size = Vector2(144, 107)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyw7o"]
+radius = 12.0
+height = 50.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2u0g4"]
 radius = 32.0
-height = 122.0
+height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hdoq"]
 radius = 26.019224
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v165"]
-height = 32.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyw7o"]
 height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rjga"]
@@ -136,6 +137,7 @@ collision_layer = 9
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1146887606]
+visible = false
 position = Vector2(0, 5.000001)
 scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_52fj1")
@@ -173,12 +175,16 @@ position = Vector2(56, -55.5)
 shape = SubResource("RectangleShape2D_g454m")
 
 [node name="WaterChecker" type="Area2D" parent="Pivot" unique_id=1922235851]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=349864489]
+position = Vector2(1, 45)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_eyw7o")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1365151643]
-position = Vector2(4, 14)
+position = Vector2(0, 14)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_2u0g4")
 
@@ -187,12 +193,14 @@ position = Vector2(46, -19)
 shape = SubResource("CircleShape2D_2hdoq")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1446613042]
-position = Vector2(-41, 42)
+position = Vector2(-108, 98)
 shape = SubResource("CapsuleShape2D_2v165")
+disabled = true
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1543407912]
-position = Vector2(47, 42)
+position = Vector2(-81, 97)
 shape = SubResource("CapsuleShape2D_eyw7o")
+disabled = true
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1982457780]
 position = Vector2(-8, -21)
@@ -200,6 +208,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_7rjga")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pivot/WaterChecker" unique_id=1378840671]
+visible = false
 polygon = PackedVector2Array(-60, -50, -50, -55, -40, -55, -36, -53, -31, -44, -31, -34, -45, -23, -58, -10, -62, -5, -62, 1, -56, 5, -57, 13, -64, 12, -71, 5, -73, -2, -66, -12, -57, -21, -49, -29, -43, -35, -43, -39, -58, -40, -60, -46)
 
 [node name="floor_ray" type="RayCast2D" parent="Pivot" unique_id=1813436469]
@@ -289,6 +298,7 @@ scale = Vector2(3.0000002, 2.5708334)
 texture = ExtResource("17_aqghj")
 
 [node name="FreezeCollisionShape2D" type="CollisionShape2D" parent="." unique_id=804649788]
+visible = false
 shape = SubResource("CircleShape2D_aqghj")
 disabled = true
 
