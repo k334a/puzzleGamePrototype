@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b4te2gyvhbkai"]
+
+[ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="1_8rsxp"]
+[ext_resource type="Texture2D" uid="uid://cjxqs2jvuybi4" path="res://Images/plain_box.png" id="2_yvmjb"]
+
+[node name="PushableBox_A" unique_id=963461222 instance=ExtResource("1_8rsxp")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=1763058505]
+scale = Vector2(0.8810762, 0.8810762)
+texture = ExtResource("2_yvmjb")
