@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bcwmb8j3ffgfb"]
+
+[ext_resource type="Texture2D" uid="uid://cbd6wejkoruax" path="res://Images/lever_up.png" id="1_5llxe"]
+[ext_resource type="Texture2D" uid="uid://ypn5b6xs1tij" path="res://Images/lever_down.png" id="2_gdda4"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5llxe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gdda4")
+}],
+"loop": false,
+"name": &"Lever Flip",
+"speed": 5.0
+}]

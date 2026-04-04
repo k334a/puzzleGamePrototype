@@ -3,8 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="1_8rsxp"]
 [ext_resource type="Texture2D" uid="uid://cjxqs2jvuybi4" path="res://Images/plain_box.png" id="2_yvmjb"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rsxp"]
+size = Vector2(122, 122)
+
 [node name="PushableBox_A" unique_id=963461222 instance=ExtResource("1_8rsxp")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=1763058505]
 scale = Vector2(0.8810762, 0.8810762)
 texture = ExtResource("2_yvmjb")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1650972771]
+shape = SubResource("RectangleShape2D_8rsxp")
