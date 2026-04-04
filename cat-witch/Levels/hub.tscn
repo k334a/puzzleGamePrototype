@@ -63,9 +63,6 @@ position = Vector2(4572, -540)
 [node name="Ladders" parent="." index="11" unique_id=2120670079]
 tile_map_data = PackedByteArray("AAAzAPP/AAAAAAEAAAAzAPL/AAAAAAEAAAAzAPH/AAAAAAEAAAAzAPD/AAAAAAEAAAAzAO//AAAAAAEAAAAzAO7/AAAAAAEAAAAzAO3/AAAAAAEAAAAzAOz/AAAAAAEAAAAzAOv/AAAAAAEAAAAzAOr/AAAAAAEAAAAzAOn/AAAAAAEAAAAzAOj/AAAAAAEAAAAzAOf/AAAAAAEAAAAzAOb/AAAAAAEAAAAzAOX/AAAAAAEAAAAzAOT/AAAAAAEAAAAzAOP/AAAAAAEAAAAzAOL/AAAAAAEAAAAzAOH/AAAAAAEAAAAzAOD/AAAAAAEAAAAzAN//AAAAAAEAAAAzAN7/AAAAAAEAAAAzAN3/AAAAAAEAAAAzANz/AAAAAAEAAAAzANv/AAAAAAEAAAAzANr/AAAAAAEAAAAzANn/AAAAAAEAAAAzANj/AAAAAAEAAAAzAAUAAAAAAAIAAAAzAAQAAAAAAAEAAAAzAAMAAAAAAAEAAAAzAAIAAAAAAAEAAAAzAAEAAAAAAAEAAAAzAAAAAAAAAAEAAAAzAP//AAAAAAEAAAAzAP7/AAAAAAEAAAAzAP3/AAAAAAEAAAAzAPz/AAAAAAEAAAAzAPv/AAAAAAEAAAAzAPr/AAAAAAEAAAAzAPn/AAAAAAEAAAAzAPj/AAAAAAEAAAAzAPf/AAAAAAEAAAAzAPb/AAAAAAEAAAAzAPX/AAAAAAEAAAAzAPT/AAAAAAEAAAAzANf/AAAAAAEAAAAzANb/AAAAAAEAAAAzANX/AAAAAAEAAAAzANT/AAAAAAEAAAAzANP/AAAAAAEAAAAzANL/AAAAAAEAAAAzANH/AAAAAAEAAAAzAND/AAAAAAEAAAAzAM//AAAAAAEAAAAzAM7/AAAAAAEAAAAzAM3/AAAAAAEAAAAzAMz/AAAAAAAAAAA=")
 
-[node name="cat" parent="." index="12" unique_id=1659453483]
-position = Vector2(-939, -318)
-
 [node name="Control" type="Control" parent="." index="12" unique_id=42014169]
 layout_mode = 3
 anchors_preset = 0
@@ -138,8 +135,8 @@ offset_bottom = 23.624146
 rotation = -1.134464
 color = Color(0.8235294, 0.7058824, 0.54901963, 1)
 
-[node name="CameraTopLeft" parent="." index="15" unique_id=1897197015]
-position = Vector2(-2506, -1058)
+[node name="cat" parent="." index="13" unique_id=1659453483]
+position = Vector2(-939, -318)
 
 [node name="Dev Stuff" type="Control" parent="." index="15" unique_id=382420552]
 layout_mode = 3
@@ -165,7 +162,7 @@ offset_bottom = -257.0
 text = "World under construction - Ka Hei"
 
 [node name="SpellPickup" parent="." index="16" unique_id=1021825572 instance=ExtResource("3_kww43")]
-position = Vector2(2190, -756)
+position = Vector2(2181, -872)
 item = ExtResource("4_oxvbc")
 
 [node name="InteractionSprite" parent="." index="17" unique_id=983612869 instance=ExtResource("5_oxvbc")]
@@ -195,8 +192,11 @@ scratchValue = 1
 collisionScale = Vector2(2.256, 7.467)
 textOffset = Vector2(-85, -65)
 
+[node name="CameraTopLeft" parent="." index="20" unique_id=1897197015]
+position = Vector2(-2506, -1058)
+
+[node name="CameraBottomRight" parent="." index="21" unique_id=490815159]
+position = Vector2(4727, 137)
+
 [node name="SpellPickup2" parent="." index="22" unique_id=392772895 instance=ExtResource("9_0u5up")]
 position = Vector2(3435, -352)
-
-[node name="CameraBottomRight" parent="." index="20" unique_id=490815159]
-position = Vector2(4727, 137)
