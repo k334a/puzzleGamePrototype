@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://r7hdjleio873" path="res://scripts/inventory_ui.gd" id="1_wqexf"]
 [ext_resource type="Script" uid="uid://dy86ew35dtblb" path="res://scenes/Inventory_and_Items/spell_panel.gd" id="2_h4av0"]
 [ext_resource type="Script" uid="uid://bx20g1b1sjaie" path="res://scripts/slot.gd" id="2_ju2k0"]
-[ext_resource type="Texture2D" uid="uid://bxglyaqg174e4" path="res://Images/outline-frame-with-background.png" id="3_kikn4"]
+[ext_resource type="Texture2D" uid="uid://dmy6f3m5ea7hh" path="res://Images/outline-frame-with-background.png" id="3_kikn4"]
 [ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="5_vyus1"]
 [ext_resource type="Script" uid="uid://bqnpeokhto2om" path="res://scenes/Inventory_and_Items/spellbook_button.gd" id="6_7pdfy"]
 [ext_resource type="Script" uid="uid://c3ph8mrhuxkrj" path="res://scenes/Inventory_and_Items/spellbook_window.gd" id="7_1jqyy"]
@@ -187,6 +187,7 @@ icon = ExtResource("5_vyus1")
 script = ExtResource("6_7pdfy")
 
 [node name="SpellbookWindow" type="Panel" parent="Control" unique_id=1073038975]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.22200002

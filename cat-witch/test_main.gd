@@ -56,3 +56,7 @@ func _save_level(damagedArea: Dictionary, jarsSmash: Dictionary, levelName) -> v
 func _load_level(level) -> void:
 	level.set_world_values(damagedAreas.get(level.name, {}))
 	#print(damagedAreas)
+
+
+func _on_save_level() -> void:
+	pass # Replace with function body.
