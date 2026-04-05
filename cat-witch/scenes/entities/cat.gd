@@ -78,18 +78,6 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 
 func set_up_cat(spells: Array, items: Array, location: Vector2, knownSpells: Array):
 	$Inventory.set_up_inventory(spells, items, knownSpells)
-	
-	# This doesn't work, fills spell list weirdly
-	#$Inventory.spells = spells
-	#$Inventory.items = items
-	#$Inventory.spellsKnown = knownSpells
-	
-	# This works but doesn't bring over known spells
-	#for spell: Item in spells:
-		#$Inventory.add_spell(spell)
-	#for item: Item in items:
-		#$Inventory.add_item(item)
-	
 	if location != Vector2.ZERO:
 		startPosition = location
 		global_position = location
@@ -241,7 +229,7 @@ func _physics_process(delta):
 		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
 	elif interact and onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
-		if onTrigger.button == "Reveal":
+		if onTrigger.button == "Reveal" or onTrigger.button == "LeverToggle":
 			onTrigger.click()
 		elif onTrigger.button == "Spigot" and onTrigger.pressed == false:
 			onTrigger.pressed = true

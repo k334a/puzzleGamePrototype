@@ -25,10 +25,10 @@ position = Vector2(1968, -638)
 sprite_frames = ExtResource("4_jrvo4")
 animation = &"Lever Flip"
 interactionType = "Button"
+buttonType = "Reveal"
 removeStart = Vector2(61, -13)
 removeEnd = Vector2(61, 1)
 layer = NodePath("../LevelTiles")
-buttonType = "Reveal"
 collisionScale = Vector2(2, 4)
 textOffset = Vector2(0, -30)
 

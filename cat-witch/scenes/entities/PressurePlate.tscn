@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://dychxox17o044"]
+
+[ext_resource type="Texture2D" uid="uid://cpe3tc0emwmc0" path="res://Images/pressure_plate_0.png" id="1_58my3"]
+[ext_resource type="Script" uid="uid://cymaae8cykdsg" path="res://scenes/entities/pressure_plate.gd" id="1_chchn"]
+[ext_resource type="Texture2D" uid="uid://cplslo882t3sk" path="res://Images/pressure_plate_1.png" id="2_chchn"]
+[ext_resource type="Texture2D" uid="uid://ds0to8bmmofvw" path="res://Images/pressure_plate_2.png" id="3_olro1"]
+[ext_resource type="Texture2D" uid="uid://dcbaut67ryafb" path="res://Images/pressure_plate_3.png" id="4_87n4l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kg1by"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_58my3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_chchn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_olro1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_87n4l")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chchn"]
+size = Vector2(556, 123.99999)
+
+[sub_resource type="Animation" id="Animation_chchn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array(-106, 22, -60, -6, 63, -6, 107, 22)]
+}
+
+[sub_resource type="Animation" id="Animation_olro1"]
+resource_name = "compress"
+length = 3.0333333
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"0",
+"time": 0.0
+}, {
+"color": Color(1, 1, 1, 1),
+"name": &"2",
+"time": 2.0
+}, {
+"color": Color(1, 1, 1, 1),
+"name": &"3",
+"time": 3.0
+}, {
+"color": Color(1, 1, 1, 1),
+"name": &"1",
+"time": 1.0
+}]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0000002),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(-106, 22, -73, 2, -55, -21, 59, -21, 77, 2, 107, 22), PackedVector2Array(-106, 22, -55, -11, 59, -11, 107, 22), PackedVector2Array(-106, 22, -60, -6, 63, -6, 107, 22), PackedVector2Array(-106, 22, -51, 1, 55, 1, 107, 22)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_87n4l"]
+_data = {
+&"RESET": SubResource("Animation_chchn"),
+&"compress": SubResource("Animation_olro1")
+}
+
+[node name="PressurePlate" type="AnimatableBody2D" unique_id=1063271110 groups=["pressure"]]
+collision_layer = 33
+collision_mask = 33
+script = ExtResource("1_chchn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1304233032]
+sprite_frames = SubResource("SpriteFrames_kg1by")
+frame = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1940236121]
+polygon = PackedVector2Array(-106, 22, -60, -6, 63, -6, 107, 22)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1595200721]
+collision_layer = 33
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=124436590]
+position = Vector2(2.0000093, -277)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_chchn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1426429826]
+libraries/ = SubResource("AnimationLibrary_87n4l")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

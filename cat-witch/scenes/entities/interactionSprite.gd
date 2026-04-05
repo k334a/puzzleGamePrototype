@@ -23,11 +23,12 @@ extends AnimatedSprite2D
 @export var item: Item
 
 @export_group("Button")
+@export_enum("Reveal", "Spigot", "LeverToggle", "TimerButton") var buttonType: String
 @export var removeStart: Vector2
 @export var removeEnd: Vector2
 @export var layer: TileMapLayer
-@export_enum("Reveal", "Spigot", "LeverToggle", "TimerButton") var buttonType: String
 @export var spigotTiles: Array[Vector2i]
+@export var max_frames: int = 4
 
 @export_group("Item")
 @export var needsItemName: String
@@ -41,6 +42,7 @@ extends AnimatedSprite2D
 
 var damage: int = 0
 var itemUsed: bool = false
+var toggling: bool = false
 
 func _ready() -> void:
 	if not interactionType:
@@ -87,6 +89,10 @@ func _on_interactive_area_button_pressed() -> void:
 				layer.erase_cell(Vector2i(x,y))
 		$InteractiveArea.light_off()
 		$InteractiveArea.monitoring = false
+	if buttonType == "LeverToggle":
+		if frame == max_frames:
+			frame = 0
+		$AnimationPlayer.play_section_with_markers("platform move", str(frame), str(frame+1))
 
 func _on_interactive_area_item_used() -> void:
 	if itemToReveal:
