@@ -46,6 +46,7 @@ signal unfurlPlant
 signal nextLevel
 signal recordScratch
 signal freezeStream
+signal unfreezeStream
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -220,8 +221,12 @@ func _physics_process(delta):
 		print("button clicked")
 		if onTrigger.button == "Reveal":
 			onTrigger.click()
-		else:
+		elif onTrigger.button == "Spigot" and onTrigger.pressed == false:
+			onTrigger.pressed = true
 			freezeStream.emit(onTrigger.buttonTiles, onTrigger.buttonLayer)
+		elif onTrigger.button == "Spigot":
+			onTrigger.pressed = false
+			unfreezeStream.emit(onTrigger.buttonTiles.map(func(tile): return tile.x), onTrigger.buttonLayer)
 	
 	move_and_slide()
 
