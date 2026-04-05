@@ -6,8 +6,7 @@
 [resource]
 script = ExtResource("2_7glpu")
 name = "Plant Spell"
-description = "hidden., test"
+description = "When used on a plant, causes it to rapidly grow!"
 icon = ExtResource("1_sutnm")
-cooldown = 5.0
-rarity = "Rare"
+rarity = "Legendary"
 spell_type = 3

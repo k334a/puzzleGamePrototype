@@ -46,3 +46,10 @@ var levelNamesArr: Dictionary[String, Array] = {
 @export var unlocked_entrances: Dictionary[String, Dictionary] = levelNamesDict.duplicate(true) # {sceneName (String): {area (NodePath): unlocked (bool)}}
 @export var floating_items: Dictionary[String, Dictionary] = levelNamesDict.duplicate(true) # {sceneName (String): {item (Item): position (Vector2)}}
 @export var tempEntrances: Dictionary[String, Array] = levelNamesArr.duplicate(true) # {sceneInName (String): [sceneFromName (String)]}
+
+func clear() -> void:
+	jars_status = levelNamesDict.duplicate(true)
+	damaged_areas = levelNamesDict.duplicate(true)
+	unlocked_entrances = levelNamesDict.duplicate(true)
+	floating_items = levelNamesDict.duplicate(true)
+	tempEntrances = levelNamesArr.duplicate(true)

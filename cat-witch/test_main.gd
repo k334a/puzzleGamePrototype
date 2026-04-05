@@ -1,7 +1,7 @@
 extends Node
 
 @export var save_data: level_save_data
-@export var startLevel: String = "Tutorial"
+@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor1", "WarehouseMain", "WarehouseOffice", "WarehouseVents") var startLevel: String = "Tutorial"
 
 var SCENES: Dictionary[String, PackedScene] = {
 	"LevelOne": load("res://Levels/LevelOne.tscn"),
@@ -26,6 +26,7 @@ var SCENES: Dictionary[String, PackedScene] = {
 var currentLevel: String
 
 func _ready() -> void:
+	currentLevel = startLevel
 	_on_load_level(startLevel, Vector2.ZERO, [], [])
 
 func _on_save_level(breakables: Dictionary, damages: Dictionary, unlocks: Dictionary, floating: Dictionary) -> void:
@@ -50,3 +51,21 @@ func _on_load_level(levelName: String, location: Vector2, spells: Array, items: 
 
 func _on_unlock_entrance(destination: String) -> void:
 	save_data.tempEntrances[destination].push_back(currentLevel)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		%PauseMenu.enable()
+		get_tree().paused = true
+
+func _on_pause_menu_reset_game() -> void:
+	get_tree().paused = false
+	save_data.clear()
+	get_child(-1).queue_free()
+	_on_load_level(startLevel, Vector2.ZERO, [], [])
+
+func _on_pause_menu_reset_puzzle() -> void:
+	get_tree().paused = false
+	get_child(-1)._on_cat_reset_level()
+
+func _on_pause_menu_un_pause() -> void:
+	get_tree().paused = false

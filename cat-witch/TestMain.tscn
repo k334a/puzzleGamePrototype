@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bu61prbwgghvo"]
 
 [ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
+[ext_resource type="PackedScene" uid="uid://dftm8j5y6nsg8" path="res://scenes/pause_menu.tscn" id="3_iveyk"]
 [ext_resource type="Script" uid="uid://bjl6wa11g3fhf" path="res://scripts/level_save_data.gd" id="3_rg15q"]
 
 [sub_resource type="Resource" id="Resource_a6wyt"]
@@ -15,4 +16,11 @@ metadata/_custom_type_script = "uid://bjl6wa11g3fhf"
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
 save_data = SubResource("Resource_a6wyt")
-startLevel = "Hub"
+startLevel = "NewTestScene"
+
+[node name="PauseMenu" parent="." unique_id=128761674 instance=ExtResource("3_iveyk")]
+unique_name_in_owner = true
+
+[connection signal="resetGame" from="PauseMenu" to="." method="_on_pause_menu_reset_game"]
+[connection signal="resetPuzzle" from="PauseMenu" to="." method="_on_pause_menu_reset_puzzle"]
+[connection signal="unPause" from="PauseMenu" to="." method="_on_pause_menu_un_pause"]

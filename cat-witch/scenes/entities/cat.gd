@@ -354,6 +354,8 @@ func light():
 		$PointLight2D.hide()
 	else:
 		$PointLight2D.show()
+		await get_tree().create_timer(8, false).timeout
+		$PointLight2D.hide()
 
 func plant() -> float:
 	if onTrigger and onTrigger.areaType == "Plant":

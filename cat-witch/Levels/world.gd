@@ -5,7 +5,7 @@ extends Node
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var cat = $cat
 
-var pushableStartPoints: Array[Vector2]
+var pushableStartPoints: Dictionary
 var breakableStatus: Dictionary
 var damagedAreas: Dictionary
 var unlockedEntrances: Dictionary
@@ -25,7 +25,7 @@ enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
 func _ready() -> void:
 	for pushable: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		pushableStartPoints.push_back(pushable.global_position)
+		pushableStartPoints.set(pushable, pushable.global_position)
 	inventory_ui.update_vases(false, get_tree().get_node_count_in_group("breakable"))
 	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
 
@@ -131,11 +131,9 @@ func _on_cat_reset_level() -> void:
 	frozenStreamsX.clear()
 	buttonStreams.clear()
 	
-	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		if not breakableStatus.keys().has(node.get_path()) or not breakableStatus.get(node.get_path()):
-			node.reset(pushableStartPoints[i])
-		i += 1
+			node.reset(pushableStartPoints.get(node))
 	
 	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
 		if not breakableStatus.get(node.get_path()):
@@ -252,6 +250,9 @@ func _on_cat_unfurl_plant(area: interactive_area) -> void:
 func _on_cat_next_level(levelName: String, location: Vector2, spells: Array, items: Array) -> void:
 	save_world_values()
 	saveLevel.emit(breakableStatus, damagedAreas, unlockedEntrances, floatingItems)
+	for child: Node in get_children():
+		child.set_physics_process(false)
+		child.set_process(false)
 	loadLevel.emit(levelName, location, spells, items)
 	self.queue_free()
 

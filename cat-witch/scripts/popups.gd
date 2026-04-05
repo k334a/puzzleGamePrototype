@@ -26,19 +26,22 @@ func HideItemPopup():
 	
 func set_popup_values(item: Item):
 	%Name.text = item.name
-	%Attribute1Value.text = str(item.damage)
-	%Attribute2Value.text = str(item.strength)
+	if item.duration == 0.0:
+		%Attribute1Value.text = "Single Effect"
+	else:
+		%Attribute1Value.text = str(item.duration) + " Seconds"
+	%Attribute2Value.text = str(item.cooldown) + " Seconds"
 	%Attribute3Value.text = set_text_effect(item.rarity)
 	%Attribute4Value.text = item.description
 	
 func set_text_effect(rarity: String):
 	var text: String = rarity
 	match rarity:
-		"basic": 
+		"Basic": 
 			text = "[wave amp=5 freq=8]" + text
-		"rare": 
+		"Rare": 
 			text = "[tornado radius=1.8 freq=3][color=#fc037b]" + text
-		"legendary": 
+		"Legendary": 
 			text = "[wave amp=10 freq=10][rainbow]" + text
 	
 	return text
