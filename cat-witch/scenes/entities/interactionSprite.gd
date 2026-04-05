@@ -20,7 +20,7 @@ extends AnimatedSprite2D
 @export_enum("Reveal", "Spigot", "LeverToggle", "TimerButton") var buttonType: String
 @export var spigotTiles: Array[Vector2i]
 @export_group("Item")
-@export var needsItemname: String
+@export var needsItemName: String
 @export_category("")
 @export var collisionScale: Vector2
 @export var collisionOffset: Vector2
