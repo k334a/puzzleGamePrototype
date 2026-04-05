@@ -16,6 +16,7 @@ signal saveLevel
 signal loadLevel
 
 
+
 enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
 enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
@@ -52,13 +53,18 @@ func _ready() -> void:
 		node.areaHit.connect(_on_interaction_area_entered)
 		node.areaLeft.connect(_on_interaction_area_exited)
 
-func _on_jar_broken(jar: RigidBody2D) -> void:
+func _on_jar_broken(jar: RigidBody2D, pos: Vector2) -> void:
 	breakableStatus.set(jar, true)
 	$InventoryUI.update_vases(true)
 	if not $InventoryUI.visible:
 		$InventoryUI.show_jars()
 	if breakableStatus.values().all(func(jarStatus): return jarStatus):
 		print("Broke all jars!")
+	if jar.containedItem and jar.containedItem is Item:
+		var contained: SpellPickup = load("res://scenes/Inventory_and_Items/key_pickup.tscn").instantiate()
+		contained.item = jar.containedItem
+		add_child(contained)
+		contained.global_position = pos
 
 func _physics_process(delta: float) -> void:
 	

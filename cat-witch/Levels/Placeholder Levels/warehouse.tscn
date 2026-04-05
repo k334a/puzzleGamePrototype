@@ -72,7 +72,7 @@ offset_right = 2244.3442
 offset_bottom = -571.65594
 scale = Vector2(13.940985, 12.660973)
 
-[node name="Timer" type="ColorRect" parent="Placeholders" index="3" unique_id=1151210859]
+[node name="Timer?" type="ColorRect" parent="Placeholders" index="3" unique_id=1151210859]
 layout_mode = 0
 offset_left = 3106.0
 offset_top = -675.0
@@ -102,7 +102,7 @@ position = Vector2(1485, -568)
 position = Vector2(71, 0)
 
 [node name="CameraTopLeft" parent="." index="12" unique_id=1897197015]
-position = Vector2(-172.09305, -1586.0852)
+position = Vector2(-173, -1154)
 
 [node name="CameraBottomRight" parent="." index="13" unique_id=490815159]
 position = Vector2(4173.149, 106.452065)

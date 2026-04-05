@@ -10,3 +10,4 @@ script = ExtResource("1_520bv")
 
 [connection signal="clicked" from="InteractiveArea" to="." method="_on_interactive_area_button_pressed"]
 [connection signal="damageSelf" from="InteractiveArea" to="." method="_on_interactive_area_damage_self"]
+[connection signal="itemUsed" from="InteractiveArea" to="." method="_on_interactive_area_item_used"]

@@ -218,6 +218,9 @@ func _physics_process(delta):
 	elif interact and  onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
 		onTrigger.click()
+	elif interact and onTrigger and onTrigger.areaType == "UseItem":
+		if check_for_item(onTrigger.requiredItem):
+			onTrigger.useItem()
 	
 	move_and_slide()
 
@@ -375,6 +378,10 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
+
+func check_for_item(item: String) -> bool:
+	print("checking...")
+	return $Inventory.check_for_item(item)
 
 func _on_claw_area_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:

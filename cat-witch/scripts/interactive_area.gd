@@ -9,11 +9,13 @@ var entranceLevel: String
 var entranceLocation: Vector2
 var plantNode: AnimatableBody2D
 var item: Item
+var requiredItem: String
 
 signal areaHit
 signal areaLeft
 signal damageSelf
 signal clicked
+signal itemUsed
 
 func light_on() -> void:
 	$RichTextLabel.show()
@@ -40,6 +42,9 @@ func set_up(interactionType: String, textOffset: Vector2=Vector2.ZERO, textBoxSc
 	if interactionType == "Button":
 		$RichTextLabel.text = "[wave amp=10 freq=5]Click"
 
+func set_up_itemUse(itemName: String) -> void:
+	requiredItem = itemName
+
 func set_up_scratchable(itemObject: Item=null) -> void:
 	areaType = "Scratch"
 	scratchable = true
@@ -58,3 +63,6 @@ func set_up_plant(plant: AnimatableBody2D) -> void:
 
 func click() -> void:
 	clicked.emit()
+
+func useItem() -> void:
+	itemUsed.emit()

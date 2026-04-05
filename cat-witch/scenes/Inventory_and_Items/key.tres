@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://jigotyu1g8eo"]
+
+[ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://Images/goldSpot.png" id="1_pgxak"]
+[ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="2_07gc4"]
+
+[resource]
+script = ExtResource("2_07gc4")
+name = "Key"
+itemIDName = "Warehouse1"
+description = "Opens warehouse padlock"
+icon = ExtResource("1_pgxak")
+isSpell = false
+metadata/_custom_type_script = "uid://16jaxb1kdoic"

@@ -58,3 +58,9 @@ func check_for_spell(spellName: String, known: bool=false) -> bool:
 		if spell and spell.name == spellName:
 			return true
 	return false
+
+func check_for_item(itemName: String) -> bool:
+	for item: Item in items:
+		if item and item.itemIDName == itemName:
+			return true
+	return false

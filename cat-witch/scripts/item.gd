@@ -7,6 +7,7 @@ class_name Item
 # @export
 # Adding @export before a var makes it show up in the Godot Inspector when this resource is selected.
 @export var name: String = "item"
+@export var itemIDName: String
 @export var description: String = "hidden"
 @export var icon: Texture2D = null
 @export var damage: int = 0

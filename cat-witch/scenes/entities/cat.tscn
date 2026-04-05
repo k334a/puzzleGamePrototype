@@ -102,9 +102,6 @@ height = 96.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hdoq"]
 radius = 26.019224
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2v165"]
-height = 32.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7rjga"]
 radius = 14.0
 height = 50.0
@@ -191,16 +188,6 @@ shape = SubResource("CapsuleShape2D_2u0g4")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1640029373]
 position = Vector2(46, -19)
 shape = SubResource("CircleShape2D_2hdoq")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1446613042]
-position = Vector2(-108, 98)
-shape = SubResource("CapsuleShape2D_2v165")
-disabled = true
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1543407912]
-position = Vector2(-81, 97)
-shape = SubResource("CapsuleShape2D_eyw7o")
-disabled = true
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Pivot/WaterChecker" unique_id=1982457780]
 position = Vector2(-8, -21)

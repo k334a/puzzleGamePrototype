@@ -4,14 +4,19 @@ class_name SpellPickup
 @export var item: Item = null
 # SIGNALS
 
+var collected: bool = false
+
 signal picked_up(item: Item)
 
-func _on_body_entered(body: Node) -> void:
+func _ready() -> void:
+	if collected:
+		queue_free()
 
+func _on_body_entered(body: Node) -> void:
 	# under Node, Groups add "player" to cat.
 	if not body.is_in_group("player"):
 		return
-
+	
 	if item == null:
 		push_warning("SpellPickup has no item assigned!")
 		return
