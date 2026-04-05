@@ -380,7 +380,6 @@ func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
 
 func check_for_item(item: String) -> bool:
-	print("checking...")
 	return $Inventory.check_for_item(item)
 
 func _on_claw_area_body_entered(body: Node2D) -> void:
