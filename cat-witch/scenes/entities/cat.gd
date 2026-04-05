@@ -398,11 +398,12 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 				tile += Vector2i(0, 1)
 			tile = top_tile + Vector2i($Pivot.scale.x, 0)
 
+# Immediately Teleport cat to target location
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
 	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells)
 
-
+# Set Respawn Point
 func _on_respawn_checker_area_entered(area: Area2D) -> void:
 	var body = area
 	if body and body is Area2D and body.is_in_group("RespawnAnchor"):

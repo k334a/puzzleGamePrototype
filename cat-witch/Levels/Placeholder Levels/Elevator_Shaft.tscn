@@ -39,6 +39,9 @@ size = Vector2(46, 422)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_67lok"]
 size = Vector2(37.625, 787.4375)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7a4a"]
+size = Vector2(61, 181.5)
+
 [node name="ElevatorShaft" unique_id=1378909801 instance=ExtResource("1_18h2v")]
 
 [node name="ColorRect" type="ColorRect" parent="." index="0" unique_id=815837621]
@@ -224,6 +227,13 @@ position = Vector2(1617, -83)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D7" index="0" unique_id=51945870]
 position = Vector2(81, -323.71875)
 shape = SubResource("RectangleShape2D_67lok")
+
+[node name="Area2D8" type="Area2D" parent="RespawnAnchors" index="7" unique_id=1937612070 groups=["RespawnAnchor"]]
+position = Vector2(671, 2579)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D8" index="0" unique_id=268673964]
+position = Vector2(5, -6)
+shape = SubResource("RectangleShape2D_u7a4a")
 
 [connection signal="freezeStream" from="cat" to="." method="_on_freeze_stream_signal"]
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
