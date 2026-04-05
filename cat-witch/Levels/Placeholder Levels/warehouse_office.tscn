@@ -13,7 +13,7 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"item_used",
 "speed": 5.0
 }]
