@@ -126,6 +126,8 @@ func _on_cat_reset_level() -> void:
 		node.reset()
 	for node: Node2D in get_tree().get_nodes_in_group("doors"):
 		node.reset()
+	for node: interactive_area in get_tree().get_nodes_in_group("interaction"):
+		node.pressed = false
 
 func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i], fallingWater: Dictionary[int, Array], fallingIce: Array[int]) -> void:
 	
@@ -159,6 +161,13 @@ func _on_freeze_stream_signal(streamStop: Array[Vector2i], layer: TileMapLayer) 
 			below = layer.get_neighbor_cell(below, TileSet.CELL_NEIGHBOR_BOTTOM_SIDE)
 		buttonStreams[stream.x] = [stream.y, lowestTile.y]
 	layer.set_cells_terrain_connect(freezeTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_ICE, false)
+
+func _on_cat_unfreeze_stream(unfreezeTiles: Array, layer: TileMapLayer) -> void:
+	var toUnfreeze: Array[Vector2i]
+	for stream: int in unfreezeTiles:
+		toUnfreeze.append_array(get_stream_tiles(stream, buttonStreams[stream], -1))
+		buttonStreams.erase(stream)
+	layer.set_cells_terrain_connect(toUnfreeze, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 
 func freeze_stream(x: int, yValues: Array, layer: TileMapLayer) -> Array[Vector2i]:
 	

@@ -12,6 +12,7 @@ var item: Item
 var button: String
 var buttonTiles: Array[Vector2i]
 var buttonLayer: TileMapLayer
+var pressed: bool = false
 
 signal areaHit
 signal areaLeft
@@ -66,4 +67,5 @@ func set_up_button(buttonType: String, tiles: Array[Vector2i]=[], tileLayer: Til
 		buttonLayer = tileLayer
 
 func click() -> void:
+	pressed = true
 	clicked.emit()
