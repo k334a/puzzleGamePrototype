@@ -11,6 +11,7 @@ var damagedAreas2: Dictionary[interactive_area, int] = {}
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
+var buttonStreams: Dictionary[int, Array]
 
 signal saveLevel
 signal loadLevel
@@ -104,9 +105,12 @@ func _on_cat_reset_level() -> void:
 	var frozenStreamTiles: Array[Vector2i] = []
 	for stream: int in frozenStreamsX:
 		frozenStreamTiles.append_array(get_stream_tiles(stream, frozenStreamsX[stream]))
+	for stream: int in buttonStreams:
+		frozenStreamTiles.append_array(get_stream_tiles(stream, buttonStreams[stream]))
 	
 	%LevelTiles.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 	frozenStreamsX.clear()
+	buttonStreams.clear()
 	
 	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
@@ -143,6 +147,18 @@ func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i],
 	layer.set_cells_terrain_connect(toFreezeFlat, TERRAIN_SET_WATER_ICE, TERRAIN_ICE, false)
 	layer.set_cells_terrain_connect(toFreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_ICE, false)
 
+func _on_freeze_stream_signal(streamStop: Array[Vector2i], layer: TileMapLayer) -> void:
+	var freezeTiles: Array[Vector2i] = []
+	for stream: Vector2i in streamStop:
+		freezeTiles.append(stream)
+		var below: Vector2i = layer.get_neighbor_cell(stream, TileSet.CELL_NEIGHBOR_BOTTOM_SIDE)
+		var lowestTile: Vector2i = below
+		while below and check_data(below, layer, "falling"):
+			layer.erase_cell(below)
+			lowestTile = below
+			below = layer.get_neighbor_cell(below, TileSet.CELL_NEIGHBOR_BOTTOM_SIDE)
+		buttonStreams[stream.x] = [stream.y, lowestTile.y]
+	layer.set_cells_terrain_connect(freezeTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_ICE, false)
 
 func freeze_stream(x: int, yValues: Array, layer: TileMapLayer) -> Array[Vector2i]:
 	

@@ -45,6 +45,7 @@ signal freezeTiles
 signal unfurlPlant
 signal nextLevel
 signal recordScratch
+signal freezeStream
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -217,7 +218,10 @@ func _physics_process(delta):
 		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
 	elif interact and  onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
-		onTrigger.click()
+		if onTrigger.button == "Reveal":
+			onTrigger.click()
+		else:
+			freezeStream.emit(onTrigger.buttonTiles, onTrigger.buttonLayer)
 	
 	move_and_slide()
 

@@ -16,7 +16,8 @@ extends AnimatedSprite2D
 @export var removeStart: Vector2
 @export var removeEnd: Vector2
 @export var layer: TileMapLayer
-@export_enum("Reveal") var buttonType: String
+@export_enum("Reveal", "Spigot") var buttonType: String
+@export var spigotTiles: Array[Vector2i]
 @export_category("")
 @export var collisionScale: Vector2
 @export var collisionOffset: Vector2
@@ -41,7 +42,7 @@ func _ready() -> void:
 		"Scratch":
 			$InteractiveArea.set_up_scratchable(item)
 		"Button":
-			pass
+			$InteractiveArea.set_up_button(buttonType, spigotTiles, layer)
 		"TextHover":
 			$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
 
