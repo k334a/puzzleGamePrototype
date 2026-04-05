@@ -107,7 +107,7 @@ radius = 14.0
 height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
-radius = 78.160095
+radius = 130.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v165"]
 bg_color = Color(0.13725491, 0.34901962, 0.3882353, 1)
@@ -127,7 +127,7 @@ corner_radius_bottom_left = 4
 size = Vector2(125, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aqghj"]
-radius = 125.92458
+radius = 130.0
 
 [node name="cat" type="CharacterBody2D" unique_id=1659453483 groups=["player"]]
 collision_layer = 9
@@ -205,6 +205,7 @@ scale = Vector2(5, 5)
 target_position = Vector2(0, 6.000003)
 
 [node name="RespawnChecker" type="Area2D" parent="Pivot" unique_id=111779775]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/RespawnChecker" unique_id=1756870913]
 shape = SubResource("CircleShape2D_6fl1u")

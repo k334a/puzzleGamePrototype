@@ -326,7 +326,7 @@ func freeze():
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	var outsideForce = 1500
+	var outsideForce = 1000
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
