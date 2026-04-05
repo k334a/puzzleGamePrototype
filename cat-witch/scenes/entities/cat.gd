@@ -47,6 +47,7 @@ signal nextLevel
 signal recordScratch
 signal freezeStream
 signal unfreezeStream
+signal unlockEntrance
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -74,6 +75,15 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 	$Camera2D.limit_bottom = bottom
 	$Camera2D.limit_left = left
 	$Camera2D.zoom = zoom
+
+func set_up_cat(spells: Array, items: Array, location: Vector2):
+	for spell: Item in spells:
+		$Inventory.add_spell(spell)
+	for item: Item in items:
+		$Inventory.add_item(item)
+	if location != Vector2.ZERO:
+		startPosition = location
+		global_position = location
 
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
@@ -198,6 +208,7 @@ func _physics_process(delta):
 	if scratch and onTrigger and onTrigger.areaType == "Scratch":
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		onTrigger.scratch()
+		recordScratch.emit(onTrigger)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -216,8 +227,10 @@ func _physics_process(delta):
 	
 	if interact and onTrigger and onTrigger.areaType == "Entrance":
 		print(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
-	elif interact and  onTrigger and onTrigger.areaType == "Button":
+		if onTrigger.unlocksEntrance:
+			unlockEntrance.emit(onTrigger.entranceLevel)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, $Inventory.items)
+	elif interact and onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
 		if onTrigger.button == "Reveal":
 			onTrigger.click()
@@ -406,4 +419,4 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
-	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells)
+	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items)

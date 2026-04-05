@@ -75,4 +75,5 @@ position = Vector2(10000000, 10000000)
 [connection signal="resetLevel" from="cat" to="." method="_on_cat_reset_level"]
 [connection signal="unfreezeStream" from="cat" to="." method="_on_cat_unfreeze_stream"]
 [connection signal="unfurlPlant" from="cat" to="." method="_on_cat_unfurl_plant"]
+[connection signal="unlockEntrance" from="cat" to="." method="_on_cat_unlock_entrance"]
 [connection signal="update_inventory" from="InventoryUI" to="." method="_on_spell_select_update_inventory"]

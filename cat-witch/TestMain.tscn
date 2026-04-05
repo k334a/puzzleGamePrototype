@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://bu61prbwgghvo"]
 
 [ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
-[ext_resource type="PackedScene" uid="uid://cnwavq2imo7kh" path="res://Levels/NewTestScene.tscn" id="3_iveyk"]
+[ext_resource type="Script" uid="uid://bjl6wa11g3fhf" path="res://scripts/level_save_data.gd" id="3_rg15q"]
+
+[sub_resource type="Resource" id="Resource_a6wyt"]
+script = ExtResource("3_rg15q")
+jars_status = null
+damaged_areas = null
+unlocked_entrances = null
+floating_items = null
+tempEntrances = null
+metadata/_custom_type_script = "uid://bjl6wa11g3fhf"
 
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
-
-[node name="TestScene" parent="." unique_id=767592236 instance=ExtResource("3_iveyk")]
-
-[connection signal="loadLevel" from="TestScene" to="." method="_load_level"]
-[connection signal="saveLevel" from="TestScene" to="." method="_on_save_level"]
+save_data = SubResource("Resource_a6wyt")
+startLevel = "Hub"

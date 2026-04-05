@@ -6,8 +6,10 @@ extends Node
 @onready var cat = $cat
 
 var pushableStartPoints: Array[Vector2]
-var breakableStatus: Dictionary[RigidBody2D, bool]
-var damagedAreas2: Dictionary[interactive_area, int] = {}
+var breakableStatus: Dictionary
+var damagedAreas: Dictionary
+var unlockedEntrances: Dictionary
+var floatingItems: Dictionary
 
 var frozenTiles: Dictionary[Vector2i, float] # { (x,y): time_left }
 var frozenStreamsX: Dictionary[int, Array] # { x: [time_left, top_y, bottom_y] }
@@ -16,49 +18,61 @@ var buttonStreams: Dictionary[int, Array]
 signal saveLevel
 signal loadLevel
 
-
-
 enum { TERRAIN_SET_FLOOR_WALL, TERRAIN_SET_WATER_ICE, TERRAIN_SET_SLOPED }
 enum { TERRAIN_FLOOR, TERRAIN_CLIMBABLE, TERRAIN_DISAPPEAR, TERRAIN_ONE_WAY }
 enum { TERRAIN_WATER, TERRAIN_FALLING_WATER, TERRAIN_ICE, TERRAIN_FALLING_ICE }
 enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 
-var SCENES: Dictionary[String, Resource] = {
-	"LevelOne": load("res://Levels/LevelOne.tscn"),
-	"LevelTwo": load("res://Levels/LevelTwo.tscn"),
-	"NewTestScene": load("res://Levels/NewTestScene.tscn"),
-	"CityScape": load("res://Levels/Placeholder Levels/city_scape.tscn"),
-	"AlleyWay": load("res://Levels/Placeholder Levels/alley_way.tscn"),
-	"Greenhouse1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
-	"GreenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
-	"LeakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
-	"Warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
-	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
-	"Hub": load("res://Levels/hub.tscn"),
-	"Tutorial": load("res://Levels/Tutorial.tscn"),
-}
-
 func _ready() -> void:
-	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		pushableStartPoints.push_back(node.global_position)
-	$InventoryUI.update_vases(false, get_tree().get_node_count_in_group("breakable"))
-	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
-		if breakableStatus.has(node) and breakableStatus.get(node):
-			node.removeObject()
-			$InventoryUI.update_vases(true)
-		else:
-			breakableStatus.set(node, false)
-			node.jar_broken.connect(_on_jar_broken)
+	for pushable: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
+		pushableStartPoints.push_back(pushable.global_position)
+	inventory_ui.update_vases(false, get_tree().get_node_count_in_group("breakable"))
 	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
-	for node: interactive_area in get_tree().get_nodes_in_group("interaction"):
-		node.areaHit.connect(_on_interaction_area_entered)
-		node.areaLeft.connect(_on_interaction_area_exited)
+
+func set_up_jars(jarSet: Dictionary) -> void:
+	breakableStatus = jarSet.duplicate(true)
+	for jar: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
+		if breakableStatus.has(jar.get_path()) and breakableStatus.get(jar.get_path()):
+			jar.objectRemove()
+			inventory_ui.update_vases(true)
+		else:
+			breakableStatus.set(jar.get_path(), false)
+			jar.jar_broken.connect(_on_jar_broken)
+
+func set_up_areas(damageSet: Dictionary, entranceSet: Dictionary, entrancesNew: Array) -> void:
+	damagedAreas = damageSet
+	unlockedEntrances = entranceSet
+	for area: interactive_area in get_tree().get_nodes_in_group("interaction"):
+		if damagedAreas.has(area.get_path()):
+			if area.set_damage(damagedAreas.get(area.get_path())):
+				continue
+		area.areaHit.connect(_on_interaction_area_entered)
+		area.areaLeft.connect(_on_interaction_area_exited)
+		if area.gets_unlocked:
+			if unlockedEntrances.has(area.get_path()) and unlockedEntrances.get(area.get_path()):
+				area.unlock()
+			elif entrancesNew.has(area.entranceFrom):
+				unlockedEntrances.set(area.get_path(), true)
+				area.unlock()
+
+func set_up_items(itemSet: Dictionary) -> void:
+	for item: Item in itemSet:
+		var contained: SpellPickup = load("res://scenes/Inventory_and_Items/key_pickup.tscn").instantiate()
+		contained.item = item
+		add_child(contained)
+		contained.global_position = itemSet[item]
+
+func set_up_cat(spells: Array, items: Array, location: Vector2) -> void:
+	cat.set_up_cat(spells, items, location)
+	for pickup: SpellPickup in get_tree().get_nodes_in_group("pickup"):
+		if cat.check_for_spell(pickup.item.name) or cat.check_for_item(pickup.item.itemIDName):
+			pickup.queue_free()
 
 func _on_jar_broken(jar: RigidBody2D, pos: Vector2) -> void:
-	breakableStatus.set(jar, true)
-	$InventoryUI.update_vases(true)
-	if not $InventoryUI.visible:
-		$InventoryUI.show_jars()
+	breakableStatus.set(jar.get_path(), true)
+	inventory_ui.update_vases(true)
+	if not inventory_ui.visible:
+		inventory_ui.show_jars()
 	if breakableStatus.values().all(func(jarStatus): return jarStatus):
 		print("Broke all jars!")
 	if jar.containedItem and jar.containedItem is Item:
@@ -104,7 +118,6 @@ func _physics_process(delta: float) -> void:
 
 # Currently missing functionality for resetting inventory and items
 func _on_cat_reset_level() -> void:
-	# If we end up adding different tile map layers, this will need to instead be a unique named one or passed in onready
 	%LevelTiles.set_cells_terrain_connect(frozenTiles.keys(), TERRAIN_SET_WATER_ICE, TERRAIN_WATER, false)
 	frozenTiles.clear()
 	
@@ -120,12 +133,12 @@ func _on_cat_reset_level() -> void:
 	
 	var i = 0
 	for node: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
-		if not breakableStatus.keys().has(node) or not breakableStatus.get(node):
+		if not breakableStatus.keys().has(node.get_path()) or not breakableStatus.get(node.get_path()):
 			node.reset(pushableStartPoints[i])
 		i += 1
 	
 	for node: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
-		if not breakableStatus.get(node):
+		if not breakableStatus.get(node.get_path()):
 			node.reset()
 	
 	for node: AnimatableBody2D in get_tree().get_nodes_in_group("plant"):
@@ -228,7 +241,6 @@ func _on_interaction_area_entered(area: interactive_area) -> void:
 	if (not area.areaType == "Plant") or (cat.check_for_spell("Plant Spell")):
 		area.light_on()
 		cat.onTrigger = area
-	
 
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()
@@ -237,39 +249,22 @@ func _on_interaction_area_exited(area: interactive_area) -> void:
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
-func _on_cat_next_level(levelName: String, location: Vector2, inventory: Array) -> void:
-	var level = SCENES.get(levelName).instantiate()
-	get_tree().root.call_deferred("add_child", level)
-	print(damagedAreas2)
-	#for node: interactive_area in get_node(NodePath("/root/" + levelName)).get_tree().get_nodes_in_group("interaction"):
-		#print(node)
-		#var area = damagedAreas.get(node)
-		#if area:
-			#print(area)
-			#for _i in range(area+1):
-				#node.scratch()
-	level.set_up_cat(inventory, location)
-	#print(level.damagedAreas2)
-	saveLevel.emit(damagedAreas2, breakableStatus, name)
-	loadLevel.emit(level)
+func _on_cat_next_level(levelName: String, location: Vector2, spells: Array, items: Array) -> void:
+	save_world_values()
+	saveLevel.emit(breakableStatus, damagedAreas, unlockedEntrances, floatingItems)
+	loadLevel.emit(levelName, location, spells, items)
 	self.queue_free()
 
-func set_up_cat(inventory: Array, location: Vector2):
-	$cat/Inventory.spells = inventory
-	if location != Vector2.ZERO:
-		$cat.startPosition = location
-		$cat.global_position = location
-		#print(damagedAreas)
-
-func set_world_values(oldDamagedArea: Dictionary):
-	if not oldDamagedArea.is_empty():
-		damagedAreas2 = oldDamagedArea
+func save_world_values() -> void:
+	for item: SpellPickup in get_tree().get_nodes_in_group("pickup"):
+		if not item.item.isSpell:
+			floatingItems.set(item.item, item.global_position)
+	for area: interactive_area in get_tree().get_nodes_in_group("interaction"):
+		if area.gets_unlocked and area.get_parent().itemUsed:
+			unlockedEntrances.set(area.get_path(), true)
 
 func _on_cat_record_scratch(triggered: interactive_area) -> void:
-	damagedAreas2[triggered] = damagedAreas2.get(triggered, 0) + 1
-
-#func _process(delta: float) -> void:
-	#print(damagedAreas2)
+	damagedAreas.set(triggered.get_path(), triggered.get_parent().damage)
 
 func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> void:
 	var spells = cat.inventory.spellsKnown
@@ -280,3 +275,8 @@ func _on_spell_select_update_inventory(spell_name: String, selected: bool) -> vo
 				break
 	else:
 		cat.inventory.remove_spell(spell_name)
+
+signal unlockEntrance
+
+func _on_cat_unlock_entrance(destination: String) -> void:
+	unlockEntrance.emit(destination)

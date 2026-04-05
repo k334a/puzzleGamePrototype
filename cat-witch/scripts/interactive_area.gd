@@ -14,6 +14,9 @@ var button: String
 var buttonTiles: Array[Vector2i]
 var buttonLayer: TileMapLayer
 var pressed: bool = false
+var entranceFrom: String
+var unlocksEntrance: bool
+var gets_unlocked: bool = false
 
 signal areaHit
 signal areaLeft
@@ -55,11 +58,17 @@ func set_up_scratchable(itemObject: Item=null) -> void:
 	item = itemObject
 	$RichTextLabel.text = "[wave amp=10 freq=5]Scratch"
 
-func set_up_entrance(entrance: String, instant: bool, location: Vector2) -> void:
+func set_up_entrance(entrance: String, instant: bool, location: Vector2, locked: bool, unlocks: bool, from: String) -> void:
 	entranceLevel = entrance
 	entranceLocation = location
 	instantEntrance = instant
+	unlocksEntrance = unlocks
+	entranceFrom = from
 	$RichTextLabel.text = "[wave amp=10 freq=5]Enter"
+	if locked:
+		gets_unlocked = true
+		$CollisionShape2D.disabled = true
+		hide()
 
 func set_up_plant(plant: AnimatableBody2D) -> void:
 	plantNode = plant
@@ -77,3 +86,7 @@ func click() -> void:
 
 func useItem() -> void:
 	itemUsed.emit()
+
+func unlock() -> void:
+	$CollisionShape2D.disabled = false
+	show()
