@@ -14,6 +14,17 @@ func _ready():
 	items.resize(inventory_size)
 	spells.resize(4)
 
+# Trying own function instead, this seems to work, but when you go between levels any non-selected
+# spells end up out of order, and give null errors when you try to select them
+func set_up_inventory(spellList: Array, itemList: Array, knownList: Array) -> void:
+	for spell: Item in spellList:
+		add_spell(spell)
+	for item: Item in itemList:
+		add_item(item)
+	for knownSpell: Item in knownList:
+		if not check_for_spell(knownSpell.name):
+			spellsKnown.append(knownSpell)
+
 func add_item(item: Item) -> bool:
 	for i in range(items.size()):
 		if items[i] == null:

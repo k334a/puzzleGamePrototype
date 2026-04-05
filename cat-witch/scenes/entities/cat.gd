@@ -76,11 +76,20 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 	$Camera2D.limit_left = left
 	$Camera2D.zoom = zoom
 
-func set_up_cat(spells: Array, items: Array, location: Vector2):
-	for spell: Item in spells:
-		$Inventory.add_spell(spell)
-	for item: Item in items:
-		$Inventory.add_item(item)
+func set_up_cat(spells: Array, items: Array, location: Vector2, knownSpells: Array):
+	$Inventory.set_up_inventory(spells, items, knownSpells)
+	
+	# This doesn't work, fills spell list weirdly
+	#$Inventory.spells = spells
+	#$Inventory.items = items
+	#$Inventory.spellsKnown = knownSpells
+	
+	# This works but doesn't bring over known spells
+	#for spell: Item in spells:
+		#$Inventory.add_spell(spell)
+	#for item: Item in items:
+		#$Inventory.add_item(item)
+	
 	if location != Vector2.ZERO:
 		startPosition = location
 		global_position = location
@@ -229,7 +238,7 @@ func _physics_process(delta):
 		print(onTrigger.entranceLevel)
 		if onTrigger.unlocksEntrance:
 			unlockEntrance.emit(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, $Inventory.items)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
 	elif interact and onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
 		if onTrigger.button == "Reveal":
@@ -421,4 +430,4 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
-	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items)
+	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)

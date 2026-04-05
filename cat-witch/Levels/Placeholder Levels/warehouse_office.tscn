@@ -5,19 +5,6 @@
 [ext_resource type="Resource" uid="uid://jigotyu1g8eo" path="res://scenes/Inventory_and_Items/key.tres" id="3_e6p31"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="4_8hh2u"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8hh2u"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"item_used",
-"speed": 5.0
-}]
-
 [node name="Warehouse_Office" unique_id=1378909801 instance=ExtResource("1_4eg6k")]
 
 [node name="LevelTiles" parent="." index="0" unique_id=474357427]
@@ -49,16 +36,7 @@ offset_right = 1939.0
 offset_bottom = -914.0
 scale = Vector2(1.9032489, 5.097437)
 
-[node name="InteractionSprite" parent="." index="10" unique_id=983612869 instance=ExtResource("4_8hh2u")]
-position = Vector2(1026, -208)
-sprite_frames = SubResource("SpriteFrames_8hh2u")
-animation = &"item_used"
-interactionType = "UseItem"
-itemToReveal = true
-needsItemName = "Warehouse1"
-text = "Test"
-
-[node name="InteractionSprite2" parent="." index="11" unique_id=2120722506 instance=ExtResource("4_8hh2u")]
+[node name="InteractionSprite2" parent="." index="10" unique_id=2120722506 instance=ExtResource("4_8hh2u")]
 position = Vector2(-134, -108)
 interactionType = "Entrance"
 entrance = "AlleyWay"

@@ -62,8 +62,8 @@ func set_up_items(itemSet: Dictionary) -> void:
 		add_child(contained)
 		contained.global_position = itemSet[item]
 
-func set_up_cat(spells: Array, items: Array, location: Vector2) -> void:
-	cat.set_up_cat(spells, items, location)
+func set_up_cat(spells: Array, items: Array, location: Vector2, knownSpells: Array) -> void:
+	cat.set_up_cat(spells, items, location, knownSpells)
 	for pickup: SpellPickup in get_tree().get_nodes_in_group("pickup"):
 		if cat.check_for_spell(pickup.item.name) or cat.check_for_item(pickup.item.itemIDName):
 			pickup.queue_free()
@@ -247,13 +247,13 @@ func _on_interaction_area_exited(area: interactive_area) -> void:
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
 
-func _on_cat_next_level(levelName: String, location: Vector2, spells: Array, items: Array) -> void:
+func _on_cat_next_level(levelName: String, location: Vector2, spells: Array, items: Array, knownSpells: Array) -> void:
 	save_world_values()
 	saveLevel.emit(breakableStatus, damagedAreas, unlockedEntrances, floatingItems)
 	for child: Node in get_children():
 		child.set_physics_process(false)
 		child.set_process(false)
-	loadLevel.emit(levelName, location, spells, items)
+	loadLevel.emit(levelName, location, spells, items, knownSpells)
 	self.queue_free()
 
 func save_world_values() -> void:
