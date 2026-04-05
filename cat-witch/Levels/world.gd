@@ -106,7 +106,7 @@ func _on_cat_reset_level() -> void:
 	for stream: int in frozenStreamsX:
 		frozenStreamTiles.append_array(get_stream_tiles(stream, frozenStreamsX[stream]))
 	for stream: int in buttonStreams:
-		frozenStreamTiles.append_array(get_stream_tiles(stream, buttonStreams[stream]))
+		frozenStreamTiles.append_array(get_stream_tiles(stream, buttonStreams[stream], -1))
 	
 	%LevelTiles.set_cells_terrain_connect(frozenStreamTiles, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_WATER, false)
 	frozenStreamsX.clear()
@@ -191,10 +191,10 @@ func freeze_stream(x: int, yValues: Array, layer: TileMapLayer) -> Array[Vector2
 	
 	return freezeTiles
 
-func get_stream_tiles(x: int, stream: Array) -> Array[Vector2i]:
+func get_stream_tiles(x: int, stream: Array, offset: int=0) -> Array[Vector2i]:
 	var tiles: Array[Vector2i]
 	
-	for y: int in range(stream[1], stream[2]+1):
+	for y: int in range(stream[1+offset], stream[2+offset]+1):
 		tiles.append(Vector2i(x,y))
 	
 	return tiles
