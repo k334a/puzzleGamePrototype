@@ -45,6 +45,8 @@ signal freezeTiles
 signal unfurlPlant
 signal nextLevel
 signal recordScratch
+signal freezeStream
+signal unfreezeStream
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -217,7 +219,14 @@ func _physics_process(delta):
 		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
 	elif interact and  onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
-		onTrigger.click()
+		if onTrigger.button == "Reveal":
+			onTrigger.click()
+		elif onTrigger.button == "Spigot" and onTrigger.pressed == false:
+			onTrigger.pressed = true
+			freezeStream.emit(onTrigger.buttonTiles, onTrigger.buttonLayer)
+		elif onTrigger.button == "Spigot":
+			onTrigger.pressed = false
+			unfreezeStream.emit(onTrigger.buttonTiles.map(func(tile): return tile.x), onTrigger.buttonLayer)
 	elif interact and onTrigger and onTrigger.areaType == "UseItem":
 		if check_for_item(onTrigger.requiredItem):
 			onTrigger.useItem()
@@ -287,7 +296,7 @@ func readSpell(left_input, right_input, down_input, up_input, index):
 	
 	var spell_list = {
 		0: func(): wind(lookVector); spellCooldowns[index] = 2,
-		1: func(): freeze(); spellCooldowns[index] = 1,
+		1: func(): freeze(); spellCooldowns[index] = 7,
 		2: func(): light(); spellCooldowns[index] = 1,
 		3: func(): spellCooldowns[index] = plant(),
 	}

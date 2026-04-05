@@ -10,6 +10,10 @@ var entranceLocation: Vector2
 var plantNode: AnimatableBody2D
 var item: Item
 var requiredItem: String
+var button: String
+var buttonTiles: Array[Vector2i]
+var buttonLayer: TileMapLayer
+var pressed: bool = false
 
 signal areaHit
 signal areaLeft
@@ -61,7 +65,14 @@ func set_up_plant(plant: AnimatableBody2D) -> void:
 	plantNode = plant
 	$RichTextLabel.text = "[wave amp=10 freq=5]Plant"
 
+func set_up_button(buttonType: String, tiles: Array[Vector2i]=[], tileLayer: TileMapLayer=null) -> void:
+	button = buttonType
+	if button == "Spigot":
+		buttonTiles = tiles
+		buttonLayer = tileLayer
+
 func click() -> void:
+	pressed = true
 	clicked.emit()
 
 func useItem() -> void:

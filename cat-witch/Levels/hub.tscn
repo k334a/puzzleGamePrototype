@@ -162,7 +162,7 @@ offset_bottom = -257.0
 text = "World under construction - Ka Hei"
 
 [node name="SpellPickup" parent="." index="16" unique_id=1021825572 instance=ExtResource("3_kww43")]
-position = Vector2(2190, -756)
+position = Vector2(2181, -872)
 item = ExtResource("4_oxvbc")
 
 [node name="InteractionSprite" parent="." index="17" unique_id=983612869 instance=ExtResource("5_oxvbc")]
