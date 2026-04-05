@@ -29,6 +29,7 @@ breakable=""
 interaction=""
 plant=""
 doors=""
+RespawnAnchor="Place the cats startpoint here"
 
 [gui]
 

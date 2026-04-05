@@ -107,7 +107,7 @@ radius = 14.0
 height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6fl1u"]
-radius = 125.0
+radius = 78.160095
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v165"]
 bg_color = Color(0.13725491, 0.34901962, 0.3882353, 1)
@@ -204,6 +204,11 @@ position = Vector2(0, 30)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 6.000003)
 
+[node name="RespawnChecker" type="Area2D" parent="Pivot" unique_id=111779775]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/RespawnChecker" unique_id=1756870913]
+shape = SubResource("CircleShape2D_6fl1u")
+
 [node name="Inventory" type="Node" parent="." unique_id=1897625407]
 script = ExtResource("4_g454m")
 
@@ -291,6 +296,8 @@ disabled = true
 
 [connection signal="body_entered" from="Pivot/ClawArea" to="." method="_on_claw_area_body_entered"]
 [connection signal="body_entered" from="Pivot/WaterChecker" to="." method="_on_water_checker_body_entered"]
+[connection signal="area_entered" from="Pivot/RespawnChecker" to="." method="_on_respawn_checker_area_entered"]
+[connection signal="body_entered" from="Pivot/RespawnChecker" to="." method="_on_respawn_checker_body_entered"]
 [connection signal="freezeTile" from="FreezeBubble" to="." method="_on_freeze_bubble_freeze_tile"]
 [connection signal="timeout" from="FreezeBubble/DurationBar/FreezeDuration" to="FreezeBubble" method="_on_freeze_duration_timeout"]
 [connection signal="body_entered" from="HeadCheck" to="." method="_on_head_check_body_entered"]

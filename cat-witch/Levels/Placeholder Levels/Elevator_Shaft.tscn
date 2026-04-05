@@ -12,14 +12,41 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reeyu"]
 size = Vector2(66.625, 54.25)
 
+[sub_resource type="Gradient" id="Gradient_fxf25"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d8sem"]
+gradient = SubResource("Gradient_fxf25")
+fill_to = Vector2(0, 0.5677083)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxf25"]
+size = Vector2(401, 477)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8sem"]
+size = Vector2(401, 477)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak1kn"]
+size = Vector2(37.625, 383)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nxct"]
+size = Vector2(37.625, 383)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72hcr"]
+size = Vector2(37.625, 383)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8vfa"]
+size = Vector2(46, 422)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67lok"]
+size = Vector2(37.625, 787.4375)
+
 [node name="ElevatorShaft" unique_id=1378909801 instance=ExtResource("1_18h2v")]
 
 [node name="ColorRect" type="ColorRect" parent="." index="0" unique_id=815837621]
 z_index = -5
-offset_left = -2010.0
-offset_top = -1601.0
-offset_right = 6899.0
-offset_bottom = 2865.0
+offset_left = -1984.0
+offset_top = -318.0
+offset_right = 6925.0
+offset_bottom = 4148.0
 color = Color(0.2760652, 0.27606523, 0.27606517, 1)
 
 [node name="LevelTiles" parent="." index="1" unique_id=474357427]
@@ -89,6 +116,7 @@ position = Vector2(-144, 18)
 item = ExtResource("7_lt8xp")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="14" unique_id=1232296241]
+visible = false
 color = Color(0, 0, 0, 0.78431374)
 
 [node name="FairnessLights" type="Node2D" parent="." index="15" unique_id=1676495304]
@@ -119,6 +147,13 @@ scale = Vector2(0.8710442, 4.1400003)
 energy = 0.2
 texture = ExtResource("8_fxf25")
 
+[node name="PointLight2D5" type="PointLight2D" parent="FairnessLights" index="4" unique_id=554788724]
+position = Vector2(1430.0426, -726.9999)
+rotation = 3.1415927
+scale = Vector2(3.0950782, 4.1400003)
+energy = 0.5
+texture = SubResource("GradientTexture2D_d8sem")
+
 [node name="InteractionSprite2" parent="." index="16" unique_id=748858690 node_paths=PackedStringArray("layer") instance=ExtResource("3_mmxgl")]
 position = Vector2(1321, -421)
 interactionType = "Button"
@@ -131,6 +166,61 @@ position = Vector2(1516, -849)
 interactionType = "Entrance"
 entrance = "CityScape"
 instant = true
+
+[node name="RespawnAnchors" type="Node2D" parent="." index="18" unique_id=1441587645]
+
+[node name="Area2D" type="Area2D" parent="RespawnAnchors" index="0" unique_id=2017540609 groups=["RespawnAnchor"]]
+position = Vector2(2, 2520)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D" index="0" unique_id=260871560]
+position = Vector2(-10, -91)
+shape = SubResource("RectangleShape2D_fxf25")
+
+[node name="Area2D2" type="Area2D" parent="RespawnAnchors" index="1" unique_id=275350515 groups=["RespawnAnchor"]]
+position = Vector2(2955, 2566)
+collision_layer = 16385
+collision_mask = 16385
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D2" index="0" unique_id=862612326]
+position = Vector2(-22, -120)
+shape = SubResource("RectangleShape2D_d8sem")
+
+[node name="Area2D3" type="Area2D" parent="RespawnAnchors" index="2" unique_id=650588498 groups=["RespawnAnchor"]]
+position = Vector2(4974, 1723)
+collision_layer = 16385
+collision_mask = 16385
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D3" index="0" unique_id=1984514437]
+position = Vector2(0, -50)
+shape = SubResource("RectangleShape2D_ak1kn")
+
+[node name="Area2D4" type="Area2D" parent="RespawnAnchors" index="3" unique_id=1792403105 groups=["RespawnAnchor"]]
+position = Vector2(5222, -99)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D4" index="0" unique_id=1914698557]
+position = Vector2(-10.8125, -26)
+shape = SubResource("RectangleShape2D_0nxct")
+
+[node name="Area2D5" type="Area2D" parent="RespawnAnchors" index="4" unique_id=2111397126 groups=["RespawnAnchor"]]
+position = Vector2(3238, -111)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D5" index="0" unique_id=1863409095]
+position = Vector2(0, -92)
+shape = SubResource("RectangleShape2D_72hcr")
+
+[node name="Area2D6" type="Area2D" parent="RespawnAnchors" index="5" unique_id=1452136848 groups=["RespawnAnchor"]]
+position = Vector2(2649, -56)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D6" index="0" unique_id=860192682]
+position = Vector2(139, -125)
+shape = SubResource("RectangleShape2D_f8vfa")
+
+[node name="Area2D7" type="Area2D" parent="RespawnAnchors" index="6" unique_id=2141071424 groups=["RespawnAnchor"]]
+position = Vector2(1617, -83)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnAnchors/Area2D7" index="0" unique_id=51945870]
+position = Vector2(81, -323.71875)
+shape = SubResource("RectangleShape2D_67lok")
 
 [connection signal="freezeStream" from="cat" to="." method="_on_freeze_stream_signal"]
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]

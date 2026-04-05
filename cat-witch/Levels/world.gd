@@ -31,6 +31,7 @@ var SCENES: Dictionary[String, Resource] = {
 	"Greenhouse1": load("res://Levels/Placeholder Levels/greenhouse_1.tscn"),
 	"GreenhouseArea": load("res://Levels/Placeholder Levels/greenhouse_area.tscn"),
 	"LeakyBuilding": load("res://Levels/Placeholder Levels/leaky_building.tscn"),
+	"ElevatorShaft": load("res://Levels/Placeholder Levels/Elevator_Shaft.tscn"),
 	"Warehouse": load("res://Levels/Placeholder Levels/warehouse.tscn"),
 	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
 	"Hub": load("res://Levels/hub.tscn"),

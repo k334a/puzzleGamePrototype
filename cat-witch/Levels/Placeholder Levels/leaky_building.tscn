@@ -32,17 +32,14 @@ offset_bottom = -299.04413
 rotation = 0.109308325
 color = Color(0.53333336, 0.33333334, 0.13333334, 1)
 
-[node name="cat" parent="." index="5" unique_id=1659453483]
+[node name="cat" parent="." index="6" unique_id=1659453483]
 position = Vector2(1513, -655)
 
-[node name="InventoryUI" parent="." index="6" unique_id=1380888454]
+[node name="InventoryUI" parent="." index="7" unique_id=1380888454]
 visible = false
 
-[node name="CameraTopLeft" parent="." index="7" unique_id=1897197015]
+[node name="CameraTopLeft" parent="." index="8" unique_id=1897197015]
 position = Vector2(-1015, -1243)
-
-[node name="CameraBottomRight" parent="." index="8" unique_id=490815159]
-position = Vector2(4739, 382)
 
 [node name="DEBUG" type="Control" parent="." index="9" unique_id=1279310881]
 layout_mode = 3
@@ -72,4 +69,7 @@ text = "Boarded up closed door, cant enter"
 [node name="InteractionSprite" parent="." index="10" unique_id=983612869 instance=ExtResource("2_w87yh")]
 position = Vector2(3184.0002, -12)
 interactionType = "Entrance"
-entrance = "NewTestScene"
+entrance = "ElevatorShaft"
+
+[node name="CameraBottomRight" parent="." index="11" unique_id=490815159]
+position = Vector2(4739, 382)

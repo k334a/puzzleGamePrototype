@@ -250,8 +250,8 @@ func linearDampener(left, right):
 			if frozenSelf:
 				velocity.x -= velocity.x * 0.01
 			else:
-				velocity.x -= velocity.x * 1
-		
+				velocity.x -= velocity.x * 1	
+			
 # Read Tilemap Helper
 func TileMapCheck(object, offset, flag):
 	var body = object.get_collider()
@@ -401,3 +401,10 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
 	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells)
+
+
+func _on_respawn_checker_area_entered(area: Area2D) -> void:
+	var body = area
+	if body and body is Area2D and body.is_in_group("RespawnAnchor"):
+		print("Worked")
+		startPosition = body.global_position
