@@ -88,6 +88,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.91273546, 0.9127355, 0, 1)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1505711071]
+stream = ExtResource("3_50n1q")
+volume_db = -10.0
+
 [connection signal="body_entered" from="RainCollision" to="RainCollision" method="_on_body_entered"]
 [connection signal="body_exited" from="RainCollision" to="RainCollision" method="_on_body_exited"]
 [connection signal="timeout" from="RainCollision/LightningTimer" to="." method="_on_lightning_timer_timeout"]
