@@ -59,6 +59,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_tree().paused = true
 
 func _on_pause_menu_reset_game() -> void:
+	$BackgroundMusic.play()
 	get_tree().paused = false
 	save_data.clear()
 	get_child(-1).queue_free()

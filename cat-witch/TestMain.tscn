@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
 [ext_resource type="PackedScene" uid="uid://dftm8j5y6nsg8" path="res://scenes/pause_menu.tscn" id="3_iveyk"]
 [ext_resource type="Script" uid="uid://bjl6wa11g3fhf" path="res://scripts/level_save_data.gd" id="3_rg15q"]
+[ext_resource type="AudioStream" uid="uid://cqvxmh7t71cn4" path="res://Sounds/concerto622AudioFile.mp3" id="4_y2vhr"]
 
 [sub_resource type="Resource" id="Resource_a6wyt"]
 script = ExtResource("3_rg15q")
@@ -20,6 +21,13 @@ startLevel = "Hub"
 
 [node name="PauseMenu" parent="." unique_id=128761674 instance=ExtResource("3_iveyk")]
 unique_name_in_owner = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=973217692]
+process_mode = 3
+stream = ExtResource("4_y2vhr")
+volume_db = -20.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="resetGame" from="PauseMenu" to="." method="_on_pause_menu_reset_game"]
 [connection signal="resetPuzzle" from="PauseMenu" to="." method="_on_pause_menu_reset_puzzle"]
