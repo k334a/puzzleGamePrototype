@@ -65,7 +65,7 @@ func set_up_items(itemSet: Dictionary) -> void:
 func set_up_cat(spells: Array, items: Array, location: Vector2, knownSpells: Array) -> void:
 	cat.set_up_cat(spells, items, location, knownSpells)
 	for pickup: SpellPickup in get_tree().get_nodes_in_group("pickup"):
-		if cat.check_for_spell(pickup.item.name) or cat.check_for_item(pickup.item.itemIDName):
+		if cat.check_for_spell(pickup.item.name) or (pickup.item.itemIDName and cat.check_for_item(pickup.item.itemIDName)):
 			pickup.queue_free()
 
 func _on_jar_broken(jar: RigidBody2D, pos: Vector2) -> void:

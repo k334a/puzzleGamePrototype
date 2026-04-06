@@ -22,13 +22,13 @@ var SCENES: Dictionary[String, PackedScene] = {
 	"WarehouseOffice": load("res://Levels/Placeholder Levels/warehouse_office.tscn"),
 	"WarehouseVents": load("res://Levels/Placeholder Levels/warehouse_vents.tscn"),
 	"Roof": load("res://Levels/Placeholder Levels/roof.tscn"),
+	"MainMenu": load("res://scenes/main_menu.tscn"),
 }
 
 var currentLevel: String
 
 func _ready() -> void:
-	currentLevel = startLevel
-	_on_load_level(startLevel, Vector2.ZERO, [], [], [])
+	_on_load_level("MainMenu", Vector2.ZERO, [], [], [], true)
 
 func _on_save_level(breakables: Dictionary, damages: Dictionary, unlocks: Dictionary, floating: Dictionary) -> void:
 	save_data.jars_status[currentLevel] = breakables
@@ -36,10 +36,13 @@ func _on_save_level(breakables: Dictionary, damages: Dictionary, unlocks: Dictio
 	save_data.unlocked_entrances[currentLevel] = unlocks
 	save_data.floating_items[currentLevel] = floating
 
-func _on_load_level(levelName: String, location: Vector2, spells: Array, items: Array, knownSpells: Array) -> void:
+func _on_load_level(levelName: String, location: Vector2, spells: Array, items: Array, knownSpells: Array, mainMenu: bool=false) -> void:
 	var level: Node = SCENES.get(levelName).instantiate()
 	call_deferred("add_child", level)
 	await level.ready
+	if mainMenu:
+		level.start_game.connect(_on_start_game)
+		return
 	level.set_up_cat(spells, items, location, knownSpells)
 	level.set_up_jars(save_data.jars_status.get(levelName))
 	level.set_up_areas(save_data.damaged_areas.get(levelName), save_data.unlocked_entrances.get(levelName), save_data.tempEntrances.get(levelName))
@@ -63,7 +66,7 @@ func _on_pause_menu_reset_game() -> void:
 	get_tree().paused = false
 	save_data.clear()
 	get_child(-1).queue_free()
-	_on_load_level(startLevel, Vector2.ZERO, [], [], [])
+	_on_load_level("MainMenu", Vector2.ZERO, [], [], [], true)
 
 func _on_pause_menu_reset_puzzle() -> void:
 	get_tree().paused = false
@@ -72,3 +75,6 @@ func _on_pause_menu_reset_puzzle() -> void:
 
 func _on_pause_menu_un_pause() -> void:
 	get_tree().paused = false
+
+func _on_start_game() -> void:
+	_on_load_level(startLevel, Vector2.ZERO, [], [], [])

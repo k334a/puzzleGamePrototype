@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cv6jd1kilegxw" path="res://Images/Items/Jar.png" id="1_0kib7"]
 [ext_resource type="Script" uid="uid://bvi6udivyk5xu" path="res://scenes/entities/jar.gd" id="1_en78b"]
-[ext_resource type="AudioStream" uid="uid://b2xudx5b07chj" path="res://jarSmash.mp3" id="3_cqijk"]
+[ext_resource type="AudioStream" uid="uid://b2xudx5b07chj" path="res://Sounds/jarSmash.mp3" id="3_cqijk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_en78b"]
 radius = 43.0
@@ -25,4 +25,4 @@ shape = SubResource("CapsuleShape2D_en78b")
 
 [node name="JarBreak" type="AudioStreamPlayer" parent="." unique_id=870136096]
 stream = ExtResource("3_cqijk")
-volume_db = -20.0
+volume_db = -30.0

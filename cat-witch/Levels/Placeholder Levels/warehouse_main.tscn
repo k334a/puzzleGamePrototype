@@ -65,7 +65,7 @@ position = Vector2(1980, 516)
 
 [node name="PressurePlate" parent="." index="7" unique_id=1063271110 node_paths=PackedStringArray("layer") instance=ExtResource("2_lobj4")]
 position = Vector2(3093, 2067)
-weightLimit = 3
+weightLimit = 2
 removeStart = Vector2(89, 42)
 removeEnd = Vector2(89, 57)
 layer = NodePath("../LevelTiles")
@@ -115,7 +115,7 @@ position = Vector2(2714, 71)
 position = Vector2(75, 2032)
 
 [node name="Node2D2" parent="." index="19" unique_id=1568309291 instance=ExtResource("3_lobj4")]
-position = Vector2(560, 1914)
+position = Vector2(553, 1795)
 
 [node name="Node2D3" parent="." index="20" unique_id=1597734646 instance=ExtResource("3_lobj4")]
 position = Vector2(533, 2031)
@@ -126,6 +126,9 @@ position = Vector2(2723, 2032)
 [node name="Node2D5" parent="." index="22" unique_id=1460900859 instance=ExtResource("3_lobj4")]
 position = Vector2(660, 2031)
 
-[node name="KeyPickup" parent="." index="23" unique_id=1021825572 instance=ExtResource("12_qh86l")]
+[node name="Node2D6" parent="." index="23" unique_id=1119679588 instance=ExtResource("3_lobj4")]
+position = Vector2(586, 1911)
+
+[node name="KeyPickup" parent="." index="24" unique_id=1021825572 instance=ExtResource("12_qh86l")]
 position = Vector2(3422, 1882)
 item = SubResource("Resource_23nuh")

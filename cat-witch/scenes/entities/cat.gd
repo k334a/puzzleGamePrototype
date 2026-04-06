@@ -349,6 +349,7 @@ func wind(lookVector):
 	windScene.get_child(0).force = -lookVector * 100
 	add_sibling(windScene)
 	apply_outside_force(lookVector * outsideForce)
+	#windScene.get_child(0).get_child(-1).play
 
 func light():
 	if $PointLight2D.visible:

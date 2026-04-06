@@ -14,3 +14,6 @@ scale = Vector2(0.28000033, 0.28000033)
 [node name="CollisionShape2D" parent="." index="1" unique_id=942878741]
 scale = Vector2(0.28000033, 0.28000033)
 shape = SubResource("CapsuleShape2D_1js66")
+
+[node name="JarBreak" parent="." index="2" unique_id=870136096]
+volume_db = -40.0

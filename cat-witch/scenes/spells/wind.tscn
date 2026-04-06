@@ -1,10 +1,58 @@
 [gd_scene format=3 uid="uid://be6a6w0w25mvm"]
 
 [ext_resource type="Script" uid="uid://cmr4qeuuk78mc" path="res://scenes/spells/wind.gd" id="1_jsuhd"]
-[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="1_p3bod"]
+[ext_resource type="Texture2D" uid="uid://dvyff22ybibxe" path="res://Images/wind_frames/pixil-frame-0.png" id="2_plvjb"]
+[ext_resource type="Texture2D" uid="uid://bnmktqf2d5h1q" path="res://Images/wind_frames/pixil-frame-1.png" id="3_ucula"]
+[ext_resource type="Texture2D" uid="uid://ctrsuaq0ukiqg" path="res://Images/wind_frames/pixil-frame-2.png" id="4_iyfjx"]
+[ext_resource type="Texture2D" uid="uid://cku6jq1g67ffp" path="res://Images/wind_frames/pixil-frame-3.png" id="5_x401b"]
+[ext_resource type="Texture2D" uid="uid://bfmq0bhy8rhbi" path="res://Images/wind_frames/pixil-frame-4.png" id="6_ksql4"]
+[ext_resource type="Texture2D" uid="uid://bdkwvpokpex0i" path="res://Images/wind_frames/pixil-frame-5.png" id="7_keqpn"]
+[ext_resource type="Texture2D" uid="uid://qohlab1hqe2s" path="res://Images/wind_frames/pixil-frame-6.png" id="8_ol3sq"]
+[ext_resource type="Texture2D" uid="uid://bckdlbxvedvr2" path="res://Images/wind_frames/pixil-frame-7.png" id="9_dwpho"]
+[ext_resource type="Texture2D" uid="uid://bdeombwoloxj3" path="res://Images/wind_frames/pixil-frame-8.png" id="10_x0ppe"]
+[ext_resource type="Texture2D" uid="uid://dab1kvfqb1clc" path="res://Images/wind_frames/pixil-frame-9.png" id="11_ytn8u"]
+[ext_resource type="Texture2D" uid="uid://dpw4ih41ipxer" path="res://Images/wind_frames/pixil-frame-10.png" id="12_qmic7"]
+[ext_resource type="Texture2D" uid="uid://bwkq0aagxq20i" path="res://Images/wind_frames/pixil-frame-11.png" id="13_uin83"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8s6f"]
 size = Vector2(123, 100)
+
+[sub_resource type="Animation" id="Animation_plvjb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wind/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_plvjb")]
+}
+
+[sub_resource type="Animation" id="Animation_ucula"]
+resource_name = "wind"
+length = 0.11
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Wind/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_plvjb"), ExtResource("3_ucula"), ExtResource("4_iyfjx"), ExtResource("5_x401b"), ExtResource("6_ksql4"), ExtResource("7_keqpn"), ExtResource("8_ol3sq"), ExtResource("9_dwpho"), ExtResource("10_x0ppe"), ExtResource("11_ytn8u"), ExtResource("12_qmic7"), ExtResource("13_uin83")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iyfjx"]
+_data = {
+&"RESET": SubResource("Animation_plvjb"),
+&"wind": SubResource("Animation_ucula")
+}
 
 [node name="Node2D" type="Node2D" unique_id=899136667]
 
@@ -16,16 +64,21 @@ gravity_scale = 0.01
 script = ExtResource("1_jsuhd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wind" unique_id=1726191975]
+visible = false
 position = Vector2(51.5, -29)
 shape = SubResource("RectangleShape2D_j8s6f")
 
 [node name="Sprite2D" type="Sprite2D" parent="Wind" unique_id=195440365]
-position = Vector2(53, -29.249996)
-scale = Vector2(1, 0.79296875)
-texture = ExtResource("1_p3bod")
+position = Vector2(-242.00003, -29.249996)
+scale = Vector2(5, 5)
+texture = ExtResource("2_plvjb")
 
 [node name="Timer" type="Timer" parent="." unique_id=1880991403]
 wait_time = 0.1
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1670054197]
+libraries/ = SubResource("AnimationLibrary_iyfjx")
+autoplay = &"wind"
 
 [connection signal="timeout" from="Timer" to="Wind" method="_on_timer_timeout"]

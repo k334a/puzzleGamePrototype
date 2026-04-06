@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://8e3xvip00yai"]
+
+[ext_resource type="Script" uid="uid://7mc7mcg7xso0" path="res://scenes/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://lhu5t6uc7qdb" path="res://Images/titlepage_withOptionButtons_(noText).png" id="2_ekxnf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+content_margin_left = 40.0
+content_margin_top = 40.0
+content_margin_right = 40.0
+content_margin_bottom = 40.0
+bg_color = Color(0.6117647, 0.3764706, 0.6117647, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.56078434, 0.2509804, 0.56078434, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+bg_color = Color(0.49104977, 0.24704406, 0.46201378, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.38431373, 0.18431373, 0.36078432, 1)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="MainMenu" type="CanvasLayer" unique_id=128761674]
+layer = 2
+script = ExtResource("1_ekxnf")
+
+[node name="Control" type="Control" parent="." unique_id=286892446]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1446655352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4509804, 0.16862746, 0.45490196, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=973423786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ekxnf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=787387250]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = 120.0
+offset_right = 167.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="BeginGameButton" type="Button" parent="Control/VBoxContainer" unique_id=1058249477]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.89792836, 0.8182416, 0.90178573, 1)
+theme_override_colors/font_focus_color = Color(0.67058825, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_pressed_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+theme_override_colors/font_hover_color = Color(0.6627451, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.43529412, 0.17254902, 0.43529412, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+text = "  Start Game"
+alignment = 0
+
+[node name="CreditsButton" type="Button" parent="Control/VBoxContainer" unique_id=1927868880]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.89792836, 0.8182416, 0.90178573, 1)
+theme_override_colors/font_focus_color = Color(0.67058825, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_pressed_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+theme_override_colors/font_hover_color = Color(0.67058825, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+text = "  Credits"
+alignment = 0
+
+[node name="Control2" type="Control" parent="." unique_id=1381410151]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control2" unique_id=38280619]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4509804, 0.16862746, 0.45490196, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control2" unique_id=1358979849]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -476.5
+offset_top = -80.0
+offset_right = 476.5
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/table_h_separation = 10
+theme_override_constants/table_v_separation = 10
+theme_override_font_sizes/normal_font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekxnf")
+bbcode_enabled = true
+text = "[table={2}][cell]Game Design:[/cell][cell]Ka Hei Chan, Adrian Hagyard, & Keena Swanson[/cell]
+[cell]General Art:[/cell][cell]Ka Hei Chan, Adrian Hagyard, & Keena Swanson[/cell]
+[cell]Cat and Menu Art:	[/cell][cell]Keena Swanson[/cell]
+[cell]Music:[/cell][cell]Clarinet Concerto In A Major, K.622 by Wolfgang Amadeus Mozart, [url=https://musescore.com/user/661466/scores/1497861]Transcribed by Hathi[/url], Modified by Adrian Hagyard[/cell]
+[cell]Website:[/cell][cell]Keena Swanson[/cell]
+[/table]"
+
+[node name="Label" type="Label" parent="Control2" unique_id=1060547879]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.00003
+offset_top = -228.0
+offset_right = 286.0
+offset_bottom = -107.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8657117, 0.8657117)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_oa1go")
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="Control2" unique_id=841058066]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 31.0
+offset_top = 565.0
+offset_right = 179.0
+offset_bottom = 635.0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.89792836, 0.8182416, 0.90178573, 1)
+theme_override_colors/font_focus_color = Color(0.67058825, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_pressed_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+theme_override_colors/font_hover_color = Color(0.67058825, 0.49019608, 0.68235296, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.4392157, 0.1764706, 0.4392157, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wu84c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8ln24")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_rtw2f")
+text = "Return"
+
+[connection signal="pressed" from="Control/VBoxContainer/BeginGameButton" to="." method="_on_begin_game_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="meta_clicked" from="Control2/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="Control2/BackButton" to="." method="_on_back_button_pressed"]

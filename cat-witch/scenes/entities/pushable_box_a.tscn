@@ -7,6 +7,8 @@
 size = Vector2(122, 122)
 
 [node name="PushableBox_A" unique_id=963461222 instance=ExtResource("1_8rsxp")]
+can_sleep = false
+continuous_cd = 1
 
 [node name="Sprite2D" parent="." index="0" unique_id=1763058505]
 scale = Vector2(0.8810762, 0.8810762)
