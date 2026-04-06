@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbh5ocmd4kdga" path="res://test_main.gd" id="1_iveyk"]
 [ext_resource type="PackedScene" uid="uid://dftm8j5y6nsg8" path="res://scenes/pause_menu.tscn" id="3_iveyk"]
-[ext_resource type="Script" uid="uid://bjl6wa11g3fhf" path="res://scripts/level_save_data.gd" id="3_rg15q"]
+[ext_resource type="Script" path="res://scripts/level_save_data.gd" id="3_rg15q"]
 
 [sub_resource type="Resource" id="Resource_a6wyt"]
 script = ExtResource("3_rg15q")
@@ -11,12 +11,11 @@ damaged_areas = null
 unlocked_entrances = null
 floating_items = null
 tempEntrances = null
-metadata/_custom_type_script = "uid://bjl6wa11g3fhf"
 
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
 save_data = SubResource("Resource_a6wyt")
-startLevel = "Roof"
+startLevel = "Hub"
 
 [node name="PauseMenu" parent="." unique_id=128761674 instance=ExtResource("3_iveyk")]
 unique_name_in_owner = true
