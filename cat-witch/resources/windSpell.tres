@@ -6,9 +6,7 @@
 [resource]
 script = ExtResource("2_hrhoj")
 name = "Wind Spell"
-description = "hidden., test"
+description = "Creates short bursts of wind behind the user. Can be used to propel the user or objects around them great distances."
 icon = ExtResource("1_w64e8")
-damage = 15
 cooldown = 5.0
-rarity = "rare"
-strength = 7
+rarity = "Rare"

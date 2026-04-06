@@ -1,23 +1,39 @@
 extends AnimatedSprite2D
 
-@export_enum("Scratch", "Entrance", "Plant", "Button", "TextHover") var interactionType: String = ""
+@export_enum("Scratch", "Entrance", "Plant", "Button", "TextHover", "UseItem") var interactionType: String = ""
+
 @export_group("Entrance")
-@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor_1", "Roof") var entrance: String
-@export var scratchToReveal: bool
+@export_enum("Tutorial", "Hub", "CityScape", "Building1", "LeakyBuilding", "Floor1", "ElevatorShaft", "Warehouse", "WarehouseVents", "WarehouseOffice", "WarehouseMain", "AlleyWay", "GreenhouseArea", "Greenhouse1", "LevelOne", "LevelTwo", "NewTestScene", "Roof") var entrance: String
 @export var location: Vector2i
 @export var instant: bool
+
+@export_subgroup("Unlock Entrance")
+@export var scratchToReveal: bool
+@export var itemToReveal: bool
+@export var unlocksEntrance: bool
+@export_enum("Tutorial", "Hub", "CityScape", "Building1", "LeakyBuilding", "Floor1", "ElevatorShaft", "Warehouse", "WarehouseVents", "WarehouseOffice", "WarehouseMain", "AlleyWay", "GreenhouseArea", "Greenhouse1", "LevelOne", "LevelTwo", "NewTestScene") var entranceFrom: String
+@export var locked: bool
+
 @export_group("Plant")
 @export var plant: AnimatableBody2D
+
 @export_group("Scratch")
 @export_enum("Entrance", "Plant", "Reveal", "Item") var scratchType: String
 @export_range(0, 5, 1, "or_greater") var scratchValue: int
 @export var item: Item
+
 @export_group("Button")
+@export_enum("Reveal", "Spigot", "LeverToggle", "TimerButton") var buttonType: String
 @export var removeStart: Vector2
 @export var removeEnd: Vector2
 @export var layer: TileMapLayer
-@export_enum("Reveal", "Spigot") var buttonType: String
 @export var spigotTiles: Array[Vector2i]
+@export var max_frames: int = 4
+@export var visual_change: AnimatedSprite2D
+
+@export_group("Item")
+@export var needsItemName: String
+
 @export_category("")
 @export var collisionScale: Vector2
 @export var collisionOffset: Vector2
@@ -26,6 +42,8 @@ extends AnimatedSprite2D
 @export var text: String
 
 var damage: int = 0
+var itemUsed: bool = false
+var toggling: bool = false
 
 func _ready() -> void:
 	if not interactionType:
@@ -34,7 +52,7 @@ func _ready() -> void:
 	$InteractiveArea.set_up(interactionType, textOffset, textBoxScale, collisionScale, collisionOffset)
 	match interactionType:
 		"Entrance":
-			$InteractiveArea.set_up_entrance(entrance, instant, location)
+			$InteractiveArea.set_up_entrance(entrance, instant, location, locked, unlocksEntrance, entranceFrom)
 			if scratchToReveal:
 				$InteractiveArea.set_up_scratchable()
 		"Plant":
@@ -45,6 +63,10 @@ func _ready() -> void:
 			$InteractiveArea.set_up_button(buttonType, spigotTiles, layer)
 		"TextHover":
 			$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
+		"UseItem":
+			$InteractiveArea/RichTextLabel.text = "[wave amp=10 freq=5]" + text
+			if needsItemName:
+				$InteractiveArea.set_up_itemUse(needsItemName)
 
 func _on_interactive_area_damage_self() -> void:
 	damage += 1
@@ -60,6 +82,7 @@ func _on_interactive_area_damage_self() -> void:
 			_:
 				$InteractiveArea.light_off()
 				$InteractiveArea.monitoring = false
+		$InteractiveArea.destroyed = true
 
 func _on_interactive_area_button_pressed() -> void:
 	if buttonType == "Reveal":
@@ -68,3 +91,17 @@ func _on_interactive_area_button_pressed() -> void:
 				layer.erase_cell(Vector2i(x,y))
 		$InteractiveArea.light_off()
 		$InteractiveArea.monitoring = false
+		if visual_change:
+			visual_change.stop()
+		damage = 1
+		$InteractiveArea.destroyed = true
+	if buttonType == "LeverToggle":
+		if frame == max_frames:
+			frame = 0
+		$AnimationPlayer.play_section_with_markers("platform move", str(frame), str(frame+1))
+
+func _on_interactive_area_item_used() -> void:
+	if itemToReveal:
+		animation = "item_used"
+		print("item used...")
+		itemUsed = true

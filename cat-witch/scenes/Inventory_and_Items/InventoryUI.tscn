@@ -241,11 +241,12 @@ offset_right = -100.0
 offset_bottom = -709.0
 Spell = "Plant Spell"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=348580179]
-offset_left = 1237.0
-offset_top = 81.0
-offset_right = 1562.0
-offset_bottom = 119.0
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=348580179]
+layout_mode = 0
+offset_left = 1203.0
+offset_top = 27.0
+offset_right = 1526.0
+offset_bottom = 142.0
 theme_override_font_sizes/normal_font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxFlat_kikn4")
 bbcode_enabled = true

@@ -62,5 +62,6 @@ curve = SubResource("Curve2D_k6l63")
 [node name="InteractionSprite" parent="." index="13" unique_id=983612869 instance=ExtResource("4_5s0wh")]
 position = Vector2(-185, -372)
 interactionType = "Entrance"
-entrance = "Floor_1"
+entrance = "Floor1"
 location = Vector2i(7126, -443)
+collisionScale = Vector2(3, 8.4)

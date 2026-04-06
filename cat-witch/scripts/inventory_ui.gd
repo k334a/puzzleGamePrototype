@@ -52,7 +52,7 @@ func update_vases(broke: bool, total: int=0) -> void:
 		total = totalJars
 	else:
 		totalJars = total
-	$RichTextLabel.text = "Vases Broken: " + String.num_int64(brokenJars) + "/" + String.num_int64(total)
+	$Control/RichTextLabel.text = "Vases Broken: " + String.num_int64(brokenJars) + "/" + String.num_int64(total)
 
 func show_jars() -> void:
 	show()

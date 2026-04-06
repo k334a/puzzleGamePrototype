@@ -6,8 +6,9 @@
 [resource]
 script = ExtResource("1_tv7s5")
 name = "Freeze Spell"
-description = "hidden., test"
+description = "Creates a magic freeze bubble around the user for 5 seconds, temporarily freezing any water within."
 icon = ExtResource("1_ui5cm")
 cooldown = 5.0
-strength = 5
+rarity = "Rare"
+duration = 5.0
 spell_type = 1

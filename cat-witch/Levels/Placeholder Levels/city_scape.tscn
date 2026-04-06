@@ -3,8 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_v7yq8"]
 [ext_resource type="Texture2D" uid="uid://decya6bfhdsrx" path="res://Images/garage_open.png" id="3_6jf5r"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="4_600y7"]
-[ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="5_lo40e"]
-[ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="6_1syct"]
 [ext_resource type="PackedScene" uid="uid://dvey1un2chcbn" path="res://scenes/entities/rain.tscn" id="6_4dy0b"]
 [ext_resource type="PackedScene" uid="uid://c46vn75h3uhdg" path="res://scenes/entities/LightObject.tscn" id="6_6m6de"]
 [ext_resource type="Texture2D" uid="uid://ca7oqda6irrky" path="res://Images/dumpster.png" id="8_4dy0b"]
@@ -121,7 +119,6 @@ polygon = PackedVector2Array(767, -271, 1325, -271, 1312, -307, 782, -305)
 one_way_collision = true
 
 [node name="Rain" parent="." index="14" unique_id=617827363 instance=ExtResource("6_4dy0b")]
-visible = false
 position = Vector2(2846, -778)
 scale = Vector2(4.089458, 13.376976)
 
@@ -131,23 +128,19 @@ position = Vector2(121, -44)
 [node name="CameraTopLeft" parent="." index="17" unique_id=1897197015]
 position = Vector2(0, -2952)
 
-[node name="SpellPickup" parent="." index="18" unique_id=1021825572 instance=ExtResource("5_lo40e")]
-position = Vector2(2244, -904)
-item = ExtResource("6_1syct")
-
-[node name="CameraBottomRight" parent="." index="19" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="18" unique_id=490815159]
 position = Vector2(5796, 108)
 
-[node name="PushableBox_A" parent="." index="20" unique_id=963461222 instance=ExtResource("9_6m6de")]
-position = Vector2(2352, -74)
+[node name="PushableBox_A" parent="." index="19" unique_id=963461222 instance=ExtResource("9_6m6de")]
+position = Vector2(2343, -62)
 
-[node name="PushableBox_A2" parent="." index="21" unique_id=407811533 instance=ExtResource("9_6m6de")]
-position = Vector2(2214, -65)
+[node name="PushableBox_A2" parent="." index="20" unique_id=407811533 instance=ExtResource("9_6m6de")]
+position = Vector2(2207, -61)
 
-[node name="PushableBox_A3" parent="." index="22" unique_id=1472626717 instance=ExtResource("9_6m6de")]
-position = Vector2(2278, -208)
+[node name="PushableBox_A3" parent="." index="21" unique_id=1472626717 instance=ExtResource("9_6m6de")]
+position = Vector2(2248, -188)
 
-[node name="Jar_Mini" parent="." index="23" unique_id=1110553694 instance=ExtResource("10_t6yui")]
+[node name="Jar_Mini" parent="." index="22" unique_id=1110553694 instance=ExtResource("10_t6yui")]
 position = Vector2(83, -1181)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Jar_Mini" index="3" unique_id=795622920]
@@ -156,5 +149,5 @@ rotation = 1.5707964
 scale = Vector2(0.2809524, 0.2809524)
 texture = ExtResource("11_meyii")
 
-[node name="Jar_Mini2" parent="." index="24" unique_id=1318743532 instance=ExtResource("10_t6yui")]
+[node name="Jar_Mini2" parent="." index="23" unique_id=1318743532 instance=ExtResource("10_t6yui")]
 position = Vector2(242, -2117)

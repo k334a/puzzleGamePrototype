@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://dftm8j5y6nsg8"]
+
+[ext_resource type="Script" uid="uid://yt3vqq4rviik" path="res://scenes/pause_menu.gd" id="1_n87rw"]
+[ext_resource type="Texture2D" uid="uid://bmhlbsgyedre3" path="res://Images/pixil-frame-0 (36).png" id="2_kukqi"]
+[ext_resource type="StyleBox" uid="uid://b5dxl6lhsc8n0" path="res://resources/button_style.tres" id="3_5d2l8"]
+[ext_resource type="StyleBox" uid="uid://b1ngf2jlsdxhd" path="res://resources/buttonPressed_style.tres" id="4_5d2l8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x5oxt"]
+bg_color = Color(0.49104977, 0.24704406, 0.46201378, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.38431373, 0.18431373, 0.36078432, 1)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=128761674]
+process_mode = 2
+layer = 2
+visible = false
+script = ExtResource("1_n87rw")
+
+[node name="Control" type="Control" parent="." unique_id=286892446]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1446655352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3812932, 0.24256149, 0.3814458, 0.61960787)
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=973423786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kukqi")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Control" unique_id=114861230]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -210.0
+offset_right = 294.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8657117, 0.8657117)
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_x5oxt")
+text = "Game Paused!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=787387250]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -89.0
+offset_right = 258.0
+offset_bottom = 197.41669
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8657117, 1.0388541)
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ResetPuzzleButton" type="Button" parent="Control/VBoxContainer" unique_id=1058249477]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("3_5d2l8")
+theme_override_styles/pressed = ExtResource("4_5d2l8")
+theme_override_styles/hover = ExtResource("4_5d2l8")
+theme_override_styles/hover_pressed = ExtResource("4_5d2l8")
+disabled = true
+text = "Reset Puzzle"
+
+[node name="ResetGameButton" type="Button" parent="Control/VBoxContainer" unique_id=1062771048]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("3_5d2l8")
+theme_override_styles/pressed = ExtResource("4_5d2l8")
+theme_override_styles/hover = ExtResource("4_5d2l8")
+theme_override_styles/hover_pressed = ExtResource("4_5d2l8")
+disabled = true
+text = "Reset Game"
+
+[node name="ReturnToGameButton" type="Button" parent="Control/VBoxContainer" unique_id=674955343]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("3_5d2l8")
+theme_override_styles/pressed = ExtResource("4_5d2l8")
+theme_override_styles/hover = ExtResource("4_5d2l8")
+theme_override_styles/hover_pressed = ExtResource("4_5d2l8")
+disabled = true
+text = "Resume"
+
+[connection signal="pressed" from="Control/VBoxContainer/ResetPuzzleButton" to="." method="_on_reset_puzzle_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ResetGameButton" to="." method="_on_reset_game_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/ReturnToGameButton" to="." method="_on_return_to_game_button_pressed"]

@@ -47,6 +47,7 @@ signal nextLevel
 signal recordScratch
 signal freezeStream
 signal unfreezeStream
+signal unlockEntrance
 
 func _input(event):
 	if(event.is_action_released("jump")):
@@ -74,6 +75,12 @@ func set_camera(top: int, right: int, bottom: int, left: int, zoom: Vector2) -> 
 	$Camera2D.limit_bottom = bottom
 	$Camera2D.limit_left = left
 	$Camera2D.zoom = zoom
+
+func set_up_cat(spells: Array, items: Array, location: Vector2, knownSpells: Array):
+	$Inventory.set_up_inventory(spells, items, knownSpells)
+	if location != Vector2.ZERO:
+		startPosition = location
+		global_position = location
 
 func _physics_process(delta):
 	var right = Input.is_action_pressed('move_right')
@@ -199,6 +206,7 @@ func _physics_process(delta):
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
 		if onTrigger and onTrigger.areaType == "Scratch":
 			onTrigger.scratch()
+			recordScratch.emit(onTrigger)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -217,17 +225,25 @@ func _physics_process(delta):
 	
 	if interact and onTrigger and onTrigger.areaType == "Entrance":
 		print(onTrigger.entranceLevel)
-		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells)
-	elif interact and  onTrigger and onTrigger.areaType == "Button":
+		if onTrigger.unlocksEntrance:
+			unlockEntrance.emit(onTrigger.entranceLevel)
+		nextLevel.emit(onTrigger.entranceLevel, onTrigger.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
+	elif interact and onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
-		if onTrigger.button == "Reveal":
+		if onTrigger.button == "Reveal" or onTrigger.button == "LeverToggle":
+			var catTrigger = onTrigger
 			onTrigger.click()
+			if catTrigger.destroyed:
+				recordScratch.emit(catTrigger)
 		elif onTrigger.button == "Spigot" and onTrigger.pressed == false:
 			onTrigger.pressed = true
 			freezeStream.emit(onTrigger.buttonTiles, onTrigger.buttonLayer)
 		elif onTrigger.button == "Spigot":
 			onTrigger.pressed = false
 			unfreezeStream.emit(onTrigger.buttonTiles.map(func(tile): return tile.x), onTrigger.buttonLayer)
+	elif interact and onTrigger and onTrigger.areaType == "UseItem":
+		if check_for_item(onTrigger.requiredItem):
+			onTrigger.useItem()
 	
 	move_and_slide()
 
@@ -339,6 +355,8 @@ func light():
 		$PointLight2D.hide()
 	else:
 		$PointLight2D.show()
+		await get_tree().create_timer(8, false).timeout
+		$PointLight2D.hide()
 
 func plant() -> float:
 	if onTrigger and onTrigger.areaType == "Plant":
@@ -386,6 +404,9 @@ func _on_head_check_body_entered(body: Node2D) -> void:
 func check_for_spell(spell: String) -> bool:
 	return $Inventory.check_for_spell(spell)
 
+func check_for_item(item: String) -> bool:
+	return $Inventory.check_for_item(item)
+
 func _on_claw_area_body_entered(body: Node2D) -> void:
 	if body is TileMapLayer:
 		var centerTile: Vector2i = body.local_to_map(body.to_local($Pivot/ClawArea/CollisionShape2D.global_position)) #Gets a tile in local coordinates of TileMapLayer
@@ -402,7 +423,7 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 # Immediately Teleport cat to target location
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
-	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells)
+	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
 
 # Set Respawn Point
 func _on_respawn_checker_area_entered(area: Area2D) -> void:

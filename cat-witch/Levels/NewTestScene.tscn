@@ -85,10 +85,10 @@ position = Vector2(2258, -514.00006)
 scale = Vector2(1.0218873, 1.3917108)
 
 [node name="PushableObject" parent="." index="13" unique_id=2104414850 instance=ExtResource("3_rwuno")]
-position = Vector2(-1160, -71)
+position = Vector2(-515, -65)
 
 [node name="PushableObject2" parent="." index="14" unique_id=1170830858 instance=ExtResource("3_rwuno")]
-position = Vector2(1041, -287)
+position = Vector2(1288, -276)
 
 [node name="PushableObject3" parent="." index="15" unique_id=329455843 instance=ExtResource("3_rwuno")]
 position = Vector2(2663, 366)

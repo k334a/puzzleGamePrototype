@@ -154,6 +154,7 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/ClawArea" unique_id=1928984223]
 position = Vector2(83.5, 0.5)
 shape = SubResource("RectangleShape2D_aqghj")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot/ClawArea" unique_id=1494514655]
 visible = false

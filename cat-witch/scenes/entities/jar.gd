@@ -4,6 +4,8 @@ var inAir = false
 var broken = false
 var previousVertVelocity = 0
 
+@export var containedItem: Item
+
 @onready var start_pos = global_position
 
 signal jar_broken
@@ -24,13 +26,12 @@ func objectBreak() -> void:
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(6, false)
 	set_collision_mask_value(1, false)
-	# Something here for getting item that was inside?
 	print("broke!")
 	print(previousVertVelocity)
 	print(linear_velocity.y)
 	broken = true
 	$JarBreak.play()
-	jar_broken.emit(self)
+	jar_broken.emit(self, global_position)
 
 func reset(target_pos: Vector2=start_pos) -> void:
 	inAir = false

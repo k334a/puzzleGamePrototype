@@ -14,6 +14,13 @@ func _ready():
 	items.resize(inventory_size)
 	spells.resize(4)
 
+func set_up_inventory(spellList: Array, itemList: Array, knownList: Array) -> void:
+	for spell: Item in spellList:
+		add_spell(spell)
+	for item: Item in itemList:
+		add_item(item)
+	spellsKnown = knownList
+
 func add_item(item: Item) -> bool:
 	for i in range(items.size()):
 		if items[i] == null:
@@ -56,5 +63,11 @@ func check_for_spell(spellName: String, known: bool=false) -> bool:
 		spellList = spells
 	for spell: Item in spellList:
 		if spell and spell.name == spellName:
+			return true
+	return false
+
+func check_for_item(itemName: String) -> bool:
+	for item: Item in items:
+		if item and item.itemIDName == itemName:
 			return true
 	return false
