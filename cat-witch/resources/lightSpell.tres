@@ -8,5 +8,7 @@ script = ExtResource("2_tuv3q")
 name = "Light Spell"
 description = "hidden., test"
 icon = ExtResource("1_obp4p")
+damage = 15
+cooldown = 5.0
 strength = 7
 spell_type = 2

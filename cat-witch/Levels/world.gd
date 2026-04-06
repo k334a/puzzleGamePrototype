@@ -36,6 +36,8 @@ var SCENES: Dictionary[String, Resource] = {
 	"Building1": load("res://Levels/Placeholder Levels/building_1.tscn"),
 	"Hub": load("res://Levels/hub.tscn"),
 	"Tutorial": load("res://Levels/Tutorial.tscn"),
+	"Roof": load("res://Levels/Placeholder Levels/roof.tscn"),
+	"Floor_1": load("res://Levels/Placeholder Levels/Floor_1.tscn")
 }
 
 func _ready() -> void:

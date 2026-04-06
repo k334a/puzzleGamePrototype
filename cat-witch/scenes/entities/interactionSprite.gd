@@ -2,7 +2,7 @@ extends AnimatedSprite2D
 
 @export_enum("Scratch", "Entrance", "Plant", "Button", "TextHover") var interactionType: String = ""
 @export_group("Entrance")
-@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft") var entrance: String
+@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor_1", "Roof") var entrance: String
 @export var scratchToReveal: bool
 @export var location: Vector2i
 @export var instant: bool

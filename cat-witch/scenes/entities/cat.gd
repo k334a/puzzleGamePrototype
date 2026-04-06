@@ -195,9 +195,10 @@ func _physics_process(delta):
 		$AnimatedSprite2D.offset.y = 0
 	
 	# Scratching
-	if scratch and onTrigger and onTrigger.areaType == "Scratch":
+	if scratch:
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
-		onTrigger.scratch()
+		if onTrigger and onTrigger.areaType == "Scratch":
+			onTrigger.scratch()
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -407,5 +408,4 @@ func instantEntrance(area: interactive_area) -> void:
 func _on_respawn_checker_area_entered(area: Area2D) -> void:
 	var body = area
 	if body and body is Area2D and body.is_in_group("RespawnAnchor"):
-		print("Worked")
 		startPosition = body.global_position
