@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cxelpox268cvg" path="res://scripts/spell_pickup.gd" id="1_igqen"]
 [ext_resource type="Texture2D" uid="uid://c0htreg0ewcuw" path="res://Images/Items/light.png" id="2_1mhjp"]
 [ext_resource type="Script" uid="uid://16jaxb1kdoic" path="res://scripts/item.gd" id="3_u1ync"]
-[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="4_aa6ur"]
+[ext_resource type="Texture2D" uid="uid://bar2sg60n4tvw" path="res://Images/Items/Spellbook.png" id="4_1mhjp"]
 
 [sub_resource type="Resource" id="Resource_mhtq2"]
 script = ExtResource("3_u1ync")
@@ -25,6 +25,6 @@ item = SubResource("Resource_mhtq2")
 shape = SubResource("CircleShape2D_3kvko")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=471556266]
-texture = ExtResource("4_aa6ur")
+texture = ExtResource("4_1mhjp")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
