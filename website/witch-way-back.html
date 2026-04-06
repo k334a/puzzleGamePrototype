@@ -6,6 +6,12 @@
 <title>Witch Way Back</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
 <style>
+  /* Gif Class */
+img.animated-gif{
+  width: 120px;
+  height: auto;
+}
+
   :root {
     --bg-deep:    #1a0e2e;
     --bg-mid:     #2d1b4e;
@@ -436,7 +442,7 @@
     <h1>Witch Way Back</h1>
     <p class="tagline">A puzzle story game about magic, mishaps &amp; meowing</p>
     <div class="credits-small">
-      by Adrian Hagyard &nbsp;·&nbsp; Ka Hei Chen &nbsp;·&nbsp; Keena Swanson
+      by Adrian Hagyard &nbsp;·&nbsp; Ka Hei Chan &nbsp;·&nbsp; Keena Swanson
     </div>
     <a href="#story" class="cta-btn">▶ &nbsp; Begin</a>
   </div>
@@ -455,7 +461,7 @@
       <img src="sprite_cat_idle0.png" class="cat-art" alt="cat--idle">
       <div class="story-text">
         <p>Studying some higher-level spells on your own, you accidentally <em>turned yourself into a cat!</em> Whoops. None of your classes prepared you for this unfortunate circumstance.</p>
-        <p>Luckily, as a cat, you can still <em>perform spells</em> if you absorb them in this new form. Maybe there are some things you'll do easier as a smaller, cuter creature.</p>
+        <p>Luckily, as a cat, you can still <em>perform spells</em> from your spell book if you find them again. Maybe there are some things you'll do easier as a smaller, cuter creature.</p>
       </div>
     </div>
   </div>
@@ -487,8 +493,25 @@
         <span class="spell-tag">◆ RARE</span>
       </div>
 
+      <div class="spell-card">
+        <span class="spell-icon">✨</span>
+        <div class="spell-name">Light Spell</div>
+        <div class="spell-desc">
+          Light up your surroundings to find your way around dark spaces. You may be a cat now but you aren't so good at seeing in the dark like one.
+        </div>
+        <span class="spell-tag">◆ BASIC</span>
+      </div>
+
+      <div class="spell-card">
+        <span class="spell-icon">🌿</span>
+        <div class="spell-name">Plant Spell</div>
+        <div class="spell-desc">
+          Grow plants quickly with the power of magic. Who knows when a spell like this may come in handy.
+        </div>
+        <span class="spell-tag">◆ RARE</span>
+      </div>
     </div>
-  </div>
+    </div>
 </section>
 
 <div class="section-divider"></div>
@@ -503,16 +526,18 @@
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Explore each level</div>
-          <div class="step-text">Navigate as a cat through magical environments. Use WSAD to move, I for inventory. Spells fall into slots ZXCV</div>
+          <div class="step-text">Navigate as a cat through magical environments. Use WSAD to move, I for inventory. Spells fall into slots Z, X, C, and V</div>
         </div>
+        <img src="icewalk.gif" class="animated-gif" alt="cat--idle">
       </div>
 
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
-          <div class="step-title">Absorb spells</div>
-          <div class="step-text">Walk into scrolls to absorb them. Each spell unlocks a new ability, and it may take a little time to learn their most effective use-case.</div>
+          <div class="step-title">Collect spells</div>
+          <div class="step-text">Walk into scrolls to collect them. Each spell unlocks a new ability, and it may take a little time to learn their most effective use-case.</div>
         </div>
+        <img src="getSpell.gif" class="animated-gif" alt="cat--idle">
       </div>
 
       <div class="step">
@@ -536,6 +561,7 @@
 </section>
 
 <div class="section-divider"></div>
+
 
 <!-- ═══════════ THE GOAL ═══════════ -->
 <section id="item">
@@ -564,7 +590,7 @@
       <div class="credits-title">PUZZLE STORY GAME BY</div>
       <div class="dev-name">
         Adrian Hagyard<br>
-        Ka Hei Chen<br>
+        Ka Hei Chan<br>
         Keena Swanson
       </div>
     </div>

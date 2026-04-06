@@ -12,12 +12,11 @@ damaged_areas = null
 unlocked_entrances = null
 floating_items = null
 tempEntrances = null
-metadata/_custom_type_script = "uid://bjl6wa11g3fhf"
 
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
 save_data = SubResource("Resource_a6wyt")
-startLevel = "Roof"
+startLevel = "Hub"
 
 [node name="PauseMenu" parent="." unique_id=128761674 instance=ExtResource("3_iveyk")]
 unique_name_in_owner = true

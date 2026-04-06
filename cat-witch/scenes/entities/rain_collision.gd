@@ -6,7 +6,7 @@ var lightning_on = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.wet = true
+		body.wet += 1
 		get_parent().cat = body
 		if lightning_on:
 			lightning = lightningObject.instantiate()
@@ -17,7 +17,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.wet = false
+		body.wet -= 1
 		if lightning_on:
 			if lightning:
 				lightning.queue_free()

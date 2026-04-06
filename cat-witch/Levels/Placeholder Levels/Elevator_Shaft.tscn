@@ -90,7 +90,7 @@ tile_map_data = PackedByteArray("AAAPAEgADwAAAAEAAAAPAEcADwAAAAAAAAAQAEYADwAAAAE
 tile_map_data = PackedByteArray("AAApAPr/AAAAAAIAAAAqAPr/AAAAAAIAAAApAP3/AAAAAAAAAAAqAP3/AAAAAAAAAAApAPf/AAAAAAIAAAAqAPf/AAAAAAIAAAAqAPT/AAAAAAIAAAApAPT/AAAAAAIAAAApAPH/AAAAAAIAAAAqAPH/AAAAAAIAAAApAO7/AAAAAAIAAAAqAO7/AAAAAAIAAAApAOv/AAAAAAIAAAAqAOv/AAAAAAIAAAApAOj/AAAAAAIAAAAqAOj/AAAAAAIAAAApAOX/AAAAAAIAAAAqAOX/AAAAAAIAAAApAOL/AAAAAAIAAAAqAOL/AAAAAAIAAAApAN//AAAAAAIAAAAqAN//AAAAAAIAAAApANz/AAAAAAIAAAAqANz/AAAAAAIAAAApANn/AAAAAAIAAAAqANn/AAAAAAIAAAApANb/AAAAAAIAAAAqANb/AAAAAAIAAAApANP/AAAAAAIAAAAqANP/AAAAAAIAAAApAND/AAAAAAIAAAAqAND/AAAAAAIAAAApAM3/AAAAAAIAAAAqAM3/AAAAAAIAAAApAMr/AAAAAAIAAAAqAMr/AAAAAAIAAAApAMf/AAAAAAIAAAAqAMf/AAAAAAIAAAApAMT/AAAAAAIAAAAqAMT/AAAAAAIAAAApAMH/AAAAAAIAAAAqAMH/AAAAAAIAAAApAL7/AAAAAAIAAAAqAL7/AAAAAAIAAAApALv/AAAAAAIAAAAqALv/AAAAAAIAAAA=")
 
 [node name="cat" parent="." index="8" unique_id=1659453483]
-position = Vector2(-163.85938, -13.234985)
+position = Vector2(2860.5972, 2543.012)
 
 [node name="SpellPickup2" parent="cat" index="13" unique_id=1931669689 instance=ExtResource("5_lnonu")]
 position = Vector2(8, 6)
@@ -130,12 +130,14 @@ position = Vector2(2953, 2553)
 item = ExtResource("6_lt8xp")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="14" unique_id=1232296241]
+visible = false
 color = Color(0, 0, 0, 0.78431374)
 
 [node name="FairnessLights" type="Node2D" parent="." index="15" unique_id=1676495304]
 position = Vector2(100, 0)
 
 [node name="PointLight2D" type="PointLight2D" parent="FairnessLights" index="0" unique_id=433370571]
+visible = false
 position = Vector2(2849, 2624.8713)
 scale = Vector2(2.39233, 0.59751004)
 energy = 0.3
@@ -177,8 +179,8 @@ texture = SubResource("GradientTexture2D_ak1kn")
 [node name="InteractionSprite2" parent="." index="16" unique_id=748858690 node_paths=PackedStringArray("layer") instance=ExtResource("3_mmxgl")]
 position = Vector2(1040, -424)
 interactionType = "Button"
-layer = NodePath("../LevelTiles")
 buttonType = "Spigot"
+layer = NodePath("../LevelTiles")
 spigotTiles = Array[Vector2i]([Vector2i(49, -25), Vector2i(50, -25), Vector2i(51, -25), Vector2i(52, -25)])
 
 [node name="InteractionSprite3" parent="." index="17" unique_id=1060817216 instance=ExtResource("3_mmxgl")]
@@ -259,6 +261,5 @@ shape = SubResource("RectangleShape2D_u7a4a")
 [node name="Jar_Mini" parent="." index="20" unique_id=1110553694 instance=ExtResource("9_d8sem")]
 position = Vector2(-18, -788)
 
-[connection signal="freezeStream" from="cat" to="." method="_on_freeze_stream_signal"]
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="Area2D2" method="_on_body_exited"]
