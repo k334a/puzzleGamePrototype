@@ -7,6 +7,8 @@ var weights: Array[Node2D] = []
 @export var layer: TileMapLayer
 var removed: bool = false
 
+signal weightHit
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pushable") and weights.find(body) == -1:
 		weights.push_back(body)
@@ -15,6 +17,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			await $AnimationPlayer.animation_started
 	if weights.size() >= weightLimit and not removed:
 		weighedDown()
+		weightHit.emit()
 		removed = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

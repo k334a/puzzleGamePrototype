@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://ddvt1nr0u2g4l"]
 
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="1_178wq"]
-[ext_resource type="Texture2D" uid="uid://b37uo08s8uolm" path="res://Images/goldSpot.png" id="2_ujyyj"]
+[ext_resource type="Texture2D" uid="uid://bbh7erdnxn1nq" path="res://Images/key.png" id="2_178wq"]
+[ext_resource type="Resource" uid="uid://jigotyu1g8eo" path="res://scenes/Inventory_and_Items/key.tres" id="2_ujyyj"]
 
 [sub_resource type="Animation" id="Animation_178wq"]
 length = 0.001
@@ -65,13 +66,14 @@ _data = {
 }
 
 [node name="KeyPickup" unique_id=1021825572 instance=ExtResource("1_178wq")]
+item = ExtResource("2_ujyyj")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=2061928784]
 position = Vector2(0, -12)
 
 [node name="Sprite2D" parent="." index="1" unique_id=471556266]
 position = Vector2(0, -12)
-texture = ExtResource("2_ujyyj")
+texture = ExtResource("2_178wq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2" unique_id=894120026]
 libraries/ = SubResource("AnimationLibrary_6wwsh")

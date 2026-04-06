@@ -30,6 +30,7 @@ extends AnimatedSprite2D
 @export var spigotTiles: Array[Vector2i]
 @export var max_frames: int = 4
 @export var visual_change: AnimatedSprite2D
+@export var visual_stop: bool = true
 
 @export_group("Item")
 @export var needsItemName: String
@@ -91,8 +92,10 @@ func _on_interactive_area_button_pressed() -> void:
 				layer.erase_cell(Vector2i(x,y))
 		$InteractiveArea.light_off()
 		$InteractiveArea.monitoring = false
-		if visual_change:
+		if visual_change and visual_stop:
 			visual_change.stop()
+		elif visual_change:
+			visual_change.frame += 1
 		damage = 1
 		$InteractiveArea.destroyed = true
 	if buttonType == "LeverToggle":
@@ -105,3 +108,7 @@ func _on_interactive_area_item_used() -> void:
 		animation = "item_used"
 		print("item used...")
 		itemUsed = true
+		locked = false
+		interactionType = "Entrance"
+		$InteractiveArea.set_up(interactionType, textOffset, textBoxScale, collisionScale, collisionOffset)
+		$InteractiveArea.set_up_entrance(entrance, instant, location, locked, unlocksEntrance, entranceFrom)

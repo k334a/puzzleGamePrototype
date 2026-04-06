@@ -35,6 +35,7 @@ func _on_body_entered(_body: Node2D) -> void:
 	areaHit.emit(self)
 
 func _on_body_exited(_body: Node2D) -> void:
+	light_off()
 	areaLeft.emit(self)
 
 func scratch() -> void:
@@ -52,6 +53,7 @@ func set_up(interactionType: String, textOffset: Vector2=Vector2.ZERO, textBoxSc
 
 func set_up_itemUse(itemName: String) -> void:
 	requiredItem = itemName
+	$RichTextLabel.text = "[wave amp=10 freq=5]Use Item"
 
 func set_up_scratchable(itemObject: Item=null) -> void:
 	areaType = "Scratch"
