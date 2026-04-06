@@ -2,8 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_72u0u"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="2_w87yh"]
-[ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="3_tyjes"]
-[ext_resource type="Resource" uid="uid://t3oqecj7er2x" path="res://resources/windSpell.tres" id="4_32rr0"]
 [ext_resource type="PackedScene" uid="uid://c8kglg1rdy4om" path="res://scenes/entities/pushable_box_b.tscn" id="5_tyjes"]
 [ext_resource type="Texture2D" uid="uid://dc8dg6rngrpj3" path="res://Images/Mailbox.png" id="6_sdsk4"]
 [ext_resource type="Texture2D" uid="uid://b07d6h72hisv4" path="res://Images/Mailbox_slightly_open.png" id="7_l0vjh"]
@@ -202,9 +200,6 @@ texture = ExtResource("6_sdsk4")
 
 [node name="cat" parent="." index="9" unique_id=1659453483]
 position = Vector2(-63.341858, -39.325897)
-
-[node name="SpellPickup" parent="cat" index="13" unique_id=1021825572 instance=ExtResource("3_tyjes")]
-item = ExtResource("4_32rr0")
 
 [node name="InventoryUI" parent="." index="10" unique_id=1380888454]
 visible = false
