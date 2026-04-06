@@ -84,8 +84,8 @@ func _on_jar_broken(jar: RigidBody2D, pos: Vector2) -> void:
 func _physics_process(delta: float) -> void:
 	
 	# Can remove this, just added for the sake of my sanity while testing
-	if Input.is_action_just_pressed("Reset"):
-		cat.resetCat()
+	#if Input.is_action_just_pressed("Reset"):
+		#cat.resetCat()
 	
 	if Input.is_action_just_pressed("inventory"):
 		inventory_ui.toggle(cat.inventory)

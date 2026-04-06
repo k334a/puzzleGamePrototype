@@ -23,6 +23,3 @@ func _on_body_exited(body: Node2D) -> void:
 				lightning.queue_free()
 			$LightningTimer.stop()
 			$LightningTimer.set_wait_time(5)
-
-func play_lightning_sound() -> void:
-	$AudioStreamPlayer.play()

@@ -33,7 +33,6 @@ func _on_lightning_timer_timeout() -> void:
 	var direction = target - origin
 	var distance = direction.length()
 	
-	$RainCollision.play_lightning_sound()
 	$ColorRect.global_position = origin
 	$ColorRect.size = Vector2(50, distance)
 	$ColorRect.rotation = direction.angle() - PI/2

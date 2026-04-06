@@ -71,9 +71,6 @@ shape = SubResource("RectangleShape2D_1fblw")
 [node name="LightningTimer" type="Timer" parent="RainCollision" unique_id=577185131]
 wait_time = 5.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RainCollision" unique_id=607862591]
-stream = ExtResource("3_50n1q")
-
 [node name="Cloud" type="ColorRect" parent="." unique_id=3895396]
 visible = false
 offset_left = -749.0
