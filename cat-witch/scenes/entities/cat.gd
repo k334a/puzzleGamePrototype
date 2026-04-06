@@ -230,7 +230,10 @@ func _physics_process(delta):
 	elif interact and onTrigger and onTrigger.areaType == "Button":
 		print("button clicked")
 		if onTrigger.button == "Reveal" or onTrigger.button == "LeverToggle":
+			var catTrigger = onTrigger
 			onTrigger.click()
+			if catTrigger.destroyed:
+				recordScratch.emit(catTrigger)
 		elif onTrigger.button == "Spigot" and onTrigger.pressed == false:
 			onTrigger.pressed = true
 			freezeStream.emit(onTrigger.buttonTiles, onTrigger.buttonLayer)

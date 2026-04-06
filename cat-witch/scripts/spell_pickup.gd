@@ -9,6 +9,7 @@ var collected: bool = false
 signal picked_up(item: Item)
 
 func _ready() -> void:
+	$Sprite2D.texture = item.icon
 	if collected:
 		queue_free()
 

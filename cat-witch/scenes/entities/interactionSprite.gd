@@ -29,6 +29,7 @@ extends AnimatedSprite2D
 @export var layer: TileMapLayer
 @export var spigotTiles: Array[Vector2i]
 @export var max_frames: int = 4
+@export var visual_change: AnimatedSprite2D
 
 @export_group("Item")
 @export var needsItemName: String
@@ -81,6 +82,7 @@ func _on_interactive_area_damage_self() -> void:
 			_:
 				$InteractiveArea.light_off()
 				$InteractiveArea.monitoring = false
+		$InteractiveArea.destroyed = true
 
 func _on_interactive_area_button_pressed() -> void:
 	if buttonType == "Reveal":
@@ -89,6 +91,10 @@ func _on_interactive_area_button_pressed() -> void:
 				layer.erase_cell(Vector2i(x,y))
 		$InteractiveArea.light_off()
 		$InteractiveArea.monitoring = false
+		if visual_change:
+			visual_change.stop()
+		damage = 1
+		$InteractiveArea.destroyed = true
 	if buttonType == "LeverToggle":
 		if frame == max_frames:
 			frame = 0

@@ -17,6 +17,7 @@ var pressed: bool = false
 var entranceFrom: String
 var unlocksEntrance: bool
 var gets_unlocked: bool = false
+var destroyed: bool = false
 
 signal areaHit
 signal areaLeft
@@ -90,3 +91,13 @@ func useItem() -> void:
 func unlock() -> void:
 	$CollisionShape2D.disabled = false
 	show()
+
+func set_damage(damageSet: int) -> bool:
+	if scratchable:
+		for i in range(damageSet+1):
+			scratch()
+		if destroyed:
+			return true
+	elif areaType == "Button" and button == "Reveal":
+		click()
+	return false
