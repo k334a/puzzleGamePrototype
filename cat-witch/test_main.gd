@@ -65,7 +65,8 @@ func _on_pause_menu_reset_game() -> void:
 
 func _on_pause_menu_reset_puzzle() -> void:
 	get_tree().paused = false
-	get_child(-1)._on_cat_reset_level()
+	var level = get_child(-1)
+	level.get_child(level.get_children().find_custom(func(node): return node.is_in_group("player"))).resetCat()
 
 func _on_pause_menu_un_pause() -> void:
 	get_tree().paused = false
