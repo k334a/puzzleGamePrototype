@@ -202,10 +202,11 @@ func _physics_process(delta):
 		$AnimatedSprite2D.offset.y = 0
 	
 	# Scratching
-	if scratch and onTrigger and onTrigger.areaType == "Scratch":
+	if scratch:
 		$Pivot/ClawArea/CollisionShape2D.disabled = false
-		onTrigger.scratch()
-		recordScratch.emit(onTrigger)
+		if onTrigger and onTrigger.areaType == "Scratch":
+			onTrigger.scratch()
+			recordScratch.emit(onTrigger)
 	else:
 		$Pivot/ClawArea/CollisionShape2D.disabled = true
 	
@@ -266,8 +267,8 @@ func linearDampener(left, right):
 			if frozenSelf:
 				velocity.x -= velocity.x * 0.01
 			else:
-				velocity.x -= velocity.x * 1
-		
+				velocity.x -= velocity.x * 1	
+			
 # Read Tilemap Helper
 func TileMapCheck(object, offset, flag):
 	var body = object.get_collider()
@@ -342,7 +343,7 @@ func freeze():
 func wind(lookVector):
 	velocity.x = 0
 	velocity.y = 0
-	var outsideForce = 1500
+	var outsideForce = 1000
 	var windScene = windObject.instantiate()
 	windScene.position = Vector2(position.x, position.y - 50)
 	windScene.get_child(0).force = -lookVector * 100
@@ -419,6 +420,13 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 				tile += Vector2i(0, 1)
 			tile = top_tile + Vector2i($Pivot.scale.x, 0)
 
+# Immediately Teleport cat to target location
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
 	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
+
+# Set Respawn Point
+func _on_respawn_checker_area_entered(area: Area2D) -> void:
+	var body = area
+	if body and body is Area2D and body.is_in_group("RespawnAnchor"):
+		startPosition = body.global_position

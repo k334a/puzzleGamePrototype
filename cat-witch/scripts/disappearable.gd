@@ -11,7 +11,6 @@ func _process(_delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body:
 		if body.is_in_group("player"):
-			print("HEJ")
 			player_in = body
 
 func _on_body_exited(_body: Node2D) -> void:

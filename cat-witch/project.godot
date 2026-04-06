@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Popups="*uid://uq1o81708t16"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/kahei/godot/test/puzzleGamePrototype/Test.ogv"
+
 [global_group]
 
 pushable=""
@@ -30,6 +34,8 @@ interaction=""
 plant=""
 doors=""
 pressure=""
+RespawnAnchor="Place the cats startpoint here"
+Lightning_Zone=""
 
 [gui]
 

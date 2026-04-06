@@ -167,6 +167,7 @@ func _on_freezeTile_signal(flatWater: Array[Vector2i], flatIce: Array[Vector2i],
 	layer.set_cells_terrain_connect(toFreezeFalling, TERRAIN_SET_WATER_ICE, TERRAIN_FALLING_ICE, false)
 
 func _on_freeze_stream_signal(streamStop: Array[Vector2i], layer: TileMapLayer) -> void:
+	print("Start signal")
 	var freezeTiles: Array[Vector2i] = []
 	for stream: Vector2i in streamStop:
 		freezeTiles.append(stream)

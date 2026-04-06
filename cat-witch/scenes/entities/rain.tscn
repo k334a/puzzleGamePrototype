@@ -52,7 +52,7 @@ size = Vector2(1500, 969)
 script = ExtResource("1_1fblw")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=756393101]
-amount = 3000
+amount = 6000
 amount_ratio = 0.9963
 preprocess = 0.5
 visibility_rect = Rect2(-750, -100, 1500, 400)
@@ -71,6 +71,7 @@ shape = SubResource("RectangleShape2D_1fblw")
 wait_time = 5.0
 
 [node name="Cloud" type="ColorRect" parent="." unique_id=3895396]
+visible = false
 offset_left = -749.0
 offset_top = -205.0
 offset_right = 752.0
