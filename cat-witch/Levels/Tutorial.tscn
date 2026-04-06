@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://b8b6y0i84bqux"]
 
 [ext_resource type="PackedScene" uid="uid://dc41stacycotl" path="res://Levels/world.tscn" id="1_i6m5q"]
-[ext_resource type="PackedScene" uid="uid://bxosuywxn68u4" path="res://scenes/entities/PushableObject.tscn" id="2_gdvy0"]
 [ext_resource type="PackedScene" uid="uid://c17reujf55s2d" path="res://scenes/entities/door_test.tscn" id="3_hga2d"]
 [ext_resource type="PackedScene" uid="uid://cgfk6g5qnhyg0" path="res://scenes/entities/jar.tscn" id="4_mscth"]
+[ext_resource type="PackedScene" uid="uid://b4te2gyvhbkai" path="res://scenes/entities/pushable_box_a.tscn" id="4_o4sb5"]
 [ext_resource type="PackedScene" uid="uid://bovmqfjq4c1cx" path="res://scenes/entities/StaticProp.tscn" id="5_ixs1y"]
 [ext_resource type="PackedScene" uid="uid://pofu4tbvdfv2" path="res://scenes/entities/InteractionSprite.tscn" id="6_o4sb5"]
 
@@ -40,8 +40,8 @@ position = Vector2(214, -344)
 [node name="CameraTopLeft" parent="." index="10" unique_id=1897197015]
 position = Vector2(-1008.4475, -1584.2957)
 
-[node name="PushableObject" parent="." index="11" unique_id=963461222 instance=ExtResource("2_gdvy0")]
-position = Vector2(2186, 13)
+[node name="PushableBox_A" parent="." index="11" unique_id=963461222 instance=ExtResource("4_o4sb5")]
+position = Vector2(2186, 8)
 
 [node name="Jar" parent="." index="12" unique_id=1110553694 instance=ExtResource("4_mscth")]
 position = Vector2(-686, -392)
@@ -50,10 +50,10 @@ position = Vector2(-686, -392)
 position = Vector2(5050, -1406)
 
 [node name="Node2D" parent="." index="14" unique_id=1333724567 instance=ExtResource("5_ixs1y")]
-position = Vector2(4016, -319)
+position = Vector2(4016, -310)
 
 [node name="Node2D2" parent="." index="15" unique_id=1304061169 instance=ExtResource("5_ixs1y")]
-position = Vector2(3604.0002, -729)
+position = Vector2(3604.0002, -717.00006)
 scale = Vector2(1.3, 1.3)
 
 [node name="InteractionSprite2" parent="." index="16" unique_id=1172453192 instance=ExtResource("6_o4sb5")]
