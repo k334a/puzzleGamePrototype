@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Popups="*uid://uq1o81708t16"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
 [editor]
 
 movie_writer/movie_file="C:/Users/kahei/godot/test/puzzleGamePrototype/Test.avi"
