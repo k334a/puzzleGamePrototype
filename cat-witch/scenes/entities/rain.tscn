@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cn7qvbv3yi5vk" path="res://scenes/entities/rain.gd" id="1_1fblw"]
 [ext_resource type="Script" uid="uid://b7w8i4lp55lit" path="res://scenes/entities/rain_collision.gd" id="1_firyr"]
+[ext_resource type="AudioStream" uid="uid://bfeore6h4j7ur" path="res://lightningStrikeSound.mp3" id="3_50n1q"]
 
 [sub_resource type="Curve" id="Curve_colqb"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.13978493, 0.5436242), 0.0, 0.0, 0, 0, Vector2(0.45698926, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -83,6 +84,10 @@ visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.91273546, 0.9127355, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1505711071]
+stream = ExtResource("3_50n1q")
+volume_db = -10.0
 
 [connection signal="body_entered" from="RainCollision" to="RainCollision" method="_on_body_entered"]
 [connection signal="body_exited" from="RainCollision" to="RainCollision" method="_on_body_exited"]

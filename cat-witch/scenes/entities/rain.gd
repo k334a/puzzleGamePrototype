@@ -37,6 +37,7 @@ func _on_lightning_timer_timeout() -> void:
 	$ColorRect.size = Vector2(50, distance)
 	$ColorRect.rotation = direction.angle() - PI/2
 	$ColorRect.show()
+	$AudioStreamPlayer.play()
 	if $RainCollision.lightning:
 			$RainCollision.lightning.reset_particles()
 	
