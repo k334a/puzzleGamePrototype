@@ -1,7 +1,7 @@
 extends Node
 
 @export var save_data: level_save_data
-@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor1", "WarehouseMain", "WarehouseOffice", "WarehouseVents") var startLevel: String = "Tutorial"
+@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor1", "WarehouseMain", "WarehouseOffice", "WarehouseVents", "Roof") var startLevel: String = "Tutorial"
 
 var SCENES: Dictionary[String, PackedScene] = {
 	"LevelOne": load("res://Levels/LevelOne.tscn"),
@@ -21,6 +21,7 @@ var SCENES: Dictionary[String, PackedScene] = {
 	"WarehouseMain": load("res://Levels/Placeholder Levels/warehouse_main.tscn"),
 	"WarehouseOffice": load("res://Levels/Placeholder Levels/warehouse_office.tscn"),
 	"WarehouseVents": load("res://Levels/Placeholder Levels/warehouse_vents.tscn"),
+	"Roof": load("res://Levels/Placeholder Levels/roof.tscn"),
 }
 
 var currentLevel: String

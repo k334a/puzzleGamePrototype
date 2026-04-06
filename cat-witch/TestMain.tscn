@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://bjl6wa11g3fhf"
 [node name="Main" type="Node" unique_id=866150532]
 script = ExtResource("1_iveyk")
 save_data = SubResource("Resource_a6wyt")
-startLevel = "Warehouse"
+startLevel = "CityScape"
 
 [node name="PauseMenu" parent="." unique_id=128761674 instance=ExtResource("3_iveyk")]
 unique_name_in_owner = true

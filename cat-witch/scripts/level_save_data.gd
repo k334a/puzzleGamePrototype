@@ -18,7 +18,8 @@ var levelNamesDict: Dictionary[String, Dictionary] = {
 	"Floor1": {},
 	"WarehouseMain": {},
 	"WarehouseOffice": {},
-	"WarehouseVents": {}
+	"WarehouseVents": {},
+	"Roof": {}
 	}
 
 var levelNamesArr: Dictionary[String, Array] = {
@@ -38,7 +39,8 @@ var levelNamesArr: Dictionary[String, Array] = {
 	"Floor1": [],
 	"WarehouseMain": [],
 	"WarehouseOffice": [],
-	"WarehouseVents": []
+	"WarehouseVents": [],
+	"Roof": []
 	}
 
 @export var jars_status: Dictionary[String, Dictionary] = levelNamesDict.duplicate(true) # {sceneName (String): {jar (NodePath): broken (bool)}}
