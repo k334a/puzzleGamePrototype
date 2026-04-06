@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cn7qvbv3yi5vk" path="res://scenes/entities/rain.gd" id="1_1fblw"]
 [ext_resource type="Script" uid="uid://b7w8i4lp55lit" path="res://scenes/entities/rain_collision.gd" id="1_firyr"]
+[ext_resource type="AudioStream" uid="uid://bkvxwdfte5fb7" path="res://Sounds/lightningStrikeSound.mp3" id="3_50n1q"]
 
 [sub_resource type="Curve" id="Curve_colqb"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.13978493, 0.5436242), 0.0, 0.0, 0, 0, Vector2(0.45698926, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -69,6 +70,9 @@ shape = SubResource("RectangleShape2D_1fblw")
 
 [node name="LightningTimer" type="Timer" parent="RainCollision" unique_id=577185131]
 wait_time = 5.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RainCollision" unique_id=607862591]
+stream = ExtResource("3_50n1q")
 
 [node name="Cloud" type="ColorRect" parent="." unique_id=3895396]
 visible = false
