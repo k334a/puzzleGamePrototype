@@ -69,6 +69,7 @@ position = Vector2(-10000000, -10000000)
 unique_name_in_owner = true
 position = Vector2(10000000, 10000000)
 
+[connection signal="freezeStream" from="cat" to="." method="_on_freeze_stream_signal"]
 [connection signal="freezeTiles" from="cat" to="." method="_on_freezeTile_signal"]
 [connection signal="nextLevel" from="cat" to="." method="_on_cat_next_level"]
 [connection signal="recordScratch" from="cat" to="." method="_on_cat_record_scratch"]

@@ -37,7 +37,7 @@ var onTrigger: interactive_area = null
 @onready var startPosition: Vector2 = global_position
 
 # Rain
-var wet = false
+var wet = 0
 var frozenSelf = false
 
 signal resetLevel
