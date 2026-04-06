@@ -119,6 +119,7 @@ polygon = PackedVector2Array(767, -271, 1325, -271, 1312, -307, 782, -305)
 one_way_collision = true
 
 [node name="Rain" parent="." index="14" unique_id=617827363 instance=ExtResource("6_4dy0b")]
+visible = false
 position = Vector2(2846, -778)
 scale = Vector2(4.089458, 13.376976)
 
