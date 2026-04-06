@@ -166,19 +166,22 @@ position = Vector2(4173.149, 106.452065)
 position = Vector2(2758, -933)
 
 [node name="Node2D" parent="." index="19" unique_id=1333724567 instance=ExtResource("7_1tx5e")]
-position = Vector2(3519, -28)
+position = Vector2(3521, -20)
 
 [node name="Node2D2" parent="." index="20" unique_id=525647691 instance=ExtResource("7_1tx5e")]
-position = Vector2(3646, -26)
+position = Vector2(3647, -20)
 
 [node name="Node2D3" parent="." index="21" unique_id=680345262 instance=ExtResource("7_1tx5e")]
-position = Vector2(3518, -155)
+position = Vector2(3511, -137)
 
 [node name="Node2D4" parent="." index="22" unique_id=533976383 instance=ExtResource("7_1tx5e")]
-position = Vector2(3645, -153)
+position = Vector2(3656, -137)
 
 [node name="Node2D5" parent="." index="23" unique_id=383413031 instance=ExtResource("7_1tx5e")]
-position = Vector2(3514, -279)
+position = Vector2(3491, -254)
 
-[node name="MovingPlatformC" parent="." index="24" unique_id=737608595 instance=ExtResource("10_5bgid")]
+[node name="Node2D6" parent="." index="24" unique_id=539004037 instance=ExtResource("7_1tx5e")]
+position = Vector2(3611, -254)
+
+[node name="MovingPlatformC" parent="." index="25" unique_id=737608595 instance=ExtResource("10_5bgid")]
 position = Vector2(2305, -570)

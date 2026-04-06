@@ -112,19 +112,19 @@ position = Vector2(640, 971)
 position = Vector2(2714, 71)
 
 [node name="Node2D" parent="." index="18" unique_id=1333724567 instance=ExtResource("3_lobj4")]
-position = Vector2(75, 2024)
+position = Vector2(75, 2032)
 
 [node name="Node2D2" parent="." index="19" unique_id=1568309291 instance=ExtResource("3_lobj4")]
-position = Vector2(562, 1895)
+position = Vector2(560, 1914)
 
 [node name="Node2D3" parent="." index="20" unique_id=1597734646 instance=ExtResource("3_lobj4")]
-position = Vector2(534, 2025)
+position = Vector2(533, 2031)
 
 [node name="Node2D4" parent="." index="21" unique_id=416524411 instance=ExtResource("3_lobj4")]
-position = Vector2(2723, 2020)
+position = Vector2(2723, 2032)
 
 [node name="Node2D5" parent="." index="22" unique_id=1460900859 instance=ExtResource("3_lobj4")]
-position = Vector2(661, 2023)
+position = Vector2(660, 2031)
 
 [node name="KeyPickup" parent="." index="23" unique_id=1021825572 instance=ExtResource("12_qh86l")]
 position = Vector2(3422, 1882)

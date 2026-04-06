@@ -115,6 +115,7 @@ collisionScale = Vector2(5, 15)
 position = Vector2(-107, 1134)
 interactionType = "Entrance"
 entrance = "WarehouseOffice"
+location = Vector2i(1745, -842)
 instant = true
 collisionScale = Vector2(5, 15)
 

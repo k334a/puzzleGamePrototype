@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://bovmqfjq4c1cx"]
 
-[ext_resource type="Texture2D" uid="uid://bbia7pc7uttp4" path="res://icon.svg" id="2_jby1t"]
+[ext_resource type="Texture2D" uid="uid://wuentrguxete" path="res://Images/crate.png" id="1_3m5gh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3m5gh"]
-size = Vector2(116, 121)
+size = Vector2(116, 116)
 
 [node name="Node2D" type="StaticBody2D" unique_id=1333724567]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1779158081]
-position = Vector2(-2, -0.5)
+position = Vector2(-2, -2)
 shape = SubResource("RectangleShape2D_3m5gh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=513400033]
-texture = ExtResource("2_jby1t")
+position = Vector2(-2.0000038, -2.0000038)
+scale = Vector2(1.074074, 1.074074)
+texture = ExtResource("1_3m5gh")
