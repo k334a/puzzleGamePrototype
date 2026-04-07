@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://b2txnku1h1v1k" path="res://scripts/disappearable.gd" id="3_reeyu"]
 [ext_resource type="PackedScene" uid="uid://b3hxccyoii5wo" path="res://scenes/Inventory_and_Items/spell_pickup.tscn" id="5_lnonu"]
 [ext_resource type="Resource" uid="uid://devtpplu0vsf2" path="res://resources/freezeSpell.tres" id="6_lt8xp"]
+[ext_resource type="Texture2D" uid="uid://7silpqni6qq1" path="res://Images/spigot_1.png" id="8_ak1kn"]
 [ext_resource type="Texture2D" uid="uid://bgsrf278qoji5" path="res://Less_Grainy_Light_gradient.png" id="8_fxf25"]
+[ext_resource type="Texture2D" uid="uid://bryjtout30lqr" path="res://Images/spigot_2.png" id="9_0nxct"]
 [ext_resource type="PackedScene" uid="uid://l61n845mcny" path="res://scenes/entities/jar_mini.tscn" id="9_d8sem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_reeyu"]
@@ -23,6 +25,20 @@ fill_to = Vector2(0, 0.5677083)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ak1kn"]
 gradient = SubResource("Gradient_d8sem")
 fill_from = Vector2(1, 0.6822917)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72hcr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ak1kn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0nxct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fxf25"]
 size = Vector2(401, 477)
@@ -91,9 +107,6 @@ tile_map_data = PackedByteArray("AAApAPr/AAAAAAIAAAAqAPr/AAAAAAIAAAApAP3/AAAAAAA
 [node name="cat" parent="." index="8" unique_id=1659453483]
 position = Vector2(-396.79944, -18.862183)
 
-[node name="InventoryUI" parent="." index="9" unique_id=1380888454]
-visible = false
-
 [node name="CameraTopLeft" parent="." index="10" unique_id=1897197015]
 position = Vector2(-683, -1009)
 
@@ -151,7 +164,6 @@ energy = 0.2
 texture = ExtResource("8_fxf25")
 
 [node name="PointLight2D5" type="PointLight2D" parent="FairnessLights" index="4" unique_id=554788724]
-visible = false
 position = Vector2(1430.0426, -726.9999)
 rotation = 3.1415927
 scale = Vector2(3.0950782, 4.1400003)
@@ -165,18 +177,24 @@ scale = Vector2(9.95947, 12.6006)
 energy = 2.0
 texture = SubResource("GradientTexture2D_ak1kn")
 
-[node name="InteractionSprite2" parent="." index="16" unique_id=748858690 node_paths=PackedStringArray("layer") instance=ExtResource("3_mmxgl")]
-position = Vector2(1040, -424)
+[node name="InteractionSprite2" parent="." index="16" unique_id=748858690 node_paths=PackedStringArray("layer", "visual_change") instance=ExtResource("3_mmxgl")]
+position = Vector2(1040, -395)
+sprite_frames = SubResource("SpriteFrames_72hcr")
 interactionType = "Button"
 buttonType = "Spigot"
 layer = NodePath("../LevelTiles")
 spigotTiles = Array[Vector2i]([Vector2i(49, -25), Vector2i(50, -25), Vector2i(51, -25), Vector2i(52, -25)])
+visual_change = NodePath(".")
+visual_stop = false
+collisionScale = Vector2(4.5, 3.7)
 
 [node name="InteractionSprite3" parent="." index="17" unique_id=1060817216 instance=ExtResource("3_mmxgl")]
 position = Vector2(1516, -849)
 interactionType = "Entrance"
 entrance = "CityScape"
+location = Vector2i(1990, -25)
 instant = true
+unlocksEntrance = true
 
 [node name="InteractionSprite4" parent="." index="18" unique_id=983612869 instance=ExtResource("3_mmxgl")]
 position = Vector2(-608, 0)

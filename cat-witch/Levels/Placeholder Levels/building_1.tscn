@@ -15,3 +15,11 @@ entrance = "CityScape"
 location = Vector2i(450, -776)
 instant = true
 collisionScale = Vector2(8.56, 2.6)
+
+[node name="Label" type="Label" parent="." index="9" unique_id=1668809096]
+offset_left = -116.0
+offset_top = -179.0
+offset_right = -76.0
+offset_bottom = -162.0
+text = "This is a placeholder! Go to
+the left to return."

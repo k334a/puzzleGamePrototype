@@ -48,17 +48,33 @@ func toggle(inventory: Inventory) -> bool:
 func update_vases(broke: bool, total: int=0) -> void:
 	if broke:
 		brokenJars += 1
-	if total == 0:
-		total = totalJars
+		if total == 0:
+			total = totalJars
 	else:
+		print("Broke false, total: ", str(total))
 		totalJars = total
 	$Control/RichTextLabel.text = "Vases Broken: " + String.num_int64(brokenJars) + "/" + String.num_int64(total)
 
 func show_jars() -> void:
 	show()
-	$Control.hide()
+	$Control/Panel.hide()
+	$Control/SpellPanel.hide()
+	$Control/CLabel.hide()
+	$Control/XLabel.hide()
+	$Control/ZLabel.hide()
+	$Control/VLabel.hide()
+	$Control/HBoxContainer.hide()
+	$Control/SpellbookButton.hide()
+	$Control/SpellbookWindow.hide()
 	await get_tree().create_timer(2, false).timeout
-	$Control.show()
+	$Control/Panel.show()
+	$Control/SpellPanel.show()
+	$Control/CLabel.show()
+	$Control/XLabel.show()
+	$Control/ZLabel.show()
+	$Control/VLabel.show()
+	$Control/HBoxContainer.show()
+	$Control/SpellbookButton.show()
 	hide()
 	
 

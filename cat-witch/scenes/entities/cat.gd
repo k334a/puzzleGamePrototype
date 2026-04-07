@@ -424,6 +424,8 @@ func _on_claw_area_body_entered(body: Node2D) -> void:
 # Immediately Teleport cat to target location
 func instantEntrance(area: interactive_area) -> void:
 	print(area.entranceLevel)
+	if area.unlocksEntrance:
+		unlockEntrance.emit(area.entranceLevel)
 	nextLevel.emit(area.entranceLevel, area.entranceLocation, $Inventory.spells, $Inventory.items, $Inventory.spellsKnown)
 
 # Set Respawn Point

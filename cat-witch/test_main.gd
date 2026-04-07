@@ -1,7 +1,7 @@
 extends Node
 
 @export var save_data: level_save_data
-@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor1", "WarehouseMain", "WarehouseOffice", "WarehouseVents", "Roof") var startLevel: String = "Tutorial"
+@export_enum("LevelOne", "LevelTwo", "NewTestScene", "CityScape", "AlleyWay", "Greenhouse1", "GreenhouseArea", "LeakyBuilding", "Warehouse", "Building1", "Hub", "Tutorial", "ElevatorShaft", "Floor_1", "WarehouseMain", "WarehouseOffice", "WarehouseVents", "Roof") var startLevel: String = "Tutorial"
 
 var SCENES: Dictionary[String, PackedScene] = {
 	"LevelOne": load("res://Levels/LevelOne.tscn"),
@@ -17,7 +17,7 @@ var SCENES: Dictionary[String, PackedScene] = {
 	"Hub": load("res://Levels/hub.tscn"),
 	"Tutorial": load("res://Levels/Tutorial.tscn"),
 	"ElevatorShaft": load("res://Levels/Placeholder Levels/Elevator_Shaft.tscn"),
-	"Floor1": load("res://Levels/Placeholder Levels/Floor_1.tscn"),
+	"Floor_1": load("res://Levels/Placeholder Levels/Floor_1.tscn"),
 	"WarehouseMain": load("res://Levels/Placeholder Levels/warehouse_main.tscn"),
 	"WarehouseOffice": load("res://Levels/Placeholder Levels/warehouse_office.tscn"),
 	"WarehouseVents": load("res://Levels/Placeholder Levels/warehouse_vents.tscn"),
@@ -28,6 +28,7 @@ var SCENES: Dictionary[String, PackedScene] = {
 var currentLevel: String
 
 func _ready() -> void:
+	currentLevel = "MainMenu"
 	_on_load_level("MainMenu", Vector2.ZERO, [], [], [], true)
 
 func _on_save_level(breakables: Dictionary, damages: Dictionary, unlocks: Dictionary, floating: Dictionary) -> void:
@@ -43,6 +44,8 @@ func _on_load_level(levelName: String, location: Vector2, spells: Array, items: 
 	if mainMenu:
 		level.start_game.connect(_on_start_game)
 		return
+	if currentLevel != "MainMenu":
+		get_node(currentLevel).free()
 	level.set_up_cat(spells, items, location, knownSpells)
 	level.set_up_jars(save_data.jars_status.get(levelName))
 	level.set_up_areas(save_data.damaged_areas.get(levelName), save_data.unlocked_entrances.get(levelName), save_data.tempEntrances.get(levelName))
@@ -66,6 +69,7 @@ func _on_pause_menu_reset_game() -> void:
 	get_tree().paused = false
 	save_data.clear()
 	get_child(-1).queue_free()
+	currentLevel = "MainMenu"
 	_on_load_level("MainMenu", Vector2.ZERO, [], [], [], true)
 
 func _on_pause_menu_reset_puzzle() -> void:

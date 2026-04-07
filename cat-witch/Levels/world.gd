@@ -26,10 +26,10 @@ enum { TERRAIN_SLOPED_RIGHT, TERRAIN_SLOPED_LEFT }
 func _ready() -> void:
 	for pushable: RigidBody2D in get_tree().get_nodes_in_group("pushable"):
 		pushableStartPoints.set(pushable, pushable.global_position)
-	inventory_ui.update_vases(false, get_tree().get_node_count_in_group("breakable"))
 	cat.set_camera(%CameraTopLeft.global_position.y, %CameraBottomRight.global_position.x, %CameraBottomRight.global_position.y, %CameraTopLeft.global_position.x, zoom)
 
 func set_up_jars(jarSet: Dictionary) -> void:
+	inventory_ui.update_vases(false, get_tree().get_node_count_in_group("breakable"))
 	breakableStatus = jarSet.duplicate(true)
 	for jar: RigidBody2D in get_tree().get_nodes_in_group("breakable"):
 		if breakableStatus.has(jar.get_path()) and breakableStatus.get(jar.get_path()):
@@ -44,7 +44,7 @@ func set_up_areas(damageSet: Dictionary, entranceSet: Dictionary, entrancesNew: 
 	unlockedEntrances = entranceSet
 	for area: interactive_area in get_tree().get_nodes_in_group("interaction"):
 		if damagedAreas.has(area.get_path()):
-			if area.set_damage(damagedAreas.get(area.get_path())):
+			if area.set_damage(damagedAreas.get(area.get_path())) and not area.areaType == "Entrance":
 				continue
 		area.areaHit.connect(_on_interaction_area_entered)
 		area.areaLeft.connect(_on_interaction_area_exited)
@@ -239,11 +239,13 @@ func _on_interaction_area_entered(area: interactive_area) -> void:
 	
 	if (not area.areaType == "Plant") or (cat.check_for_spell("Plant Spell")):
 		area.light_on()
-		cat.onTrigger = area
+		if not area.areaType == "TextHover":
+			cat.onTrigger = area
 
 func _on_interaction_area_exited(area: interactive_area) -> void:
 	area.light_off()
-	cat.onTrigger = null
+	if not area.areaType == "TextHover":
+		cat.onTrigger = null
 
 func _on_cat_unfurl_plant(area: interactive_area) -> void:
 	area.plantNode.unfurl()
@@ -255,7 +257,6 @@ func _on_cat_next_level(levelName: String, location: Vector2, spells: Array, ite
 		child.set_physics_process(false)
 		child.set_process(false)
 	loadLevel.emit(levelName, location, spells, items, knownSpells)
-	self.queue_free()
 
 func save_world_values() -> void:
 	for item: SpellPickup in get_tree().get_nodes_in_group("pickup"):

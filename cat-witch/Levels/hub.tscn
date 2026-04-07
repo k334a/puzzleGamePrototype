@@ -15,10 +15,12 @@
 [sub_resource type="Resource" id="Resource_p7yhc"]
 script = ExtResource("11_avbxa")
 name = "Spellbook"
+itemIDName = "spellbook"
 description = "Your spellbook, some pages appear to missing though."
 icon = ExtResource("10_h53o2")
 rarity = "Unique"
 isSpell = false
+spell_type = 4
 metadata/_custom_type_script = "uid://16jaxb1kdoic"
 
 [node name="Hub" unique_id=1378909801 instance=ExtResource("1_4a1au")]
@@ -167,10 +169,15 @@ offset_bottom = 23.624
 rotation = -1.134464
 color = Color(0.8235294, 0.7058824, 0.54901963, 1)
 
-[node name="cat" parent="." index="13" unique_id=1659453483]
+[node name="SpellPickup2" parent="." index="13" unique_id=392772895 instance=ExtResource("9_0u5up")]
+position = Vector2(3557, -385)
+scale = Vector2(2, 2)
+item = SubResource("Resource_p7yhc")
+
+[node name="cat" parent="." index="14" unique_id=1659453483]
 position = Vector2(-939, -318)
 
-[node name="Dev Stuff" type="Control" parent="." index="15" unique_id=382420552]
+[node name="Dev Stuff" type="Control" parent="." index="16" unique_id=382420552]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -193,11 +200,11 @@ offset_right = -1262.0
 offset_bottom = -257.0
 text = "World under construction - Ka Hei"
 
-[node name="SpellPickup" parent="." index="16" unique_id=1021825572 instance=ExtResource("3_kww43")]
+[node name="SpellPickup" parent="." index="17" unique_id=1021825572 instance=ExtResource("3_kww43")]
 position = Vector2(2181, -872)
 item = ExtResource("4_oxvbc")
 
-[node name="InteractionSprite4" parent="." index="17" unique_id=983612869 instance=ExtResource("5_oxvbc")]
+[node name="InteractionSprite4" parent="." index="18" unique_id=983612869 instance=ExtResource("5_oxvbc")]
 position = Vector2(3555.4302, -434.99155)
 interactionType = "TextHover"
 collisionScale = Vector2(12.616, 12.616)
@@ -205,7 +212,7 @@ textOffset = Vector2(0, 50)
 textBoxScale = Vector2(300, 0)
 text = "Press I to view inventory"
 
-[node name="InteractionSprite" parent="." index="18" unique_id=1053360412 instance=ExtResource("5_oxvbc")]
+[node name="InteractionSprite" parent="." index="19" unique_id=1053360412 instance=ExtResource("5_oxvbc")]
 position = Vector2(-933, -243)
 interactionType = "TextHover"
 collisionScale = Vector2(12.616, 12.616)
@@ -213,7 +220,7 @@ textOffset = Vector2(0, 50)
 textBoxScale = Vector2(300, 0)
 text = "Press Space to Interact"
 
-[node name="InteractionSprite2" parent="." index="19" unique_id=126971849 instance=ExtResource("5_oxvbc")]
+[node name="InteractionSprite2" parent="." index="20" unique_id=126971849 instance=ExtResource("5_oxvbc")]
 position = Vector2(-942, -292)
 interactionType = "Entrance"
 entrance = "Tutorial"
@@ -221,20 +228,15 @@ location = Vector2i(6124, 165)
 collisionScale = Vector2(14, 3.8)
 textOffset = Vector2(0, -75)
 
-[node name="InteractionSprite3" parent="." index="20" unique_id=1218489862 instance=ExtResource("5_oxvbc")]
+[node name="InteractionSprite3" parent="." index="21" unique_id=1218489862 instance=ExtResource("5_oxvbc")]
 position = Vector2(4713, 1)
 interactionType = "Entrance"
 entrance = "CityScape"
 collisionScale = Vector2(6.3, 7.5)
 textOffset = Vector2(-36, -10)
 
-[node name="CameraTopLeft" parent="." index="21" unique_id=1897197015]
+[node name="CameraTopLeft" parent="." index="22" unique_id=1897197015]
 position = Vector2(-1160, -1256)
 
-[node name="CameraBottomRight" parent="." index="22" unique_id=490815159]
+[node name="CameraBottomRight" parent="." index="23" unique_id=490815159]
 position = Vector2(4841, 142)
-
-[node name="SpellPickup2" parent="." index="23" unique_id=392772895 instance=ExtResource("9_0u5up")]
-position = Vector2(3557, -385)
-scale = Vector2(2, 2)
-item = SubResource("Resource_p7yhc")
