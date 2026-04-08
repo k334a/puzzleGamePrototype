@@ -14,6 +14,7 @@ img.animated-gif{
 
   :root {
     --bg-deep:    #1a0e2e;
+    --bg-title:   #70306f;
     --bg-mid:     #2d1b4e;
     --bg-panel:   #3d2870;
     --bg-card:    #4a3385;
@@ -32,7 +33,7 @@ img.animated-gif{
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--bg-deep);
+    background: var(--bg-title);
     color: var(--text-main);
     font-family: 'Press Start 2P', monospace;
     font-size: 10px;
@@ -85,7 +86,7 @@ img.animated-gif{
     position: relative;
     padding: 4rem 1rem;
   }
-
+/*
   .moon {
     width: 64px;
     height: 64px;
@@ -106,10 +107,12 @@ img.animated-gif{
     top: 18px; left: 14px;
     box-shadow: 14px 8px 0 8px rgba(0,0,0,0.08);
   }
+  
   @keyframes moonFloat {
     0%, 100% { transform: translateY(0); }
     50%       { transform: translateY(-10px); }
   }
+*/
 
   .hero-frame {
     aspect-ratio: 900 / 700;
@@ -155,9 +158,9 @@ img.animated-gif{
 
   .cta-btn {
     display: inline-block;
-    margin-top: 2.5rem;
+    margin-top: 10.5rem;
     padding: 1rem 2.5rem;
-    background: var(--accent);
+    background: #934394;
     color: #fff;
     font-family: 'Press Start 2P', monospace;
     font-size: 11px;
@@ -168,12 +171,12 @@ img.animated-gif{
     text-transform: uppercase;
     text-decoration: none;
     transition: transform 0.1s;
-    box-shadow: 4px 4px 0 #5a1575, 8px 8px 0 rgba(0,0,0,0.3);
+    box-shadow: 4px 4px 0 #531c5b, 8px 8px 0 rgba(0,0,0,0.3);
   }
-  .cta-btn:hover  { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #5a1575, 10px 10px 0 rgba(0,0,0,0.3); }
-  .cta-btn:active { transform: translate(4px,4px);  box-shadow: 0px 0px 0 #5a1575; }
+  .cta-btn:hover  { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #ca4ecc, 10px 10px 0 rgba(0,0,0,0.3); }
+  .cta-btn:active { transform: translate(4px,4px);  box-shadow: 0px 0px 0 #bd7cbe; }
 
-  /* ─── SCROLL HINT ─── */
+  /* 
   .scroll-hint {
     position: absolute;
     bottom: 2rem;
@@ -188,6 +191,8 @@ img.animated-gif{
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50%       { transform: translateX(-50%) translateY(6px); }
   }
+
+  */
 
   /* ─── SECTION SHARED ─── */
   section {
@@ -331,7 +336,8 @@ img.animated-gif{
     box-shadow: 3px 3px 0 #5a1575;
   }
 
-  .step-body {}
+  /*.step-body {}*/
+
   .step-title {
     font-size: 10px;
     color: var(--purple-hi);
@@ -380,6 +386,17 @@ img.animated-gif{
     font-size: 20px;
     color: var(--text-muted);
     line-height: 1.5;
+  }
+
+  /* ─── ITCH PAGE ─── */
+  #itch-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 4rem 1rem;
   }
 
   /* ─── CREDITS ─── */
@@ -436,18 +453,16 @@ img.animated-gif{
 
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
-  <div class="moon"></div>
 
   <div class="hero-frame">
     <h1>Witch Way Back</h1>
-    <p class="tagline">A puzzle story game about magic, mishaps &amp; meowing</p>
+    <p class="tagline">A puzzle story game about exploring &amp; adapting your skills</p>
     <div class="credits-small">
       by Adrian Hagyard &nbsp;·&nbsp; Ka Hei Chan &nbsp;·&nbsp; Keena Swanson
     </div>
-    <a href="#story" class="cta-btn">▶ &nbsp; Begin</a>
+    <a href="#story" class="cta-btn">Begin !!</a>
   </div>
 
-  <div class="scroll-hint">scroll</div>
 </section>
 
 <div class="section-divider"></div>
@@ -508,7 +523,7 @@ img.animated-gif{
         <div class="spell-desc">
           Grow plants quickly with the power of magic. Who knows when a spell like this may come in handy.
         </div>
-        <span class="spell-tag">◆ RARE</span>
+        <span class="spell-tag">◆ LEGENDARY</span>
       </div>
     </div>
     </div>
@@ -576,6 +591,15 @@ img.animated-gif{
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════ ITCH PAGE ══════════ -->
+<section id="itch-page">
+  <div class="container">
+    <iframe frameborder="0" src="https://itch.io/embed/4453885?linkback=true&amp;border_width=3&amp;bg_color=683b7c&amp;fg_color=f8d4fe&amp;link_color=d93be1&amp;border_color=dc53e8" width="556" height="171"><a href="https://witchwayback.itch.io/witch-way-back">Witch Way Back by Witch Way Back</a></iframe>
   </div>
 </section>
 
